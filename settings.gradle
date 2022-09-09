@@ -1,0 +1,6 @@
+rootProject.name = "kopringboot-multimodule-template"
+
+include ":app-lib",
+        ":app-core",
+        ":app-infrastructure",
+        ":app-main"

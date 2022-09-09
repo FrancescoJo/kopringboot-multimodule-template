@@ -1,0 +1,14 @@
+==== Response fields
+[cols="2,1,1,6"]
+|===
+|Field name|Type|Optional?|Description
+
+{{#fields}}
+|{{#tableCellContent}}`+{{path}}+`{{/tableCellContent}}
+|{{#tableCellContent}}`+{{type}}+`{{/tableCellContent}}
+|{{#tableCellContent}}{{#optional}}O{{/optional}}{{^optional}}X{{/optional}}{{/tableCellContent}}
+|{{#tableCellContent}}{{description}}{{/tableCellContent}}
+
+{{/fields}}
+
+|===

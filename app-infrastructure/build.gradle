@@ -1,0 +1,43 @@
+version version_app
+
+apply plugin: "kotlin-spring"
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    def MODULE_LIB = "app-lib"
+    def MODULE_CORE = "app-core"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:$version_springBoot"
+    annotationProcessor "org.springframework.boot:spring-boot-autoconfigure-processor:$version_springBoot"
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor:$version_springBoot"
+
+    // region app dependencies
+    // First-party dependencies
+    implementation project(":${MODULE_LIB}")
+    implementation project(":${MODULE_CORE}")
+
+    // Spring dependencies
+    implementation "org.springframework.boot:spring-boot-starter:$version_springBoot"
+    implementation "org.springframework.boot:spring-boot-starter-validation:$version_springBoot"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:$version_springBoot"
+    implementation "org.springframework.boot:spring-boot-starter-logging:$version_springBoot"
+
+    // Database
+    implementation "com.zaxxer:HikariCP:$version_hikariCP"
+    implementation "com.h2database:h2:$version_h2database"
+    // endregion
+
+    // region test dependencies
+    // First-party dependencies
+    testImplementation project(path: ":${MODULE_LIB}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_CORE}", configuration: "testArtifacts")
+
+    // Spring boot test
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$version_springBoot") {
+        exclude group: "com.vaadin.external.google", module: "android-json"
+    }
+    // endregion
+}

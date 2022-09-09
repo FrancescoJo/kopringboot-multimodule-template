@@ -1,0 +1,73 @@
+apply from: "$project.rootDir/gradle/scripts/testFailAggregation.gradle"
+
+buildscript {
+    ext {
+        // first-party dependencies
+        version_app_lib = "1.0.0"
+        version_app = "1.0.0"
+
+        // lang
+        version_target_jvm = 17
+        version_kotlin = "1.7.10"
+        version_javax_validation = "2.0.1.Final"
+        version_javax_inject = "1"
+        version_jsr305 = "3.0.2"
+
+        // Spring + infrastructure
+        version_springBoot = "2.7.3"
+        version_springBootTest="2.7.3"
+        version_hikariCP = "5.0.1"
+        version_h2database = "2.1.214"
+
+        // third-party dependencies
+        version_slf4j = "2.0.0"
+        version_jackson = "2.13.4"
+        version_jackson_kotlin = "2.13.4"
+
+        // Testing & Code quality
+        version_detekt = "1.21.0"
+        version_junit5 = "5.9.0"
+        version_hamcrest = "2.2"
+        version_mockito = "4.4.0"
+        version_mockitoKotlin = "4.0.0"
+        version_javaFaker = "1.0.2"
+        version_testcontainers = "1.17.3"
+        version_restDocs = "2.0.6.RELEASE"
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "https://repo.spring.io/plugins-release" }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
+
+        // Spring
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$version_springBoot"
+        // https://kotlinlang.org/docs/reference/compiler-plugins.html
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$version_kotlin"
+
+        // Testing & Code quality
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$version_detekt"
+    }
+}
+
+group "com.github.francescojo"
+
+allprojects {
+    apply plugin: "idea"
+    apply from: "$rootDir/gradle/scripts/java.gradle"
+    apply from: "$rootDir/gradle/scripts/kotlin.gradle"
+    apply from: "$rootDir/gradle/scripts/detekt.gradle"
+    apply from: "$rootDir/gradle/scripts/testing.gradle"
+
+    repositories {
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+
+    dependencies {
+    }
+}

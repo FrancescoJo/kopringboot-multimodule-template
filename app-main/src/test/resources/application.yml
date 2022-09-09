@@ -1,0 +1,36 @@
+server:
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: test-kopringboot-app
+  web:
+    resources:
+      add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations: classpath:/sql/schema/*.sql
+      # data-locations:
+  # As similar as possible to production environment
+  datasource:
+    # Automatic database initialisation. Maybe conflict to hibernate.
+    # https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:kopringboot-app;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+
+logging:
+  level:
+    ROOT: INFO
+    com.github.francescojo: TRACE
+    org.springframework.web.filter: TRACE
+    org.springframework.web.servlet: TRACE

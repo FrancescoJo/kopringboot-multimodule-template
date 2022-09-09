@@ -1,0 +1,11 @@
+spring:
+  config:
+    activate:
+      on-profile: beta
+
+logging:
+  level:
+    ROOT: INFO
+    com.github.francescojo: TRACE
+    org.springframework.web.servlet: DEBUG
+    org.springframework.web.filter: DEBUG

@@ -1,0 +1,11 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: test-kopringboot-app
+
+logging:
+  level:
+    ROOT: INFO
+    com.github.francescojo: TRACE
+    org.springframework.context: DEBUG

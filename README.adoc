@@ -1,0 +1,29 @@
+= kotpringboot-multimodule-template
+// Metadata:
+:description: Spring boot multimodule project with Kotlin language
+:keywords: kotlin, spring
+// Settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+
+[[overview]]
+== Overview
+
+
+[[howto-run]]
+== How to run
+
+Run with profiles:
+
+Note that default spring profile would be set to `local` if
+`spring.profiles.active` option is omitted.
+
+[source, shell]
+----
+$ java -jar build/app-main.jar --spring.profiles.active=[local,alpha,beta,release]
+----
+
+

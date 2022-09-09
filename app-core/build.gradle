@@ -1,0 +1,14 @@
+version version_app
+
+dependencies {
+    def MODULE_LIB = "app-lib"
+
+    // region app dependencies
+    // First-party dependencies
+    implementation project(":${MODULE_LIB}")
+    // endregion
+
+    // region test dependencies
+    testImplementation project(path: ":${MODULE_LIB}", configuration: "testArtifacts")
+    // endregion
+}

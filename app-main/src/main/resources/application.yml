@@ -1,0 +1,38 @@
+server:
+  port: ${KOPRINGBOOT_APP_PORT:8080}
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: kopringboot-app
+  profiles:
+    # local, alpha, beta, release, test
+    active: ${KOPRINGBOOT_APP_PORT:local}
+  web:
+    resources:
+      add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations: classpath:/sql/schema/*.sql
+      # data-locations:
+  datasource:
+    # Automatic database initialisation. Maybe conflict to hibernate.
+    # https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:kopringboot-app;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+
+logging:
+  file:
+    path: ${KOPRINGBOOT_APP_LOG_PATH:logs/}

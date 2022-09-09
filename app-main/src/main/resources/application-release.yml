@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: release
+
+logging:
+  level:
+    ROOT: INFO
+    com.github.francescojo: TRACE

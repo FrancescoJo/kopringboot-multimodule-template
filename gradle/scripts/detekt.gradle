@@ -1,0 +1,16 @@
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+detekt {
+    toolVersion = "$version_detekt"
+    config = files("$project.rootDir/gradle/scripts/settings/detekt.yml")
+    input = files(
+            "src/main/java",
+            "src/main/kotlin"
+    )
+}
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:$version_detekt") {
+        exclude group: "org.slf4j", module: "slf4j-api"
+    }
+}

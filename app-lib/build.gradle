@@ -1,0 +1,10 @@
+version version_app_lib
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    // Third party deps
+    implementation "org.slf4j:slf4j-api:$version_slf4j"
+}

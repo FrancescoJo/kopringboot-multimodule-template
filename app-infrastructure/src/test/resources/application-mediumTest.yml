@@ -1,0 +1,22 @@
+spring:
+  config:
+    activate:
+      on-profile: mediumTest
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations: classpath:/sql/schema/*.sql
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:platform_commerce;MODE=MYSQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+
+logging:
+  level:
+    org.springframework.jdbc: TRACE
+#    # Set to DEBUG level if necessary
+#    org.springframework.jdbc.core.JdbcTemplate: INFO
+#    # Set to TRACE level if assignment logging is necessary
+#    org.springframework.jdbc.core.StatementCreatorUtils: INFO
