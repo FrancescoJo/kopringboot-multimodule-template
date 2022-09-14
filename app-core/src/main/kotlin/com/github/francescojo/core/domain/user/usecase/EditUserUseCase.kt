@@ -10,7 +10,6 @@ import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExi
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.repository.UserRepository
-import java.time.Instant
 import java.util.*
 
 /**
@@ -47,12 +46,6 @@ internal class EditUserUseCaseImpl(
             users.findByEmail(email)?.let { throw SameEmailUserAlreadyExistException(email) }
         }
 
-        existingUser.apply {
-            this.nickname = message.nickname ?: this.nickname
-            this.email = message.email ?: this.email
-            this.lastActiveAt = Instant.now()
-        }
-
-        return users.save(existingUser)
+        return users.save(existingUser.applyValues(message))
     }
 }

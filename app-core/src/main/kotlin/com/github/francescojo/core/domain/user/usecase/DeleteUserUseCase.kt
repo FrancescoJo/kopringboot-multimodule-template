@@ -8,7 +8,6 @@ import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.repository.UserRepository
-import java.time.Instant
 import java.util.*
 
 /**
@@ -33,11 +32,6 @@ internal class DeleteUserUseCaseImpl(
     override fun deleteUserById(id: UUID): User {
         val existingUser = users.findByUuid(id) ?: throw UserByIdNotFoundException(id)
 
-        existingUser.apply {
-            this.deleted = true
-            this.lastActiveAt = Instant.now()
-        }
-
-        return users.save(existingUser)
+        return users.save(existingUser.delete())
     }
 }

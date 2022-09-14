@@ -5,6 +5,7 @@
 package com.github.francescojo.core.domain.user
 
 import com.github.francescojo.core.domain.SoftDeletable
+import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import java.time.Instant
 import java.util.*
 
@@ -21,6 +22,19 @@ interface User : SoftDeletable {
     var registeredAt: Instant
 
     var lastActiveAt: Instant
+
+    fun applyValues(values: EditUserUseCase.EditUserMessage): User {
+        this.nickname = values.nickname ?: this.nickname
+        this.email = values.email ?: this.email
+        this.lastActiveAt = Instant.now()
+        return this
+    }
+
+    fun delete(): User {
+        this.deleted = true
+        this.lastActiveAt = Instant.now()
+        return this
+    }
 
     companion object {
         const val LENGTH_NAME_MIN = 2
