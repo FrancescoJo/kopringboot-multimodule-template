@@ -22,7 +22,7 @@ internal data class UserModel(
     override val lastActiveAt: Instant,
     override val deleted: Boolean
 ) : User {
-    override fun applyValues(values: EditUserUseCase.EditUserMessage): User = this.copy(
+    fun applyValues(values: EditUserUseCase.EditUserMessage): User = this.copy(
         nickname = values.nickname ?: this.nickname,
         email = values.email ?: this.email,
         lastActiveAt = Instant.now()
@@ -32,4 +32,42 @@ internal data class UserModel(
         deleted = true,
         lastActiveAt = Instant.now()
     )
+
+    companion object {
+        @SuppressWarnings("LongParameterList")      // Intended complexity to provide various User creation cases
+        fun create(
+            id: UUID = UUID.randomUUID(),
+            nickname: String,
+            email: String,
+            registeredAt: Instant? = null,
+            lastActiveAt: Instant? = null,
+            deleted: Boolean = false
+        ): UserModel {
+            val now = Instant.now()
+
+            return UserModel(
+                id = id,
+                nickname = nickname,
+                email = email,
+                registeredAt = registeredAt ?: now,
+                lastActiveAt = lastActiveAt ?: now,
+                deleted = deleted
+            )
+        }
+
+        fun from(user: User): UserModel = if (user is UserModel) {
+            user
+        } else {
+            with(user) {
+                create(
+                    id = id,
+                    nickname = nickname,
+                    email = email,
+                    registeredAt = registeredAt,
+                    lastActiveAt = lastActiveAt,
+                    deleted = deleted
+                )
+            }
+        }
+    }
 }

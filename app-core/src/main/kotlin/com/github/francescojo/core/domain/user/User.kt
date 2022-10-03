@@ -6,7 +6,6 @@ package com.github.francescojo.core.domain.user
 
 import com.github.francescojo.core.domain.SoftDeletable
 import com.github.francescojo.core.domain.user.aggregate.UserModel
-import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import java.time.Instant
 import java.util.*
 
@@ -24,10 +23,6 @@ interface User : SoftDeletable {
 
     val lastActiveAt: Instant
 
-    fun applyValues(values: EditUserUseCase.EditUserMessage): User
-
-    override fun delete(): User
-
     companion object {
         const val LENGTH_NAME_MIN = 2
         const val LENGTH_NAME_MAX = 64
@@ -41,17 +36,13 @@ interface User : SoftDeletable {
             registeredAt: Instant? = null,
             lastActiveAt: Instant? = null,
             deleted: Boolean = false
-        ): User {
-            val now = Instant.now()
-
-            return UserModel(
-                id = id,
-                nickname = nickname,
-                email = email,
-                registeredAt = registeredAt ?: now,
-                lastActiveAt = lastActiveAt ?: now,
-                deleted = deleted
-            )
-        }
+        ): User = UserModel.create(
+            id = id,
+            nickname = nickname,
+            email = email,
+            registeredAt = registeredAt,
+            lastActiveAt = lastActiveAt,
+            deleted = deleted
+        )
     }
 }

@@ -6,6 +6,7 @@ package com.github.francescojo.core.domain.user.usecase
 
 import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.User
+import com.github.francescojo.core.domain.user.aggregate.UserModel
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
@@ -46,6 +47,6 @@ internal class EditUserUseCaseImpl(
             users.findByEmail(email)?.let { throw SameEmailUserAlreadyExistException(email) }
         }
 
-        return users.save(existingUser.applyValues(message))
+        return users.save(UserModel.from(existingUser).applyValues(message))
     }
 }
