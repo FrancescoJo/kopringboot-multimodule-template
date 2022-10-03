@@ -19,8 +19,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
-import test.domain.user.FakeUserObjectFactory
-import test.domain.user.FakeUserObjectFactory.randomUser
+import test.domain.user.aggregate.randomUser
 import test.domain.user.randomCreateUserMessage
 
 /**
@@ -34,7 +33,7 @@ class CreateUserUseCaseSpec {
     @BeforeEach
     fun setup() {
         userRepository = mock()
-        sut = CreateUserUseCase.newInstance(userRepository, FakeUserObjectFactory)
+        sut = CreateUserUseCase.newInstance(userRepository)
 
         `when`(userRepository.save(any())).thenAnswer { return@thenAnswer it.arguments[0] }
     }

@@ -24,11 +24,9 @@ internal interface UserEntityDao {
 
     fun selectByEmail(email: String): UserEntity?
 
-    fun upsert(userEntity: UserEntity): UserEntity
-
     fun insert(userEntity: UserEntity): UserEntity
 
-    fun update(id: Long, userEntity: UserEntity): UserEntity
+    fun update(seq: Long, userEntity: UserEntity): UserEntity
 }
 
 @Repository
@@ -39,7 +37,7 @@ internal class UserEntityDaoImpl(
         val sql = """
             SELECT *
             FROM `${UserEntity.TABLE}` u
-            WHERE u.`${UserEntity.COL_ID}` = ?
+            WHERE u.`${UserEntity.COL_SEQ}` = ?
               AND u.`${UserEntity.COL_DELETED}` = FALSE
         """.trimIndent()
 
@@ -79,14 +77,6 @@ internal class UserEntityDaoImpl(
         return selectOne(sql, email)
     }
 
-    override fun upsert(userEntity: UserEntity): UserEntity = userEntity.id.let {
-        if (it == null) {
-            insert(userEntity)
-        } else {
-            update(it, userEntity)
-        }
-    }
-
     override fun insert(userEntity: UserEntity): UserEntity {
         val sql = """
             INSERT INTO `${UserEntity.TABLE}` (
@@ -103,7 +93,7 @@ internal class UserEntityDaoImpl(
 
         return userEntity.apply {
             @Suppress("MagicNumber")    // Not a magic number in this context
-            id = super.doInsertAndGetId(UserEntity.COL_ID, sql) {
+            seq = super.doInsertAndGetId(UserEntity.COL_SEQ, sql) {
                 setBinaryEx(1, userEntity.uuid.toByteArray())
                 setStringEx(2, userEntity.nickname)
                 setStringEx(3, userEntity.email)
@@ -115,7 +105,7 @@ internal class UserEntityDaoImpl(
         }
     }
 
-    override fun update(id: Long, userEntity: UserEntity): UserEntity {
+    override fun update(seq: Long, userEntity: UserEntity): UserEntity {
         val sql = """
             UPDATE `${UserEntity.TABLE}`
             SET `${UserEntity.COL_UUID}` = ?,
@@ -125,11 +115,11 @@ internal class UserEntityDaoImpl(
                 `${UserEntity.COL_CREATED_AT}` = ?,
                 `${UserEntity.COL_UPDATED_AT}` = ?,
                 `${UserEntity.COL_VERSION}` = ?
-            WHERE `${UserEntity.COL_ID}` = ?
+            WHERE `${UserEntity.COL_SEQ}` = ?
         """.trimIndent()
 
         @Suppress("MagicNumber")    // Not a magic number in this context
-        val affectedRows = super.doUpdate(UserEntity.COL_ID, sql) {
+        val affectedRows = super.doUpdate(UserEntity.COL_SEQ, sql) {
             setBinaryEx(1, userEntity.uuid.toByteArray())
             setStringEx(2, userEntity.nickname)
             setStringEx(3, userEntity.email)
@@ -137,7 +127,7 @@ internal class UserEntityDaoImpl(
             setTimestampEx(5, userEntity.registeredAt)
             setTimestampEx(6, userEntity.lastActiveAt)
             setLongEx(7, userEntity.version)
-            setLongEx(8, userEntity.id)
+            setLongEx(8, userEntity.seq)
         }
 
         return when (affectedRows) {

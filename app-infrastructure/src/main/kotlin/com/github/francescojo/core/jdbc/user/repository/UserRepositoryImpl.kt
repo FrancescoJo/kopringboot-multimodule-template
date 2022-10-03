@@ -7,7 +7,6 @@ package com.github.francescojo.core.jdbc.user.repository
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.jdbc.user.UserEntity
-import com.github.francescojo.core.jdbc.user.UserObjectFactoryImpl.toEntity
 import com.github.francescojo.core.jdbc.user.dao.UserEntityDao
 import com.github.francescojo.lib.annotation.VisibleForTesting
 import com.github.francescojo.lib.util.FastCollectedLruCache
@@ -22,33 +21,39 @@ internal class UserRepositoryImpl(
     private val usersDao: UserEntityDao
 ) : UserRepository {
     @VisibleForTesting
-    val idToUserCache = FastCollectedLruCache.create<UUID, UserEntity>(CACHE_CAPACITY)
+    val idToUserCache = FastCollectedLruCache.create<UUID, User>(CACHE_CAPACITY)
+
     @VisibleForTesting
-    val nicknameToUserCache = FastCollectedLruCache.create<String, UserEntity>(CACHE_CAPACITY)
+    val nicknameToUserCache = FastCollectedLruCache.create<String, User>(CACHE_CAPACITY)
+
     @VisibleForTesting
-    val emailToUserCache = FastCollectedLruCache.create<String, UserEntity>(CACHE_CAPACITY)
+    val emailToUserCache = FastCollectedLruCache.create<String, User>(CACHE_CAPACITY)
 
-    override fun findByUuid(uuid: UUID): UserEntity? =
-        (idToUserCache.get(uuid) ?: usersDao.selectByUuid(uuid))?.also { updateCache(it) }
+    override fun findByUuid(uuid: UUID): User? =
+        (idToUserCache.get(uuid) ?: usersDao.selectByUuid(uuid)?.let { updateCache(it) })
 
-    override fun findByNickname(nickname: String): UserEntity? =
-        (nicknameToUserCache.get(nickname) ?: usersDao.selectByNickname(nickname))?.also { updateCache(it) }
+    override fun findByNickname(nickname: String): User? =
+        (nicknameToUserCache.get(nickname) ?: usersDao.selectByNickname(nickname)?.let { updateCache(it) })
 
-    override fun findByEmail(email: String): UserEntity? =
-        (emailToUserCache.get(email) ?: usersDao.selectByEmail(email))?.also { updateCache(it) }
+    override fun findByEmail(email: String): User? =
+        (emailToUserCache.get(email) ?: usersDao.selectByEmail(email)?.let { updateCache(it) })
 
-    override fun save(user: User): UserEntity {
-        val userEntity = (user as? UserEntity) ?: user.toEntity()
+    override fun save(user: User): User {
+        val savedUser = usersDao.selectByUuid(user.id)?.let {
+            usersDao.update(it.seq!!, UserEntity.from(user))
+        } ?: UserEntity.from(user)
 
-        val savedUser = usersDao.upsert(userEntity)
-
-        return savedUser.also { updateCache(it) }
+        return updateCache(savedUser)
     }
 
-    private fun updateCache(userEntity: UserEntity) {
-        idToUserCache.put(userEntity.uuid, userEntity)
-        nicknameToUserCache.put(userEntity.nickname, userEntity)
-        emailToUserCache.put(userEntity.email, userEntity)
+    private fun updateCache(userEntity: UserEntity): User {
+        val user = userEntity.toUser()
+
+        idToUserCache.put(user.id, user)
+        nicknameToUserCache.put(user.nickname, user)
+        emailToUserCache.put(user.email, user)
+
+        return user
     }
 
     companion object {

@@ -4,7 +4,6 @@
  */
 package com.github.francescojo.appconfig.bean
 
-import com.github.francescojo.core.domain.user.UserObjectFactory
 import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
@@ -21,10 +20,8 @@ class UserBeans {
     @Bean
     fun createUserUseCase(
         userRepository: UserRepository,
-        userObjectFactory: UserObjectFactory
     ) = CreateUserUseCase.newInstance(
         userRepository,
-        userObjectFactory
     )
 
     @Bean

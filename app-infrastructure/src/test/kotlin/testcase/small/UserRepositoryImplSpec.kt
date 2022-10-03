@@ -4,7 +4,7 @@
  */
 package testcase.small
 
-import com.github.francescojo.core.jdbc.user.UserObjectFactoryImpl.toEntity
+import com.github.francescojo.core.jdbc.user.UserEntity
 import com.github.francescojo.core.jdbc.user.dao.UserEntityDao
 import com.github.francescojo.core.jdbc.user.repository.UserRepositoryImpl
 import com.github.francescojo.lib.annotation.SmallTest
@@ -21,7 +21,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import test.domain.user.FakeUserObjectFactory.randomUser
+import test.domain.user.aggregate.randomUser
 import java.util.*
 
 /**
@@ -37,7 +37,6 @@ class UserRepositoryImplSpec {
         this.usersDao = mock()
         this.sut = UserRepositoryImpl(usersDao)
 
-        `when`(usersDao.upsert(any())).thenAnswer { return@thenAnswer it.arguments[0] }
         `when`(usersDao.insert(any())).thenAnswer { return@thenAnswer it.arguments[0] }
         `when`(usersDao.update(any(), any())).thenAnswer { return@thenAnswer it.arguments[1] }
     }
@@ -50,7 +49,7 @@ class UserRepositoryImplSpec {
         fun returnsCachedUserById() {
             // given:
             val uuid = UUID.randomUUID()
-            val expectedUser = randomUser(id = uuid).toEntity()
+            val expectedUser = randomUser(id = uuid)
 
             // and:
             sut.idToUserCache.put(uuid, expectedUser)
@@ -70,7 +69,7 @@ class UserRepositoryImplSpec {
         fun returnsCachedUserByNickname() {
             // given:
             val nickname = Faker().name().fullName()
-            val expectedUser = randomUser(nickname = nickname).toEntity()
+            val expectedUser = randomUser(nickname = nickname)
 
             // and:
             sut.nicknameToUserCache.put(nickname, expectedUser)
@@ -90,7 +89,7 @@ class UserRepositoryImplSpec {
         fun returnsCachedUserByEmail() {
             // given:
             val email = Faker().internet().emailAddress()
-            val expectedUser = randomUser(email = email).toEntity()
+            val expectedUser = randomUser(email = email)
 
             // and:
             sut.emailToUserCache.put(email, expectedUser)
@@ -114,10 +113,10 @@ class UserRepositoryImplSpec {
         fun cachedUserByUuidNotFound() {
             // given:
             val uuid = UUID.randomUUID()
-            val expectedUser = randomUser(id = uuid).toEntity()
+            val expectedUser = randomUser(id = uuid)
 
             // and:
-            `when`(usersDao.selectByUuid(uuid)).thenReturn(expectedUser)
+            `when`(usersDao.selectByUuid(uuid)).thenReturn(UserEntity.from(expectedUser))
 
             // when:
             val foundUser = sut.findByUuid(uuid)
@@ -134,10 +133,10 @@ class UserRepositoryImplSpec {
         fun cachedUserByNicknameNotFound() {
             // given:
             val nickname = Faker().name().fullName()
-            val expectedUser = randomUser(nickname = nickname).toEntity()
+            val expectedUser = randomUser(nickname = nickname)
 
             // and:
-            `when`(usersDao.selectByNickname(nickname)).thenReturn(expectedUser)
+            `when`(usersDao.selectByNickname(nickname)).thenReturn(UserEntity.from(expectedUser))
 
             // when:
             val foundUser = sut.findByNickname(nickname)
@@ -154,10 +153,10 @@ class UserRepositoryImplSpec {
         fun cachedUserByEmailNotFound() {
             // given:
             val email = Faker().internet().emailAddress()
-            val expectedUser = randomUser(email = email).toEntity()
+            val expectedUser = randomUser(email = email)
 
             // and:
-            `when`(usersDao.selectByEmail(email)).thenReturn(expectedUser)
+            `when`(usersDao.selectByEmail(email)).thenReturn(UserEntity.from(expectedUser))
 
             // when:
             val foundUser = sut.findByEmail(email)
@@ -174,14 +173,14 @@ class UserRepositoryImplSpec {
     @Test
     fun savedUserAlsoResidesInCache() {
         // given:
-        val user = randomUser().toEntity()
+        val user = randomUser()
 
         // then:
         sut.save(user)
 
         // expect:
         assertAll(
-            { assertThat(sut.idToUserCache.get(user.uuid), `is`(user)) },
+            { assertThat(sut.idToUserCache.get(user.id), `is`(user)) },
             { assertThat(sut.nicknameToUserCache.get(user.nickname), `is`(user)) },
             { assertThat(sut.emailToUserCache.get(user.email), `is`(user)) },
         )

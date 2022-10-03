@@ -5,6 +5,7 @@
 package com.github.francescojo.core.domain.user
 
 import com.github.francescojo.core.domain.SoftDeletable
+import com.github.francescojo.core.domain.user.aggregate.UserModel
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import java.time.Instant
 import java.util.*
@@ -13,32 +14,44 @@ import java.util.*
  * @since 2021-08-10
  */
 interface User : SoftDeletable {
-    val uuid: UUID
+    val id: UUID
 
-    var nickname: String
+    val nickname: String
 
-    var email: String
+    val email: String
 
-    var registeredAt: Instant
+    val registeredAt: Instant
 
-    var lastActiveAt: Instant
+    val lastActiveAt: Instant
 
-    fun applyValues(values: EditUserUseCase.EditUserMessage): User {
-        this.nickname = values.nickname ?: this.nickname
-        this.email = values.email ?: this.email
-        this.lastActiveAt = Instant.now()
-        return this
-    }
+    fun applyValues(values: EditUserUseCase.EditUserMessage): User
 
-    fun delete(): User {
-        this.deleted = true
-        this.lastActiveAt = Instant.now()
-        return this
-    }
+    override fun delete(): User
 
     companion object {
         const val LENGTH_NAME_MIN = 2
         const val LENGTH_NAME_MAX = 64
         const val LENGTH_EMAIL_MAX = 64
+
+        @SuppressWarnings("LongParameterList")      // Intended complexity to provide various User creation cases
+        fun create(
+            id: UUID = UUID.randomUUID(),
+            nickname: String,
+            email: String,
+            registeredAt: Instant? = null,
+            lastActiveAt: Instant? = null,
+            deleted: Boolean = false
+        ): User {
+            val now = Instant.now()
+
+            return UserModel(
+                id = id,
+                nickname = nickname,
+                email = email,
+                registeredAt = registeredAt ?: now,
+                lastActiveAt = lastActiveAt ?: now,
+                deleted = deleted
+            )
+        }
     }
 }

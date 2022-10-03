@@ -45,7 +45,7 @@ data class UserResponse(
 
         fun from(src: User) = with(src) {
             UserResponse(
-                id = uuid,
+                id = id,
                 nickname = nickname,
                 email = email,
                 registeredAt = registeredAt,

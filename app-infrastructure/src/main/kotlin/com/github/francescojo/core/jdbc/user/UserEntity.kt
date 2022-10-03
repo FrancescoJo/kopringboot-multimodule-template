@@ -17,29 +17,38 @@ import java.util.*
  * @since 2021-08-10
  */
 internal class UserEntity(
-    override val uuid: UUID,
-    override var nickname: String,
-    override var email: String,
-    override var registeredAt: Instant,
-    override var lastActiveAt: Instant,
-    override var deleted: Boolean
-) : User {
-    var id: Long? = null
+    val uuid: UUID,
+    var nickname: String,
+    var email: String,
+    var registeredAt: Instant,
+    var lastActiveAt: Instant,
+    var deleted: Boolean
+) {
+    var seq: Long? = null
 
     var version: Long = 0L
+
+    fun toUser(): User = User.create(
+        id = this.uuid,
+        nickname = this.nickname,
+        email = this.email,
+        registeredAt = this.registeredAt,
+        lastActiveAt = this.lastActiveAt,
+        deleted = this.deleted
+    )
 
     override fun equals(other: Any?): Boolean = when {
         this === other -> true
         other !is UserEntity -> false
-        else -> this.id == other.id
+        else -> this.seq == other.seq
     }
 
-    override fun hashCode(): Int = Objects.hash(this.id)
+    override fun hashCode(): Int = Objects.hash(this.seq)
 
     companion object {
         const val TABLE = "users"
 
-        const val COL_ID = "id"
+        const val COL_SEQ = "seq"
         const val COL_UUID = "uuid"
         const val COL_NICKNAME = "nickname"
         const val COL_EMAIL = "email"
@@ -47,6 +56,17 @@ internal class UserEntity(
         const val COL_CREATED_AT = "created_at"
         const val COL_UPDATED_AT = "updated_at"
         const val COL_VERSION = "version"
+
+        fun from(user: User): UserEntity = with(user) {
+            UserEntity(
+                uuid = id,
+                nickname = nickname,
+                email = email,
+                registeredAt = registeredAt,
+                lastActiveAt = lastActiveAt,
+                deleted = deleted
+            )
+        }
 
         fun from(
             deserialisationContext: JdbcTemplateHelper,
@@ -59,9 +79,9 @@ internal class UserEntity(
                 email = map[prefix + COL_EMAIL] as String,
                 registeredAt = map[prefix + COL_CREATED_AT]!!.coerceToInstant(),
                 lastActiveAt = map[prefix + COL_UPDATED_AT]!!.coerceToInstant(),
-                deleted = map[prefix + COL_DELETED] as Boolean,
+                deleted = map[prefix + COL_DELETED] as Boolean
             ).apply {
-                this.id = map[prefix + COL_ID] as Long
+                this.seq = map[prefix + COL_SEQ] as Long
                 this.version = map[prefix + COL_VERSION] as Long
             }
         }

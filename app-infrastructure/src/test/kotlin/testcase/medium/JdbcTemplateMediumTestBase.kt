@@ -7,7 +7,6 @@ package testcase.medium
 import com.github.francescojo.core.CoreKopringApplication
 import com.github.francescojo.core.CoreKopringApplicationImpl
 import com.github.francescojo.core.appconfig.LoggerConfig
-import com.github.francescojo.core.appconfig.ObjectFactoryConfig
 import com.github.francescojo.lib.annotation.MediumTest
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest
@@ -24,8 +23,7 @@ import org.springframework.test.context.ContextConfiguration
 @ContextConfiguration(
     classes = [
         CoreKopringApplicationImpl::class,
-        LoggerConfig::class,
-        ObjectFactoryConfig::class
+        LoggerConfig::class
     ],
 )
 @ComponentScan(
@@ -35,6 +33,5 @@ import org.springframework.test.context.ContextConfiguration
 )
 @ActiveProfiles("mediumTest")
 @MediumTest
-class JdbcTemplateMediumTestBase {
+class JdbcTemplateMediumTestBase
 
-}

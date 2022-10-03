@@ -11,7 +11,6 @@ import com.github.francescojo.appconfig.JacksonConfig
 import com.github.francescojo.appconfig.WebMvcConfig
 import com.github.francescojo.core.CoreKopringApplication
 import com.github.francescojo.core.appconfig.LoggerConfig
-import com.github.francescojo.core.appconfig.ObjectFactoryConfig
 import com.github.francescojo.endpoint.ErrorResponseEnvelope
 import com.github.francescojo.lib.annotation.MediumTest
 import org.springframework.beans.factory.annotation.Autowired
@@ -46,7 +45,6 @@ import java.nio.charset.StandardCharsets
 @ContextConfiguration(
     classes = [
         LoggerConfig::class,
-        ObjectFactoryConfig::class,
         WebMvcConfig::class,
         JacksonConfig::class
     ],

@@ -23,7 +23,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
-import test.domain.user.FakeUserObjectFactory.randomUser
+import test.domain.user.aggregate.randomUser
 import test.domain.user.randomEditUserMessage
 import java.util.*
 
@@ -98,10 +98,10 @@ class EditUserUseCaseSpec {
         @Test
         fun errorIfNicknameIsDuplicated() {
             // given:
-            existingUser.nickname = message.nickname!!
+            val sameNicknameUser = randomUser(id = id, nickname = message.nickname!!)
 
             // and:
-            `when`(userRepository.findByNickname(message.nickname!!)).thenReturn(existingUser)
+            `when`(userRepository.findByNickname(message.nickname!!)).thenReturn(sameNicknameUser)
 
             // then:
             assertThrows<SameNicknameUserAlreadyExistException> { sut.editUser(id, message) }
@@ -111,10 +111,10 @@ class EditUserUseCaseSpec {
         @Test
         fun errorIfEmailIsDuplicated() {
             // given:
-            existingUser.email = message.email!!
+            val sameEmailUser = randomUser(id = id, email = message.email!!)
 
             // and:
-            `when`(userRepository.findByEmail(message.email!!)).thenReturn(existingUser)
+            `when`(userRepository.findByEmail(message.email!!)).thenReturn(sameEmailUser)
 
             // then:
             assertThrows<SameEmailUserAlreadyExistException> { sut.editUser(id, message) }

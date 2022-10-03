@@ -6,7 +6,6 @@ package com.github.francescojo.core.domain.user.usecase
 
 import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.User
-import com.github.francescojo.core.domain.user.UserObjectFactory
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.repository.UserRepository
@@ -24,25 +23,22 @@ interface CreateUserUseCase {
 
     companion object {
         fun newInstance(
-            userRepository: UserRepository,
-            userObjectFactory: UserObjectFactory
+            userRepository: UserRepository
         ): CreateUserUseCase = CreateUserUseCaseImpl(
-            userRepository,
-            userObjectFactory
+            userRepository
         )
     }
 }
 
 @UseCase
 internal class CreateUserUseCaseImpl(
-    private val users: UserRepository,
-    private val objects: UserObjectFactory
+    private val users: UserRepository
 ) : CreateUserUseCase {
     override fun createUser(message: CreateUserUseCase.CreateUserMessage): User {
         users.findByNickname(message.nickname)?.let { throw SameNicknameUserAlreadyExistException(message.nickname) }
         users.findByEmail(message.email)?.let { throw SameEmailUserAlreadyExistException(message.email) }
 
-        val user = objects.user(
+        val user = User.create(
             nickname = message.nickname,
             email = message.email
         )

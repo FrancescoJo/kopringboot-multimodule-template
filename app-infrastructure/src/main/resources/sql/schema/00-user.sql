@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `users`
 (
-    `id`             BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `seq`            BIGINT      NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `uuid`           BINARY(16)  NOT NULL,
     `nickname`       VARCHAR(64) NOT NULL,
     `email`          VARCHAR(64) NOT NULL,
