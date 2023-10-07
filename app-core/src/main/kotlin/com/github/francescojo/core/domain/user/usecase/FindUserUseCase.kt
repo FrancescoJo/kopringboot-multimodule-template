@@ -7,7 +7,7 @@ package com.github.francescojo.core.domain.user.usecase
 import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.core.domain.user.repository.UserReadonlyRepository
 import java.util.*
 
 /**
@@ -20,16 +20,16 @@ interface FindUserUseCase {
 
     companion object {
         fun newInstance(
-            userRepository: UserRepository
+            userReadonlyRepository: UserReadonlyRepository
         ): FindUserUseCase = FindUserUseCaseImpl(
-            userRepository
+            userReadonlyRepository
         )
     }
 }
 
 @UseCase
 internal class FindUserUseCaseImpl(
-    private val users: UserRepository
+    private val users: UserReadonlyRepository
 ) : FindUserUseCase {
     override fun findUserById(id: UUID): User? {
         return users.findByUuid(id)

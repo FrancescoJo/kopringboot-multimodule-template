@@ -16,9 +16,7 @@ import java.util.*
  * @since 2021-08-10
  */
 internal interface UserEntityDao {
-    fun selectById(id: Long): UserEntity?
-
-    fun selectByUuid(uuid: UUID): UserEntity?
+    fun selectById(id: UUID): UserEntity?
 
     fun selectByNickname(nickname: String): UserEntity?
 
@@ -26,33 +24,22 @@ internal interface UserEntityDao {
 
     fun insert(userEntity: UserEntity): UserEntity
 
-    fun update(seq: Long, userEntity: UserEntity): UserEntity
+    fun update(id: UUID, userEntity: UserEntity): UserEntity
 }
 
 @Repository
 internal class UserEntityDaoImpl(
     override val jdbcTemplate: JdbcTemplate
 ) : JdbcTemplateHelper(), UserEntityDao {
-    override fun selectById(id: Long): UserEntity? {
+    override fun selectById(id: UUID): UserEntity? {
         val sql = """
             SELECT *
             FROM `${UserEntity.TABLE}` u
-            WHERE u.`${UserEntity.COL_SEQ}` = ?
+            WHERE u.`${UserEntity.COL_ID}` = ?
               AND u.`${UserEntity.COL_DELETED}` = FALSE
         """.trimIndent()
 
-        return selectOne(sql, id)
-    }
-
-    override fun selectByUuid(uuid: UUID): UserEntity? {
-        val sql = """
-            SELECT *
-            FROM `${UserEntity.TABLE}` u
-            WHERE u.`${UserEntity.COL_UUID}` = ?
-              AND u.`${UserEntity.COL_DELETED}` = FALSE
-        """.trimIndent()
-
-        return selectOne(sql, uuid.toByteArray())
+        return selectOne(sql, id.toByteArray())
     }
 
     override fun selectByNickname(nickname: String): UserEntity? {
@@ -80,7 +67,7 @@ internal class UserEntityDaoImpl(
     override fun insert(userEntity: UserEntity): UserEntity {
         val sql = """
             INSERT INTO `${UserEntity.TABLE}` (
-                `${UserEntity.COL_UUID}`,
+                `${UserEntity.COL_ID}`,
                 `${UserEntity.COL_NICKNAME}`,
                 `${UserEntity.COL_EMAIL}`,
                 `${UserEntity.COL_DELETED}`,
@@ -94,7 +81,7 @@ internal class UserEntityDaoImpl(
         return userEntity.apply {
             @Suppress("MagicNumber")    // Not a magic number in this context
             seq = super.doInsertAndGetId(UserEntity.COL_SEQ, sql) {
-                setBinaryEx(1, userEntity.uuid.toByteArray())
+                setBinaryEx(1, userEntity.id.toByteArray())
                 setStringEx(2, userEntity.nickname)
                 setStringEx(3, userEntity.email)
                 setBooleanEx(4, userEntity.deleted)
@@ -105,29 +92,27 @@ internal class UserEntityDaoImpl(
         }
     }
 
-    override fun update(seq: Long, userEntity: UserEntity): UserEntity {
+    override fun update(id: UUID, userEntity: UserEntity): UserEntity {
         val sql = """
             UPDATE `${UserEntity.TABLE}`
-            SET `${UserEntity.COL_UUID}` = ?,
-                `${UserEntity.COL_NICKNAME}` = ?,
+            SET `${UserEntity.COL_NICKNAME}` = ?,
                 `${UserEntity.COL_EMAIL}` = ?,
                 `${UserEntity.COL_DELETED}` = ?,
                 `${UserEntity.COL_CREATED_AT}` = ?,
                 `${UserEntity.COL_UPDATED_AT}` = ?,
                 `${UserEntity.COL_VERSION}` = ?
-            WHERE `${UserEntity.COL_SEQ}` = ?
+            WHERE `${UserEntity.COL_ID}` = ?
         """.trimIndent()
 
         @Suppress("MagicNumber")    // Not a magic number in this context
-        val affectedRows = super.doUpdate(UserEntity.COL_SEQ, sql) {
-            setBinaryEx(1, userEntity.uuid.toByteArray())
-            setStringEx(2, userEntity.nickname)
-            setStringEx(3, userEntity.email)
-            setBooleanEx(4, userEntity.deleted)
-            setTimestampEx(5, userEntity.registeredAt)
-            setTimestampEx(6, userEntity.lastActiveAt)
-            setLongEx(7, userEntity.version)
-            setLongEx(8, userEntity.seq)
+        val affectedRows = super.doUpdate(UserEntity.COL_ID, sql) {
+            setStringEx(1, userEntity.nickname)
+            setStringEx(2, userEntity.email)
+            setBooleanEx(3, userEntity.deleted)
+            setTimestampEx(4, userEntity.registeredAt)
+            setTimestampEx(5, userEntity.lastActiveAt)
+            setLongEx(6, userEntity.version)
+            setBinaryEx(7, id.toByteArray())
         }
 
         return when (affectedRows) {

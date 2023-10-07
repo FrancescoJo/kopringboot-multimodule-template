@@ -1,6 +1,6 @@
 /*
- * sirloin-jvmlib
- * Distributed under MIT licence
+ * kopringboot-multimodule-template
+ * Distributed under CC BY-NC-SA
  */
 package com.github.francescojo.lib.util
 

@@ -11,11 +11,7 @@ import com.github.francescojo.lib.annotation.SmallTest
 import com.github.javafaker.Faker
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.*
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
@@ -60,7 +56,7 @@ class UserRepositoryImplSpec {
             // then:
             assertAll(
                 { assertThat(foundUser, `is`(expectedUser)) },
-                { verify(usersDao, times(0)).selectByUuid(uuid) }
+                { verify(usersDao, times(0)).selectById(uuid) }
             )
         }
 
@@ -116,7 +112,7 @@ class UserRepositoryImplSpec {
             val expectedUser = randomUser(id = uuid)
 
             // and:
-            `when`(usersDao.selectByUuid(uuid)).thenReturn(UserEntity.from(expectedUser))
+            `when`(usersDao.selectById(uuid)).thenReturn(UserEntity.from(expectedUser))
 
             // when:
             val foundUser = sut.findByUuid(uuid)
@@ -124,7 +120,7 @@ class UserRepositoryImplSpec {
             // then:
             assertAll(
                 { assertThat(foundUser, `is`(expectedUser)) },
-                { verify(usersDao, times(1)).selectByUuid(uuid) }
+                { verify(usersDao, times(1)).selectById(uuid) }
             )
         }
 

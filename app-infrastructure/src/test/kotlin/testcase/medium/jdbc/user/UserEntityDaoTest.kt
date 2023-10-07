@@ -37,10 +37,10 @@ class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
         val savedUser = sut.insert(randomUser)
 
         // expect:
-        assertThat(savedUser.uuid, not(nullValue()))
+        assertThat(savedUser.id, not(nullValue()))
 
         // then:
-        val foundUser = sut.selectByUuid(savedUser.uuid)
+        val foundUser = sut.selectById(savedUser.id)
 
         // expect:
         assertThat(foundUser, `is`(savedUser))
@@ -56,16 +56,16 @@ class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
         // when:
         val newNickname = Faker().superhero().name()
         val newEmail = Faker().internet().safeEmailAddress()
-        val foundUser = sut.selectByUuid(savedUser.uuid)!!.apply {
+        val foundUser = sut.selectById(savedUser.id)!!.apply {
             this.nickname = newNickname
             this.email = newEmail
         }
 
         // then:
-        val updatedUser = sut.update(foundUser.seq!!, foundUser)
+        val updatedUser = sut.update(foundUser.id, foundUser)
 
         // then:
-        val retrievedUser = sut.selectByUuid(updatedUser.uuid)!!
+        val retrievedUser = sut.selectById(updatedUser.id)!!
 
         // expect:
         assertAll(
@@ -88,7 +88,7 @@ class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
         @Test
         fun byUuid() {
             // when:
-            val foundUser = sut.selectByUuid(savedUser.uuid)
+            val foundUser = sut.selectById(savedUser.id)
 
             // then:
             assertThat(foundUser, `is`(savedUser))

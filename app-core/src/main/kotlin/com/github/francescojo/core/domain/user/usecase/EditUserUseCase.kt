@@ -6,11 +6,11 @@ package com.github.francescojo.core.domain.user.usecase
 
 import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.User
-import com.github.francescojo.core.domain.user.aggregate.UserModel
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.core.domain.user.repository.writable.UserRepository
+import com.github.francescojo.core.domain.user.vo.UserModel
 import java.util.*
 
 /**

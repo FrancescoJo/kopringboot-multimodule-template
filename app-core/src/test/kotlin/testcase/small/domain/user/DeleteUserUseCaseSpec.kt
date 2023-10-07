@@ -5,7 +5,7 @@
 package testcase.small.domain.user
 
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.core.domain.user.repository.writable.UserRepository
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`

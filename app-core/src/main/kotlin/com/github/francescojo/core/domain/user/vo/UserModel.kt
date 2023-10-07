@@ -1,8 +1,8 @@
 /*
  * kopringboot-multimodule-template
- * Sir.LOIN Intellectual property. All rights reserved.
+ * Distributed under CC BY-NC-SA
  */
-package com.github.francescojo.core.domain.user.aggregate
+package com.github.francescojo.core.domain.user.vo
 
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase

@@ -17,7 +17,7 @@ import java.util.*
  * @since 2021-08-10
  */
 internal class UserEntity(
-    val uuid: UUID,
+    val id: UUID,
     var nickname: String,
     var email: String,
     var registeredAt: Instant,
@@ -29,7 +29,7 @@ internal class UserEntity(
     var version: Long = 0L
 
     fun toUser(): User = User.create(
-        id = this.uuid,
+        id = this.id,
         nickname = this.nickname,
         email = this.email,
         registeredAt = this.registeredAt,
@@ -49,7 +49,7 @@ internal class UserEntity(
         const val TABLE = "users"
 
         const val COL_SEQ = "seq"
-        const val COL_UUID = "uuid"
+        const val COL_ID = "id"
         const val COL_NICKNAME = "nickname"
         const val COL_EMAIL = "email"
         const val COL_DELETED = "deleted"
@@ -59,7 +59,7 @@ internal class UserEntity(
 
         fun from(user: User): UserEntity = with(user) {
             UserEntity(
-                uuid = id,
+                id = id,
                 nickname = nickname,
                 email = email,
                 registeredAt = registeredAt,
@@ -74,7 +74,7 @@ internal class UserEntity(
             prefix: String = ""
         ) = with(deserialisationContext) {
             UserEntity(
-                uuid = (map[prefix + COL_UUID] as ByteArray).toUUID(),
+                id = (map[prefix + COL_ID] as ByteArray).toUUID(),
                 nickname = map[prefix + COL_NICKNAME] as String,
                 email = map[prefix + COL_EMAIL] as String,
                 registeredAt = map[prefix + COL_CREATED_AT]!!.coerceToInstant(),

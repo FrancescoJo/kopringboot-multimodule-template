@@ -1,6 +1,6 @@
 /*
  * kopringboot-multimodule-template
- * Sir.LOIN Intellectual property. All rights reserved.
+ * Distributed under CC BY-NC-SA
  */
 package test.domain.user.aggregate
 

@@ -10,12 +10,14 @@ import java.util.*
 /**
  * @since 2021-08-10
  */
-interface UserRepository {
+interface UserReadonlyRepository {
     fun findByUuid(uuid: UUID): User?
 
     fun findByNickname(nickname: String): User?
 
     fun findByEmail(email: String): User?
 
-    fun save(user: User): User
+    companion object {
+        const val NAME = "com.github.francescojo.core.domain.user.UserReadonlyRepository"
+    }
 }

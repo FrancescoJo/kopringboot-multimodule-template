@@ -5,7 +5,7 @@
 package com.github.francescojo.core.domain.user
 
 import com.github.francescojo.core.domain.SoftDeletable
-import com.github.francescojo.core.domain.user.aggregate.UserModel
+import com.github.francescojo.core.domain.user.vo.UserModel
 import java.time.Instant
 import java.util.*
 

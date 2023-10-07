@@ -8,7 +8,7 @@ import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
-import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.core.domain.user.repository.writable.UserRepository
 
 /**
  * @since 2021-08-10
