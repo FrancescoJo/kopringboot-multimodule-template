@@ -13,6 +13,16 @@
 == Overview
 
 
+[[prerequisites]]
+== Prerequisites
+
+- A stable internet connection for first build.
+- Docker executable operating systems
+  * xNix friendly is preferred
+  * Tested and verified under WSL2 environment
+- OpenJDK 17+
+- Gradle 7+
+
 [[howto-run]]
 == How to run
 

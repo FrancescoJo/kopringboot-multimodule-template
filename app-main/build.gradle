@@ -31,6 +31,9 @@ dependencies {
 
     // Jackson Kotlin support
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$version_jackson_kotlin"
+
+    // Infrastructure
+    implementation "org.mariadb.jdbc:mariadb-java-client:$version_mariadb"
     // endregion
 
     // region test dependencies
@@ -47,6 +50,10 @@ dependencies {
     // REST Assured
     testImplementation "org.springframework.restdocs:spring-restdocs-core:$version_restDocs"
     testImplementation "org.springframework.restdocs:spring-restdocs-restassured:$version_restDocs"
+
+    // Infrastructure
+    testImplementation "com.h2database:h2:$version_h2database"
+    testImplementation "org.testcontainers:mariadb:$version_testcontainers"
     // endregion
 }
 

@@ -1,0 +1,18 @@
+spring:
+  config:
+    activate:
+      on-profile: largeTest
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations: classpath:/sql/schema/*.sql
+      # data-locations:
+  # As similar as possible to production environment
+  datasource:
+    # Automatic database initialisation. Maybe conflict to hibernate.
+    # https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://${TEST_LOCAL_MARIADB_HOST:localhost}:${TEST_LOCAL_MARIADB_PORT:53306}/kopringboot-app?serverTimezone=UTC&useUnicode=true&character_set_server=utf8mb4;
+    username: ${TEST_LOCAL_MARIADB_USERNAME:test}
+    password: ${TEST_LOCAL_MARIADB_PASSWORD:test}

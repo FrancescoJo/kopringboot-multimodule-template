@@ -25,9 +25,9 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-jdbc:$version_springBoot"
     implementation "org.springframework.boot:spring-boot-starter-logging:$version_springBoot"
 
-    // Database
+    // Infrastructure
     implementation "com.zaxxer:HikariCP:$version_hikariCP"
-    implementation "com.h2database:h2:$version_h2database"
+    implementation "org.mariadb.jdbc:mariadb-java-client:$version_mariadb"
     // endregion
 
     // region test dependencies
@@ -39,5 +39,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test:$version_springBoot") {
         exclude group: "com.vaadin.external.google", module: "android-json"
     }
+
+    // Infrastructure
+    testImplementation "com.h2database:h2:$version_h2database"
     // endregion
 }

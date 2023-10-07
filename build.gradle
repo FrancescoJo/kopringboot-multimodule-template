@@ -17,6 +17,7 @@ buildscript {
         version_springBoot = "2.7.3"
         version_springBootTest="2.7.3"
         version_hikariCP = "5.0.1"
+        version_mariadb = "3.1.0"
         version_h2database = "2.1.214"
 
         // third-party dependencies
