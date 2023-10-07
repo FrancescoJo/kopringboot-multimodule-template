@@ -10,11 +10,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
-import javax.annotation.Nullable
-import javax.validation.constraints.Email
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.Null
-import javax.validation.constraints.Size
+import jakarta.annotation.Nullable
+import jakarta.validation.constraints.Email
+import jakarta.validation.constraints.Size
 
 /**
  * @since 2021-08-10

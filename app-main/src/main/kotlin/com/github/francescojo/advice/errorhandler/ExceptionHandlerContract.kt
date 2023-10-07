@@ -5,8 +5,8 @@
 package com.github.francescojo.advice.errorhandler
 
 import com.github.francescojo.core.exception.KopringException
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
-import javax.servlet.http.HttpServletRequest
 
 /**
  * @since 2021-08-10

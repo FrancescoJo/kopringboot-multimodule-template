@@ -7,7 +7,6 @@ package com.github.francescojo.endpoint.v1.user
 import com.github.francescojo.endpoint.common.response.SimpleResponse
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.francescojo.endpoint.v1.ApiVariableV1
-import com.github.francescojo.endpoint.v1.user.common.UserResponse
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping

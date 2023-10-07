@@ -6,13 +6,13 @@ package com.github.francescojo.exception
 
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.ExternalException
-import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatusCode
 
 /**
  * @since 2021-08-10
  */
 class GeneralHttpException(
-    val statusCode: HttpStatus,
+    val statusCode: HttpStatusCode,
     override val message: String = "An unhandled HTTP exception(status = ${statusCode.value()} is occurred.",
     override val cause: Throwable? = null
 ) : ExternalException(ErrorCodes.GENERAL_HTTP_EXCEPTION, message, cause) {

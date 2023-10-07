@@ -8,14 +8,15 @@ import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.ErrorCodes.*
 import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.exception.GeneralHttpException
+import com.github.francescojo.util.toHttpStatus
 import org.springframework.http.HttpStatus
 
 /**
  * @since 2021-08-10
  */
 interface ErrorCodesToHttpStatusMixin {
-    fun KopringException.toHttpStatus() = if (this is GeneralHttpException) {
-        this.statusCode
+    fun KopringException.toHttpStatus(): HttpStatus = if (this is GeneralHttpException) {
+        this.statusCode.toHttpStatus()
     } else {
         this.codeBook.toHttpStatus()
     }

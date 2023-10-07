@@ -4,9 +4,9 @@
  */
 package com.github.francescojo.util
 
+import jakarta.servlet.RequestDispatcher
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus
-import javax.servlet.RequestDispatcher
-import javax.servlet.http.HttpServletRequest
 
 fun HttpServletRequest.toHttpStatus(): HttpStatus {
     (getAttribute(RequestDispatcher.ERROR_STATUS_CODE) as? Int)?.let {

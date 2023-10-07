@@ -6,8 +6,8 @@ package com.github.francescojo.advice.response
 
 import com.github.francescojo.advice.errorhandler.ExceptionHandlerContract
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.core.exception.InternalException
+import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.core.exception.external.MalformedInputException
 import com.github.francescojo.core.exception.external.WrongInputException
 import com.github.francescojo.core.exception.internal.UnhandledException
@@ -19,6 +19,9 @@ import com.github.francescojo.endpoint.ResponseEnvelope
 import com.github.francescojo.exception.GeneralHttpException
 import com.github.francescojo.util.originalRequestUri
 import com.github.francescojo.util.toHttpStatus
+import jakarta.servlet.RequestDispatcher
+import jakarta.servlet.ServletException
+import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.Logger
 import org.springframework.boot.web.servlet.error.ErrorController
 import org.springframework.http.HttpStatus
@@ -30,9 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.client.HttpStatusCodeException
-import javax.servlet.RequestDispatcher
-import javax.servlet.ServletException
-import javax.servlet.http.HttpServletRequest
 
 /**
  * This class overrides the default error-handling mechanism of Spring-web.
@@ -90,10 +90,11 @@ class ErrorResponseDecorator(
             )
 
             is ServletException -> servletExceptionHandler.onException(req, exception)
+
             is HttpStatusCodeException -> GeneralHttpException(
                 exception.statusCode,
                 cause = exception
-            ) to exception.statusCode
+            ) to exception.statusCode.toHttpStatus()
 
             else -> null
         }

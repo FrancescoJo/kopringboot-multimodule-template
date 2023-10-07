@@ -28,7 +28,7 @@ dependencies {
     testImplementation("com.github.javafaker:javafaker:$version_javaFaker") {
         exclude group: "org.yaml", module: "snakeyaml"
     }
-    testImplementation("org.yaml:snakeyaml:1.30")
+    testImplementation("org.yaml:snakeyaml:2.2")
 
     // TestContainers
     testImplementation("org.testcontainers:testcontainers:$version_testcontainers") {

@@ -8,12 +8,12 @@ import com.github.dockerjava.api.model.ExposedPort
 import com.github.dockerjava.api.model.HostConfig
 import com.github.dockerjava.api.model.PortBinding
 import com.github.dockerjava.api.model.Ports
+import jakarta.annotation.PostConstruct
+import jakarta.annotation.PreDestroy
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.testcontainers.containers.MariaDBContainer
-import javax.annotation.PostConstruct
-import javax.annotation.PreDestroy
 
 /**
  * It is very convenient that using automatic lifecycle management of TestContainers on JUnit Jupiter platform;

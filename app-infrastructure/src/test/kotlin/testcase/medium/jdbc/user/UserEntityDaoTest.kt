@@ -8,14 +8,8 @@ import com.github.francescojo.core.jdbc.user.UserEntity
 import com.github.francescojo.core.jdbc.user.dao.UserEntityDao
 import com.github.javafaker.Faker
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.not
-import org.hamcrest.Matchers.nullValue
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
+import org.hamcrest.Matchers.*
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import test.domain.user.randomUserEntity
 import testcase.medium.JdbcTemplateMediumTestBase

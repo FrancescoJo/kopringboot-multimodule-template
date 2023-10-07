@@ -9,11 +9,7 @@ import com.github.francescojo.endpoint.v1.user.common.UserResponse
 import com.github.francescojo.endpoint.v1.user.create.CreateUserRequest
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.*
 import org.springframework.http.HttpStatus
 import test.endpoint.v1.user.createRandomUser
 import test.endpoint.v1.user.createUserApi
