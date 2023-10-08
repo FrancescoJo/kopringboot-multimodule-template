@@ -1,4 +1,4 @@
-= kotpringboot-multimodule-template
+= kopringboot-multimodule-template
 // Metadata:
 :description: Spring boot multimodule project with Kotlin language
 :keywords: kotlin, spring

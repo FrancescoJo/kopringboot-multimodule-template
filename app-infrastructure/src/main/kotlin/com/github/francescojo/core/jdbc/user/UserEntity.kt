@@ -40,10 +40,10 @@ internal class UserEntity(
     override fun equals(other: Any?): Boolean = when {
         this === other -> true
         other !is UserEntity -> false
-        else -> this.seq == other.seq
+        else -> this.id == other.id
     }
 
-    override fun hashCode(): Int = Objects.hash(this.seq)
+    override fun hashCode(): Int = Objects.hash(this.id)
 
     companion object {
         const val TABLE = "users"
