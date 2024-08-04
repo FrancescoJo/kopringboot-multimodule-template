@@ -4,13 +4,12 @@
  */
 package com.github.francescojo
 
-import com.github.francescojo.core.CoreKopringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.context.annotation.ComponentScan
 
 fun main(args: Array<String>) {
-    KopringApplication().start(args)
+    KopringApplicationBootstrap().start(args)
 }
 
 /**
@@ -19,15 +18,14 @@ fun main(args: Array<String>) {
 @SpringBootApplication
 @ComponentScan(
     basePackages = [
-        KopringApplication.PACKAGE_NAME,
-        CoreKopringApplication.PACKAGE_NAME
+        KopringApplicationBootstrap.PACKAGE_NAME
     ]
 )
-class KopringApplication {
+class KopringApplicationBootstrap {
     fun start(args: Array<String>) {
         // This logic is called only once - therefore, we ignore this warning.
         @Suppress("SpreadOperator")
-        SpringApplicationBuilder(KopringApplication::class.java)
+        SpringApplicationBuilder(KopringApplicationBootstrap::class.java)
             .build()
             .run(*args)
     }

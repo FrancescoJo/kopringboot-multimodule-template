@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Scope
 import org.springframework.context.annotation.ScopedProxyMode
 import org.springframework.http.HttpHeaders
 import org.springframework.web.context.WebApplicationContext
-import org.springframework.web.filter.CommonsRequestLoggingFilter
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
 /**

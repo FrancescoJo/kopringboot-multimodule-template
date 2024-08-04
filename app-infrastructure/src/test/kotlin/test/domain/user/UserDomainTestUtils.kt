@@ -4,7 +4,7 @@
  */
 package test.domain.user
 
-import com.github.francescojo.core.jdbc.user.UserEntity
+import com.github.francescojo.infra.jdbc.user.UserEntity
 import com.github.javafaker.Faker
 import test.domain.user.aggregate.randomUser
 import java.time.Instant

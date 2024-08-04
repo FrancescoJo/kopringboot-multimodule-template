@@ -2,10 +2,10 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.core.jdbc.user
+package com.github.francescojo.infra.jdbc.user
 
 import com.github.francescojo.core.domain.user.User
-import com.github.francescojo.core.jdbc.JdbcTemplateHelper
+import com.github.francescojo.infra.jdbc.JdbcTemplateHelper
 import com.github.francescojo.lib.util.toUUID
 import java.time.Instant
 import java.util.*

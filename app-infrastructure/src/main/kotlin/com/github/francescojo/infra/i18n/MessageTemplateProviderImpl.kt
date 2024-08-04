@@ -2,10 +2,12 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.core.i18n
+package com.github.francescojo.infra.i18n
 
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.ErrorCodes.*
+import com.github.francescojo.core.i18n.MessageTemplate
+import com.github.francescojo.core.i18n.MessageTemplateProvider
 import com.github.francescojo.lib.annotation.VisibleForTesting
 import org.springframework.stereotype.Service
 import java.util.*

@@ -2,10 +2,10 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.core.jdbc.user.dao
+package com.github.francescojo.infra.jdbc.user.dao
 
-import com.github.francescojo.core.jdbc.JdbcTemplateHelper
-import com.github.francescojo.core.jdbc.user.UserEntity
+import com.github.francescojo.infra.jdbc.JdbcTemplateHelper
+import com.github.francescojo.infra.jdbc.user.UserEntity
 import com.github.francescojo.lib.util.toByteArray
 import org.springframework.dao.IncorrectResultSizeDataAccessException
 import org.springframework.jdbc.core.JdbcTemplate

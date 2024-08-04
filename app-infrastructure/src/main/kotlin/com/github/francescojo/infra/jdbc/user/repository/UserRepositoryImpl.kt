@@ -2,13 +2,13 @@
  * kopringboot-multimodule-template
  * Distributed under CC BY-NC-SA
  */
-package com.github.francescojo.core.jdbc.user.repository
+package com.github.francescojo.infra.jdbc.user.repository
 
 import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.repository.writable.UserRepository
-import com.github.francescojo.core.jdbc.user.UserEntity
+import com.github.francescojo.infra.jdbc.user.UserEntity
 import org.springframework.stereotype.Service
-import com.github.francescojo.core.jdbc.user.dao.UserEntityDao as UserEntityJdbcDao
+import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao as UserEntityJdbcDao
 
 /**
  * @since 2021-08-10

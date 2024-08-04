@@ -6,11 +6,11 @@ package testcase.medium
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.francescojo.KopringApplication
+import com.github.francescojo.KopringApplicationBootstrap
 import com.github.francescojo.appconfig.JacksonConfig
 import com.github.francescojo.appconfig.WebMvcConfig
-import com.github.francescojo.core.CoreKopringApplication
-import com.github.francescojo.core.appconfig.LoggerConfig
+import com.github.francescojo.core.KopringApplication
+import com.github.francescojo.infra.appconfig.LoggerConfig
 import com.github.francescojo.endpoint.ErrorResponseEnvelope
 import com.github.francescojo.lib.annotation.MediumTest
 import org.springframework.beans.factory.annotation.Autowired
@@ -51,8 +51,10 @@ import java.nio.charset.StandardCharsets
 )
 @ComponentScan(
     basePackages = [
-        CoreKopringApplication.PACKAGE_NAME,
-        "${KopringApplication.PACKAGE_NAME}.advice"
+        "com.github.francescojo.advice",
+        "com.github.francescojo.endpoint",
+        "com.github.francescojo.infra.appconfig",
+        "com.github.francescojo.infra.i18n",
     ]
 )
 @AutoConfigureMockMvc(addFilters = false)

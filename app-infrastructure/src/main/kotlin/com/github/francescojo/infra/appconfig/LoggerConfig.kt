@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.core.appconfig
+package com.github.francescojo.infra.appconfig
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
