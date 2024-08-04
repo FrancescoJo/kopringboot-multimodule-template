@@ -1,0 +1,26 @@
+apply from: "$project.rootDir/gradle/scripts/console.gradle"
+
+final String getBuildConfig() {
+    // This profile list must match items in AppProfile.kt
+    def allowedBuildTargets = ["local", "alpha", "beta", "release"]
+    def buildConfig
+    if (project.hasProperty("buildConfig")) {
+        buildConfig = project.properties["buildConfig"].toString().toLowerCase(Locale.US)
+    } else {
+        buildConfig = "local"
+        println(":" + CC(LIGHT_WHITE, project.name) +
+                ": No '" + CC(LIGHT_YELLOW, "buildConfig") + "' property is specified - " +
+                CC(LIGHT_GREEN, "'$buildConfig'") + " is used by default")
+        project.ext.set("buildConfig", buildConfig)
+    }
+
+    if (!allowedBuildTargets.contains(buildConfig)) {
+        throw new IllegalArgumentException("Only these build targets are accepted: $allowedBuildTargets")
+    }
+
+    println("Build phase set to: " + CC(LIGHT_GREEN, buildConfig))
+
+    return buildConfig
+}
+
+ext.getBuildConfig = { getBuildConfig() }

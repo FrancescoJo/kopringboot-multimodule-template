@@ -32,3 +32,6 @@ gradle.projectsEvaluated {
         options.compilerArgs << "-Xlint:all" << "-Werror"
     }
 }
+
+processResources.filteringCharset = "UTF-8"
+processTestResources.filteringCharset = "UTF-8"

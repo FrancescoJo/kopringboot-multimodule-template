@@ -26,17 +26,4 @@ class WebMvcConfig : WebMvcConfigurer {
     fun acceptLanguageLocaleProvider(
         request: HttpServletRequest
     ): LocaleProvider = AcceptLanguageLocaleProvider(request.getHeader(HttpHeaders.ACCEPT_LANGUAGE))
-
-    @Bean
-    fun logFilter() = CommonsRequestLoggingFilter().apply {
-        setIncludeQueryString(true)
-        setIncludePayload(true)
-        setMaxPayloadLength(LOG_PAYLOAD_LENGTH)
-        setIncludeHeaders(true)
-        setAfterMessagePrefix("REQUEST DATA : ")
-    }
-
-    companion object {
-        private const val LOG_PAYLOAD_LENGTH = 4096
-    }
 }
