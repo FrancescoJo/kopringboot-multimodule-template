@@ -4,6 +4,7 @@
  */
 package com.github.francescojo.endpoint.v1.user.edit
 
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.core.exception.external.WrongInputException
 import com.github.francescojo.endpoint.v1.user.EditUserController
@@ -23,7 +24,7 @@ internal class EditUserControllerImpl(
             throw WrongInputException("null")
         }
 
-        val editedUser = useCase.editUser(id, req)
+        val editedUser = useCase.editUser(UserId(id), req)
 
         return UserResponse.from(editedUser)
     }

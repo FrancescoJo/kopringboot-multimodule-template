@@ -4,8 +4,8 @@
  */
 package com.github.francescojo.appconfig.bean
 
-import com.github.francescojo.core.domain.user.repository.UserReadonlyRepository
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
+import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
+import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
@@ -27,15 +27,17 @@ class UserBeans {
 
     @Bean
     fun getUserUseCase(
-        userReadonlyRepository: UserReadonlyRepository
+        userProjectionFinder: UserProjectionFinder
     ) = FindUserUseCase.newInstance(
-        userReadonlyRepository
+        userProjectionFinder
     )
 
     @Bean
     fun editUserUseCase(
+        userProjectionFinder: UserProjectionFinder,
         userRepository: UserRepository,
     ) = EditUserUseCase.newInstance(
+        userProjectionFinder,
         userRepository
     )
 

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.francescojo.core.domain.user.User
+import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import jakarta.annotation.Nullable
 import jakarta.validation.constraints.Email

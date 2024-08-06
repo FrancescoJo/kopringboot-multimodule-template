@@ -6,7 +6,8 @@ package testcase.small.domain.user
 
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
+import com.github.francescojo.core.domain.user.model.User
+import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`
@@ -16,17 +17,15 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mockito.`when`
-import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
-import test.domain.user.aggregate.randomUser
 import test.domain.user.randomCreateUserMessage
+import test.domain.user.randomUserProjection
 
 /**
  * @since 2021-08-10
  */
 @SmallTest
-class CreateUserUseCaseSpec {
+internal class CreateUserUseCaseSpec {
     private lateinit var sut: CreateUserUseCase
     private lateinit var userRepository: UserRepository
 
@@ -34,8 +33,6 @@ class CreateUserUseCaseSpec {
     fun setup() {
         userRepository = mock()
         sut = CreateUserUseCase.newInstance(userRepository)
-
-        `when`(userRepository.save(any())).thenAnswer { return@thenAnswer it.arguments[0] }
     }
 
     @DisplayName("An user object that fully represents message, is created")
@@ -61,7 +58,7 @@ class CreateUserUseCaseSpec {
         val message = randomCreateUserMessage()
 
         // and:
-        `when`(userRepository.findByNickname(message.nickname)).thenReturn(randomUser(nickname = message.nickname))
+        userRepository.save(User.from(randomUserProjection(nickname = message.nickname)))
 
         // then:
         assertThrows<SameNicknameUserAlreadyExistException> { sut.createUser(message) }
@@ -74,7 +71,7 @@ class CreateUserUseCaseSpec {
         val message = randomCreateUserMessage()
 
         // and:
-        `when`(userRepository.findByEmail(message.email)).thenReturn(randomUser(email = message.email))
+        userRepository.save(User.from(randomUserProjection(email = message.email)))
 
         // then:
         assertThrows<SameEmailUserAlreadyExistException> { sut.createUser(message) }

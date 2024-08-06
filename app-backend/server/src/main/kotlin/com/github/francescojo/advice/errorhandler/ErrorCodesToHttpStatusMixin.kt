@@ -5,6 +5,7 @@
 package com.github.francescojo.advice.errorhandler
 
 import com.github.francescojo.core.exception.ErrorCodes
+import com.github.francescojo.core.exception.ErrorCodes.DATA_INTEGRITY_BROKEN
 import com.github.francescojo.core.exception.ErrorCodes.GENERAL_HTTP_EXCEPTION
 import com.github.francescojo.core.exception.ErrorCodes.MALFORMED_INPUT
 import com.github.francescojo.core.exception.ErrorCodes.SERVICE_NOT_FOUND
@@ -40,6 +41,7 @@ interface ErrorCodesToHttpStatusMixin {
         USER_BY_ID_NOT_FOUND -> HttpStatus.NOT_FOUND
         USER_BY_EMAIL_DUPLICATED, USER_BY_NICKNAME_DUPLICATED -> HttpStatus.CONFLICT
 
+        DATA_INTEGRITY_BROKEN,
         UNHANDLED_EXCEPTION -> HttpStatus.INTERNAL_SERVER_ERROR
     }
 }

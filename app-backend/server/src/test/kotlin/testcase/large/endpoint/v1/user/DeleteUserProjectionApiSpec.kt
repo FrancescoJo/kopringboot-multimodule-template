@@ -5,42 +5,42 @@
 package testcase.large.endpoint.v1.user
 
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.endpoint.v1.user.common.UserResponse
+import com.github.francescojo.endpoint.common.response.SimpleResponse
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
 import test.endpoint.v1.user.createRandomUser
-import test.endpoint.v1.user.getUserApi
+import test.endpoint.v1.user.deleteUserApi
 import testcase.large.endpoint.EndpointLargeTestBase
 import java.util.*
 
 /**
  * @since 2021-08-10
  */
-class GetUserApiSpec : EndpointLargeTestBase() {
-    @DisplayName("Can retrieve user information whom is already exist in server")
+class DeleteUserProjectionApiSpec : EndpointLargeTestBase() {
+    @DisplayName("Can delete user whom is already exist in server")
     @Test
     fun userInfoRetrieved() {
         // given:
         val createdUser = createRandomUser()
 
         // then:
-        val userInfo = getUserApi(
+        val deleteResult = deleteUserApi(
             createdUser.id,
             responseFields = null
-        ).expect2xx(UserResponse::class)
+        ).expect2xx(SimpleResponse::class)
 
         // expect:
-        assertThat(userInfo, `is`(createdUser))
+        assertThat(deleteResult.result, `is`(true))
     }
 
-    @DisplayName("Cannot retrieve user information whom is not exist in server")
+    @DisplayName("Cannot delete user whom is not exist in server")
     @Test
     fun userInfoNotFound() {
         // expect:
-        getUserApi(UUID.randomUUID())
+        deleteUserApi(UUID.randomUUID())
             .expect4xx(HttpStatus.NOT_FOUND)
             .withExceptionCode(ErrorCodes.USER_BY_ID_NOT_FOUND)
     }

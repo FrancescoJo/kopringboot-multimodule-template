@@ -4,6 +4,7 @@
  */
 package testcase.medium.jdbc.user
 
+import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.infra.jdbc.user.UserEntity
 import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
 import com.github.javafaker.Faker
@@ -17,13 +18,13 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
-import test.domain.user.randomUserEntity
+import test.domain.user.randomUserProjection
 import testcase.medium.JdbcTemplateMediumTestBase
 
 /**
  * @since 2021-08-10
  */
-class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
+internal class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
     @Autowired
     private lateinit var sut: UserEntityDao
 
@@ -76,7 +77,7 @@ class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
 
     @DisplayName("Inserted user must be found for criteria:")
     @Nested
-    inner class SavedUserMustBeFoundBy {
+    inner class SavedUserProjectionMustBeFoundBy {
         private lateinit var savedUser: UserEntity
 
         @BeforeEach
@@ -114,4 +115,6 @@ class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
             assertThat(foundUser, `is`(savedUser))
         }
     }
+
+    private fun randomUserEntity(): UserEntity = UserEntity.from(User.from(randomUserProjection()))
 }

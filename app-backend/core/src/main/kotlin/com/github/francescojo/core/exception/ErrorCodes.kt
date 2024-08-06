@@ -21,12 +21,14 @@ enum class ErrorCodes(
     USER_BY_EMAIL_DUPLICATED(1002, ""),
     USER_BY_NICKNAME_DUPLICATED(1003, ""),
 
+    DATA_INTEGRITY_BROKEN(code = 50000, ""),
+
     UNHANDLED_EXCEPTION(code = -1, "");
 
     val asMessageKey: String = "ERROR_${this.name}"
 
     companion object {
         fun from(code: Any?) =
-            values().firstOrNull { it.code == code?.toString()?.toLongOrNull() } ?: UNHANDLED_EXCEPTION
+            entries.firstOrNull { it.code == code?.toString()?.toLongOrNull() } ?: UNHANDLED_EXCEPTION
     }
 }

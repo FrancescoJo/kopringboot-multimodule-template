@@ -87,8 +87,8 @@ internal class UserEntityDaoImpl(
                 setStringEx(2, userEntity.nickname)
                 setStringEx(3, userEntity.email)
                 setBooleanEx(4, userEntity.deleted)
-                setTimestampEx(5, userEntity.registeredAt)
-                setTimestampEx(6, userEntity.lastActiveAt)
+                setTimestampEx(5, userEntity.createdAt)
+                setTimestampEx(6, userEntity.updatedAt)
                 setLongEx(7, userEntity.version)
             }.key!!.toLong()
         }
@@ -111,8 +111,8 @@ internal class UserEntityDaoImpl(
             setStringEx(1, userEntity.nickname)
             setStringEx(2, userEntity.email)
             setBooleanEx(3, userEntity.deleted)
-            setTimestampEx(4, userEntity.registeredAt)
-            setTimestampEx(5, userEntity.lastActiveAt)
+            setTimestampEx(4, userEntity.createdAt)
+            setTimestampEx(5, userEntity.updatedAt)
             setLongEx(6, userEntity.version)
             setBinaryEx(7, id.toByteArray())
         }

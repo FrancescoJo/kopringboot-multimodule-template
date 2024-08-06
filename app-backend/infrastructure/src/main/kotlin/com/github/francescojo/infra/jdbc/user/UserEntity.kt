@@ -4,7 +4,8 @@
  */
 package com.github.francescojo.infra.jdbc.user
 
-import com.github.francescojo.core.domain.user.User
+import com.github.francescojo.core.domain.user.UserId
+import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.infra.jdbc.JdbcTemplateHelper
 import com.github.francescojo.lib.util.toUUID
 import java.time.Instant
@@ -20,8 +21,8 @@ internal class UserEntity(
     val id: UUID,
     var nickname: String,
     var email: String,
-    var registeredAt: Instant,
-    var lastActiveAt: Instant,
+    var createdAt: Instant,
+    var updatedAt: Instant,
     var deleted: Boolean = false
 ) {
     var seq: Long? = null
@@ -29,11 +30,11 @@ internal class UserEntity(
     var version: Long = 0L
 
     fun toUser(): User = User.create(
-        id = this.id,
+        id = UserId(this.id),
         nickname = this.nickname,
         email = this.email,
-        registeredAt = this.registeredAt,
-        lastActiveAt = this.lastActiveAt
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt
     )
 
     override fun equals(other: Any?): Boolean = when {
@@ -58,11 +59,11 @@ internal class UserEntity(
 
         fun from(user: User): UserEntity = with(user) {
             UserEntity(
-                id = id,
+                id = id.value,
                 nickname = nickname,
                 email = email,
-                registeredAt = registeredAt,
-                lastActiveAt = lastActiveAt
+                createdAt = createdAt,
+                updatedAt = updatedAt
             )
         }
 
@@ -75,8 +76,8 @@ internal class UserEntity(
                 id = (map[prefix + COL_ID] as ByteArray).toUUID(),
                 nickname = map[prefix + COL_NICKNAME] as String,
                 email = map[prefix + COL_EMAIL] as String,
-                registeredAt = map[prefix + COL_CREATED_AT]!!.coerceToInstant(),
-                lastActiveAt = map[prefix + COL_UPDATED_AT]!!.coerceToInstant(),
+                createdAt = map[prefix + COL_CREATED_AT]!!.coerceToInstant(),
+                updatedAt = map[prefix + COL_UPDATED_AT]!!.coerceToInstant(),
                 deleted = map[prefix + COL_DELETED] as Boolean
             ).apply {
                 this.seq = map[prefix + COL_SEQ] as Long

@@ -28,7 +28,7 @@ import java.util.stream.Stream
 /**
  * @since 2021-08-10
  */
-class EditUserApiSpec : EndpointLargeTestBase() {
+class EditUserProjectionApiSpec : EndpointLargeTestBase() {
     private lateinit var createdUser: UserResponse
 
     @BeforeEach
@@ -95,7 +95,7 @@ class EditUserApiSpec : EndpointLargeTestBase() {
 
     @DisplayName("Cannot edit user if:")
     @Nested
-    inner class CannotCreateUserIf {
+    inner class CannotCreateUserProjectionIf {
         @DisplayName("Nickname is duplicated")
         @Test
         fun nicknameIsDuplicated() {

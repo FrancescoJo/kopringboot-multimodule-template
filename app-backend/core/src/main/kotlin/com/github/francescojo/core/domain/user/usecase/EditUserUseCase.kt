@@ -5,18 +5,19 @@
 package com.github.francescojo.core.domain.user.usecase
 
 import com.github.francescojo.core.annotation.UseCase
-import com.github.francescojo.core.domain.user.User
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
-import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
-import java.util.*
+import com.github.francescojo.core.domain.user.model.User
+import com.github.francescojo.core.domain.user.projection.UserProjection
+import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
+import com.github.francescojo.core.domain.user.repository.UserRepository
 
 /**
  * @since 2021-08-10
  */
 interface EditUserUseCase {
-    fun editUser(id: UUID, message: EditUserMessage): User
+    fun editUser(id: UserId, message: EditUserMessage): UserProjection
 
     interface EditUserMessage {
         val nickname: String?
@@ -25,19 +26,22 @@ interface EditUserUseCase {
 
     companion object {
         fun newInstance(
+            userProjectionFinder: UserProjectionFinder,
             userRepository: UserRepository
         ): EditUserUseCase = EditUserUseCaseImpl(
-            userRepository
+            userFinder = userProjectionFinder,
+            users = userRepository
         )
     }
 }
 
 @UseCase
 internal class EditUserUseCaseImpl(
+    private val userFinder: UserProjectionFinder,
     private val users: UserRepository
 ) : EditUserUseCase {
-    override fun editUser(id: UUID, message: EditUserUseCase.EditUserMessage): User {
-        val existingUser = users.findByUuid(id) ?: throw UserByIdNotFoundException(id)
+    override fun editUser(id: UserId, message: EditUserUseCase.EditUserMessage): UserProjection {
+        val existingUser = userFinder.getById(id)
 
         message.nickname.takeIf { !it.isNullOrEmpty() }?.let { nickname ->
             users.findByNickname(nickname)?.let { throw SameNicknameUserAlreadyExistException(nickname) }
@@ -48,6 +52,10 @@ internal class EditUserUseCaseImpl(
 
         val modifiedUser = existingUser.mutate().applyValues(message)
 
-        return users.save(modifiedUser)
+        // region TODO: Transaction required
+        users.save(User.from(modifiedUser))
+        // endregion
+
+        return modifiedUser
     }
 }

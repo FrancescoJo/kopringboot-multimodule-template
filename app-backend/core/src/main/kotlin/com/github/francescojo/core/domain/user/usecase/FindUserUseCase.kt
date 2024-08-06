@@ -5,33 +5,40 @@
 package com.github.francescojo.core.domain.user.usecase
 
 import com.github.francescojo.core.annotation.UseCase
-import com.github.francescojo.core.domain.user.User
-import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.UserReadonlyRepository
-import java.util.*
+import com.github.francescojo.core.domain.user.UserId
+import com.github.francescojo.core.domain.user.projection.UserProjection
+import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
 
 /**
  * @since 2021-08-10
  */
 interface FindUserUseCase {
-    fun getUserById(id: UUID): User = findUserById(id) ?: throw UserByIdNotFoundException(id)
+    fun getUserById(id: UserId): UserProjection
 
-    fun findUserById(id: UUID): User?
+    fun findUserById(id: UserId): UserProjection?
 
     companion object {
         fun newInstance(
-            userReadonlyRepository: UserReadonlyRepository
+            userProjectionFinder: UserProjectionFinder
         ): FindUserUseCase = FindUserUseCaseImpl(
-            userReadonlyRepository
+            users = userProjectionFinder
         )
     }
 }
 
 @UseCase
 internal class FindUserUseCaseImpl(
-    private val users: UserReadonlyRepository
+    private val users: UserProjectionFinder
 ) : FindUserUseCase {
-    override fun findUserById(id: UUID): User? {
-        return users.findByUuid(id)
+    override fun getUserById(id: UserId): UserProjection {
+        // region TODO: Transaction required
+        return users.getById(id)
+        // endregion
+    }
+
+    override fun findUserById(id: UserId): UserProjection? {
+        // region TODO: Transaction required
+        return users.findById(id)
+        // endregion
     }
 }

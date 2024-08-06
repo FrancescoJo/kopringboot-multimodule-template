@@ -7,7 +7,7 @@ package com.github.francescojo.endpoint.v1.user.create
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.francescojo.core.domain.user.User
+import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotEmpty

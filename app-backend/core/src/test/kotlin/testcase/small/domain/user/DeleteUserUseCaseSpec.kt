@@ -4,8 +4,10 @@
  */
 package testcase.small.domain.user
 
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
+import com.github.francescojo.core.domain.user.model.User
+import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`
@@ -18,14 +20,14 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
-import test.domain.user.aggregate.randomUser
-import java.util.*
+import test.domain.user.random
+import test.domain.user.randomUserProjection
 
 /**
  * @since 2021-08-10
  */
 @SmallTest
-class DeleteUserUseCaseSpec {
+internal class DeleteUserUseCaseSpec {
     private lateinit var sut: DeleteUserUseCase
     private lateinit var userRepository: UserRepository
 
@@ -41,10 +43,7 @@ class DeleteUserUseCaseSpec {
     @Test
     fun nullIfUserIsNotFound() {
         // given:
-        val id = UUID.randomUUID()
-
-        // and:
-        `when`(userRepository.findByUuid(id)).thenReturn(null)
+        val id = UserId.random()
 
         // then:
         assertThrows<UserByIdNotFoundException> { sut.deleteUserById(id) }
@@ -54,10 +53,10 @@ class DeleteUserUseCaseSpec {
     @Test
     fun returnsUserIfFound() {
         // given:
-        val id = UUID.randomUUID()
+        val id = UserId.random()
 
         // and:
-        `when`(userRepository.findByUuid(id)).thenReturn(randomUser(id = id))
+        userRepository.save(User.from(randomUserProjection(id = id)))
 
         // then:
         val deletedUser = sut.deleteUserById(id)

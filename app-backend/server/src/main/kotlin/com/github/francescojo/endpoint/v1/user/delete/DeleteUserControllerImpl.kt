@@ -4,6 +4,7 @@
  */
 package com.github.francescojo.endpoint.v1.user.delete
 
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.endpoint.common.response.SimpleResponse
 import com.github.francescojo.endpoint.v1.user.DeleteUserController
@@ -18,7 +19,7 @@ internal class DeleteUserControllerImpl(
     private val useCase: DeleteUserUseCase
 ) : DeleteUserController {
     override fun delete(id: UUID): SimpleResponse<Boolean> {
-        useCase.deleteUserById(id)
+        useCase.deleteUserById(UserId(id))
 
         return SimpleResponse(true)
     }

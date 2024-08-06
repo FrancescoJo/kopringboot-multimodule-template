@@ -23,7 +23,7 @@ import testcase.large.endpoint.EndpointLargeTestBase
 /**
  * @since 2021-08-10
  */
-class CreateUserApiSpec : EndpointLargeTestBase() {
+class CreateUserProjectionApiSpec : EndpointLargeTestBase() {
     @DisplayName("User is created for valid request")
     @Test
     fun userCreated() {
@@ -43,7 +43,7 @@ class CreateUserApiSpec : EndpointLargeTestBase() {
 
     @DisplayName("Cannot create user if:")
     @Nested
-    inner class CannotCreateUserIf {
+    inner class CannotCreateUserProjectionIf {
         private lateinit var createdUser: UserResponse
 
         @BeforeEach

@@ -4,32 +4,41 @@
  */
 package com.github.francescojo.infra.jdbc.user.repository
 
-import com.github.francescojo.core.domain.user.User
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
-import com.github.francescojo.infra.jdbc.user.UserEntity
+import com.github.francescojo.core.domain.user.UserId
+import com.github.francescojo.core.domain.user.model.User
+import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.infra.repository.AbstractWritableRepositoryTemplate
 import org.springframework.stereotype.Service
-import java.util.*
-import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao as UserEntityJdbcDao
+import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
 
 /**
  * @since 2021-08-10
  */
 @Service(UserRepository.NAME)
 internal class UserRepositoryImpl(
-    private val userEntityJdbcDao: UserEntityJdbcDao
-) : UserReadonlyRepositoryImpl(
-    userEntityJdbcDao = userEntityJdbcDao
-), UserRepository {
-    override fun save(user: User): User {
-        val savedUser = userEntityJdbcDao.selectById(user.id)?.let {
-            userEntityJdbcDao.update(it.id, UserEntity.from(user))
-        } ?: run {
-            userEntityJdbcDao.insert(UserEntity.from(user))
-        }
-
-        return updateCache(savedUser)
+    private val userEntityDao: UserEntityDao
+) : AbstractWritableRepositoryTemplate<User, UserId>(), UserRepository {
+    override fun createAll(models: Collection<User>): List<User> {
+        TODO("Not yet implemented")
     }
 
-    override fun deleteById(id: UUID): Boolean =
-        userEntityJdbcDao.deleteById(id)
+    override fun findAllByIds(ids: Collection<UserId>, lockRecords: Boolean): List<User> {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateAll(models: Collection<User>): List<User> {
+        TODO("Not yet implemented")
+    }
+
+    override fun deleteAllByIds(ids: Collection<UserId>): Long {
+        TODO("Not yet implemented")
+    }
+
+    override fun findByNickname(nickname: String): User? {
+        TODO("Not yet implemented")
+    }
+
+    override fun findByEmail(email: String): User? {
+        TODO("Not yet implemented")
+    }
 }

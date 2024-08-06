@@ -4,11 +4,14 @@
  */
 package testcase.small.domain.user
 
-import com.github.francescojo.core.domain.user.User
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
+import com.github.francescojo.core.domain.user.model.User
+import com.github.francescojo.core.domain.user.projection.UserProjection
+import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
+import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`
@@ -20,37 +23,36 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mockito.`when`
-import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
-import test.domain.user.aggregate.randomUser
+import test.domain.user.EMPTY
+import test.domain.user.random
 import test.domain.user.randomEditUserMessage
-import java.util.*
+import test.domain.user.randomUserProjection
 
 /**
  * @since 2021-08-10
  */
 @SmallTest
-class EditUserUseCaseSpec {
+internal class EditUserUseCaseSpec {
     private lateinit var sut: EditUserUseCase
+    private lateinit var userProjectionFinder: UserProjectionFinder
     private lateinit var userRepository: UserRepository
 
     @BeforeEach
     fun setup() {
+        userProjectionFinder = mock()
         userRepository = mock()
-        sut = EditUserUseCase.newInstance(userRepository)
-
-        `when`(userRepository.save(any())).thenAnswer { return@thenAnswer it.arguments[0] }
+        sut = EditUserUseCase.newInstance(
+            userProjectionFinder = userProjectionFinder,
+            userRepository = userRepository
+        )
     }
 
     @DisplayName("Error occurred if user with given id is not found")
     @Test
     fun errorIfUserNotFound() {
         // given:
-        val id = UUID.randomUUID()
-
-        // and:
-        `when`(userRepository.findByUuid(id)).thenReturn(null)
+        val id = UserId.random()
 
         // then:
         assertThrows<UserByIdNotFoundException> { sut.editUser(id, randomEditUserMessage()) }
@@ -60,11 +62,11 @@ class EditUserUseCaseSpec {
     @Test
     fun userIsUpdated() {
         // given:
-        val id = UUID.randomUUID()
+        val id = UserId.random()
         val message = randomEditUserMessage()
 
         // and:
-        `when`(userRepository.findByUuid(id)).thenReturn(randomUser())
+        userRepository.save(User.from(randomUserProjection(id = id)))
 
         // when:
         val editedUser = sut.editUser(id, message)
@@ -76,32 +78,28 @@ class EditUserUseCaseSpec {
         )
     }
 
-    @DisplayName("Fails if some field is duplicated, when:")
+    @DisplayName("Fails if problems on some field, when:")
     @Nested
     inner class DuplicationErrorOccurred {
-        private lateinit var id: UUID
+        private var id: UserId = UserId.EMPTY
+
         private lateinit var message: EditUserUseCase.EditUserMessage
-        private lateinit var existingUser: User
 
         @BeforeEach
         fun setup() {
             // given:
-            id = UUID.randomUUID()
+            id = UserId.random()
             message = randomEditUserMessage()
-            existingUser = randomUser(id = id)
-
-            // and:
-            `when`(userRepository.findByUuid(id)).thenReturn(existingUser)
         }
 
         @DisplayName("Nickname is duplicated")
         @Test
         fun errorIfNicknameIsDuplicated() {
             // given:
-            val sameNicknameUser = randomUser(id = id, nickname = message.nickname!!)
+            val sameNicknameUser = randomUserProjection(id = id, nickname = message.nickname!!)
 
             // and:
-            `when`(userRepository.findByNickname(message.nickname!!)).thenReturn(sameNicknameUser)
+            userRepository.save(User.from(sameNicknameUser))
 
             // then:
             assertThrows<SameNicknameUserAlreadyExistException> { sut.editUser(id, message) }
@@ -111,10 +109,10 @@ class EditUserUseCaseSpec {
         @Test
         fun errorIfEmailIsDuplicated() {
             // given:
-            val sameEmailUser = randomUser(id = id, email = message.email!!)
+            val sameEmailUser = randomUserProjection(id = id, email = message.email!!)
 
             // and:
-            `when`(userRepository.findByEmail(message.email!!)).thenReturn(sameEmailUser)
+            userRepository.save(User.from(sameEmailUser))
 
             // then:
             assertThrows<SameEmailUserAlreadyExistException> { sut.editUser(id, message) }
@@ -124,17 +122,17 @@ class EditUserUseCaseSpec {
     @DisplayName("Some field is preserved if:")
     @Nested
     inner class SomeFieldIsPreserved {
-        private lateinit var id: UUID
-        private lateinit var existingUser: User
+        private var id: UserId = UserId.EMPTY
+        private lateinit var existingUser: UserProjection
 
         @BeforeEach
         fun setup() {
             // given:
-            id = UUID.randomUUID()
+            id = UserId.random()
 
             // and:
-            existingUser = randomUser(id = id)
-            `when`(userRepository.findByUuid(id)).thenReturn(existingUser)
+            existingUser = randomUserProjection(id = id)
+            userRepository.save(User.from(existingUser))
         }
 
         @DisplayName("nickname is omitted in message")

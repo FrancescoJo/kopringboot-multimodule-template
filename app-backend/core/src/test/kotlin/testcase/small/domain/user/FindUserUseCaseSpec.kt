@@ -4,7 +4,8 @@
  */
 package testcase.small.domain.user
 
-import com.github.francescojo.core.domain.user.repository.writable.UserRepository
+import com.github.francescojo.core.domain.user.UserId
+import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
 import com.github.francescojo.core.domain.user.usecase.FindUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`
@@ -14,36 +15,28 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
-import test.domain.user.aggregate.randomUser
-import java.util.*
+import test.domain.user.random
 
 /**
  * @since 2021-08-10
  */
 @SmallTest
-class FindUserUseCaseSpec {
+internal class FindUserUseCaseSpec {
     private lateinit var sut: FindUserUseCase
-    private lateinit var userRepository: UserRepository
+    private lateinit var userProjectionFinder: UserProjectionFinder
 
     @BeforeEach
     fun setup() {
-        userRepository = mock()
-        sut = FindUserUseCase.newInstance(userRepository)
-
-        `when`(userRepository.save(any())).thenAnswer { return@thenAnswer it.arguments[0] }
+        userProjectionFinder = mock()
+        sut = FindUserUseCase.newInstance(userProjectionFinder)
     }
 
     @DisplayName("null is returned if user with given id is not found")
     @Test
     fun nullIfUserIsNotFound() {
         // given:
-        val id = UUID.randomUUID()
-
-        // and:
-        `when`(userRepository.findByUuid(id)).thenReturn(null)
+        val id = UserId.random()
 
         // then:
         val notFoundUser = sut.findUserById(id)
@@ -56,10 +49,10 @@ class FindUserUseCaseSpec {
     @Test
     fun returnsUserIfFound() {
         // given:
-        val id = UUID.randomUUID()
+        val id = UserId.random()
 
         // and:
-        `when`(userRepository.findByUuid(id)).thenReturn(randomUser(id = id))
+        // userProjectionFinder.save(randomUserProjection(id = id))
 
         // then:
         val foundUser = sut.findUserById(id)
