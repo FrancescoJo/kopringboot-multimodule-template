@@ -1,0 +1,9 @@
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:$version_springBoot"
+
+    implementation "com.zaxxer:HikariCP:$version_hikariCP"
+    implementation "org.mariadb.jdbc:mariadb-java-client:$version_mariadb"
+
+    testImplementation "com.h2database:h2:$version_h2database"
+    testImplementation "org.testcontainers:mariadb:$version_testcontainers"
+}

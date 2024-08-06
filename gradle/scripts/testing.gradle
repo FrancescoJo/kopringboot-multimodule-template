@@ -18,13 +18,12 @@ dependencies {
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$version_junit5"
 
     // Test utilities
-    testImplementation "org.hamcrest:hamcrest:$version_hamcrest"
     testImplementation "org.mockito:mockito-core:$version_mockito"
     testImplementation "org.mockito:mockito-inline:$version_mockito"
     testImplementation "org.mockito:mockito-junit-jupiter:$version_mockito"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$version_mockitoKotlin"
+    testImplementation "io.kotest:kotest-runner-junit5:$version_kotest"
 
-    // JavaFaker
     testImplementation("com.github.javafaker:javafaker:$version_javaFaker") {
         exclude group: "org.yaml", module: "snakeyaml"
     }
@@ -36,6 +35,12 @@ dependencies {
     }
 }
 
+allOpen {
+    annotation("com.github.francescojo.lib.annotation.SmallTest")
+    annotation("com.github.francescojo.lib.annotation.MediumTest")
+    annotation("com.github.francescojo.lib.annotation.LargeTest")
+}
+
 check.dependsOn test
 
 configurations {
@@ -43,7 +48,7 @@ configurations {
 }
 
 task testJar(type: Jar) {
-    classifier "test"
+    archiveClassifier.set('test')
     from sourceSets.test.output
 }
 
@@ -55,8 +60,14 @@ tasks.withType(Test) {
     group "verification"
 
     testLogging {
-        events TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED, TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR
+        final logEvents = [TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED, TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR]
 
+        final skipTestLogging = "false".equalsIgnoreCase(project.findProperty("testLogging")?.toString() ?: "")
+        if (!skipTestLogging) {
+            logEvents.addAll(TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR)
+        }
+
+        events = logEvents
         outputs.upToDateWhen { false }
         exceptionFormat TestExceptionFormat.FULL
         showExceptions true
@@ -103,7 +114,7 @@ configurations {
 }
 
 tasks.register("testReport", TestReport) {
-    destinationDir = layout.buildDirectory.dir("reports/allTests").get().asFile
+    destinationDirectory = layout.buildDirectory.dir("reports/allTests").get().asFile
     // Use test results from testReportData configuration
-    testResultDirs.from(configurations.testReportData)
+    testResults.from(configurations.testReportData)
 }

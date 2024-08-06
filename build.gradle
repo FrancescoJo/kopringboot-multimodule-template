@@ -27,7 +27,7 @@ buildscript {
         // Testing & Code quality
         version_detekt = "1.21.0"
         version_junit5 = "5.9.0"
-        version_hamcrest = "2.2"
+        version_kotest = "5.5.4"
         version_mockito = "4.4.0"
         version_mockitoKotlin = "4.0.0"
         version_javaFaker = "1.0.2"
@@ -68,6 +68,9 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 
-    dependencies {
+    ext {
+        def MODULE_COMMON_LIBS = "common-libs-backend"
+
+        MODULE_COMMON_LIBS_FOUNDATION = "$MODULE_COMMON_LIBS:foundation"
     }
 }

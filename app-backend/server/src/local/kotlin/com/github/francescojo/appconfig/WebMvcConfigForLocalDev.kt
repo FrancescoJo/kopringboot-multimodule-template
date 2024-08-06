@@ -12,7 +12,7 @@ import org.springframework.web.filter.CommonsRequestLoggingFilter
  * @since 2024-08-05
  */
 @Configuration
-class WebMvcConfigForLocalDev : WebMvcConfig() {
+class WebMvcConfigForLocalDev {
     @Bean
     fun logFilter() = CommonsRequestLoggingFilter().apply {
         setIncludeQueryString(true)

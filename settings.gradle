@@ -1,6 +1,9 @@
-rootProject.name = "kopringboot-multimodule-template"
+rootProject.name = "kopringboot-multimodule-monorepo-template"
 
-include ":app-lib",
-        ":app-core",
-        ":app-infrastructure",
-        ":app-main"
+include ":app-backend:core",
+        ":app-backend:infrastructure",
+        ":app-backend:server",
+        ":admin-backend:core",
+        ":admin-backend:infrastructure",
+        ":admin-backend:server",
+        ":common-libs-backend:foundation"

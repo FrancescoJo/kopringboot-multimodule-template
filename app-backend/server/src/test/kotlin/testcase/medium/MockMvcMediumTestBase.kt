@@ -6,22 +6,18 @@ package testcase.medium
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.francescojo.KopringApplicationBootstrap
 import com.github.francescojo.appconfig.JacksonConfig
 import com.github.francescojo.appconfig.WebMvcConfig
-import com.github.francescojo.core.KopringApplication
-import com.github.francescojo.infra.appconfig.LoggerConfig
 import com.github.francescojo.endpoint.ErrorResponseEnvelope
+import com.github.francescojo.infra.appconfig.LoggerConfig
 import com.github.francescojo.lib.annotation.MediumTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
-import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.web.WebAppConfiguration
@@ -62,9 +58,6 @@ import java.nio.charset.StandardCharsets
 @ActiveProfiles("mediumTest")
 @MediumTest
 class MockMvcMediumTestBase : JsonRequestAssertionsMixin {
-    @MockBean
-    private lateinit var jdbcTemplate: JdbcTemplate
-
     @Autowired
     private lateinit var mockMvc: MockMvc
 

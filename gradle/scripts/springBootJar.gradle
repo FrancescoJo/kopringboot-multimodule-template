@@ -1,0 +1,14 @@
+assemble.doLast {
+    final jarFile = new File("${project.projectDir}/build/libs", "${project.name}-${project.version}.jar")
+    if (!jarFile.exists()) {
+        throw new GradleException("Programme binary is not found in '${jarFile.absolutePath}'.")
+    }
+
+    copy {
+        from jarFile
+        into "$project.rootDir/build/"
+    }
+
+    final outputPrefix = "$project.rootDir/build/${project.name}"
+    new File("${outputPrefix}-${project.version}.jar").renameTo("${outputPrefix}-latest.jar")
+}

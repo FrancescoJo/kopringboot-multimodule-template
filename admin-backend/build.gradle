@@ -1,0 +1,16 @@
+ext {
+    version_admin = "0.1"
+
+    MODULE_BASE = "app-backend"
+    MODULE_ADMIN = "admin-backend"
+}
+
+task cleanAll
+task detektAll
+task testAll
+
+subprojects { pr ->
+    cleanAll.dependsOn("${pr.path}:clean")
+    detektAll.dependsOn("${pr.path}:detekt")
+    testAll.dependsOn("${pr.path}:test")
+}

@@ -1,0 +1,48 @@
+version version_app
+
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "kotlin-spring"
+
+apply from: "${project.rootDir}/gradle/scripts/sourceSets.gradle"
+apply from: "${project.rootDir}/gradle/scripts/commonInfrastructure.gradle"
+apply from: "${project.rootDir}/gradle/scripts/springBootCommon.gradle"
+apply from: "${project.rootDir}/gradle/scripts/springBootJar.gradle"
+
+jar.dependsOn bootJar
+
+dependencies {
+    def MODULE_CORE = ":${MODULE_BASE}:core"
+    def MODULE_INFRASTRUCTURE = ":${MODULE_BASE}:infrastructure"
+
+    // region app dependencies
+    // First-party dependencies
+    implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
+    implementation project(":${MODULE_CORE}")
+    implementation project(":${MODULE_INFRASTRUCTURE}")
+
+    // Spring dependencies
+    // Spring Web
+    implementation("org.springframework.boot:spring-boot-starter-web:$version_springBoot")
+
+    // Jackson Kotlin support
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$version_jackson_kotlin"
+    // endregion
+
+    // region test dependencies
+    // First-party dependencies
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_CORE}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_INFRASTRUCTURE}", configuration: "testArtifacts")
+
+    // REST Assured
+    testImplementation "org.springframework.restdocs:spring-restdocs-core:$version_restDocs"
+    testImplementation "org.springframework.restdocs:spring-restdocs-restassured:$version_restDocs"
+    // endregion
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:$version_springBoot"
+    }
+}
