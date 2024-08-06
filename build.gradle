@@ -8,19 +8,21 @@ buildscript {
 
         // lang
         version_target_jvm = 17
-        version_kotlin = "1.7.10"
+        version_kotlin = "1.9.10"
+        version_kotlin_coroutines = "1.7.3"
         version_jakarta_validation = "3.0.2"
         version_jakarta_inject = "2.0.1"
 
         // Spring + infrastructure
         version_springBoot = "3.1.4"
-        version_springBootTest="3.1.4"
+        version_springBootTest = "3.1.4"
         version_hikariCP = "5.0.1"
         version_mariadb = "3.1.0"
         version_h2database = "2.1.214"
 
         // third-party dependencies
         version_slf4j = "2.0.0"
+        version_jdsl = "3.0.1"
         version_jackson = "2.13.4"
         version_jackson_kotlin = "2.13.4"
 
