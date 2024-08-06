@@ -5,7 +5,12 @@
 package com.github.francescojo.infra.i18n
 
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.core.exception.ErrorCodes.*
+import com.github.francescojo.core.exception.ErrorCodes.GENERAL_HTTP_EXCEPTION
+import com.github.francescojo.core.exception.ErrorCodes.MALFORMED_INPUT
+import com.github.francescojo.core.exception.ErrorCodes.SERVICE_NOT_FOUND
+import com.github.francescojo.core.exception.ErrorCodes.UNHANDLED_EXCEPTION
+import com.github.francescojo.core.exception.ErrorCodes.WRONG_INPUT
+import com.github.francescojo.core.exception.ErrorCodes.WRONG_PRESENTATION
 import com.github.francescojo.core.i18n.MessageTemplate
 import com.github.francescojo.core.i18n.MessageTemplateProvider
 import com.github.francescojo.lib.annotation.VisibleForTesting

@@ -16,32 +16,38 @@ import java.util.*
  */
 internal data class UserModel(
     override val id: UUID,
-    override val nickname: String,
-    override val email: String,
+    override var nickname: String,
+    override var email: String,
     override val registeredAt: Instant,
-    override val lastActiveAt: Instant,
-    override val deleted: Boolean
-) : User {
-    fun applyValues(values: EditUserUseCase.EditUserMessage): User = this.copy(
-        nickname = values.nickname ?: this.nickname,
-        email = values.email ?: this.email,
-        lastActiveAt = Instant.now()
-    )
-
-    override fun delete(): User = this.copy(
-        deleted = true,
-        lastActiveAt = Instant.now()
-    )
+    override var lastActiveAt: Instant
+) : User.Mutator {
+    override fun applyValues(
+        values: EditUserUseCase.EditUserMessage,
+        modifiedAt: Instant
+    ): User = this.apply {
+        nickname = values.nickname ?: this.nickname
+        email = values.email ?: this.email
+        lastActiveAt = modifiedAt
+    }
 
     companion object {
+        fun from(src: User) = src.run {
+            create(
+                id = id,
+                nickname = nickname,
+                email = email,
+                registeredAt = registeredAt,
+                lastActiveAt = lastActiveAt
+            )
+        }
+
         @SuppressWarnings("LongParameterList")      // Intended complexity to provide various User creation cases
         fun create(
             id: UUID = UUID.randomUUID(),
             nickname: String,
             email: String,
             registeredAt: Instant? = null,
-            lastActiveAt: Instant? = null,
-            deleted: Boolean = false
+            lastActiveAt: Instant? = null
         ): UserModel {
             val now = Instant.now()
 
@@ -50,24 +56,8 @@ internal data class UserModel(
                 nickname = nickname,
                 email = email,
                 registeredAt = registeredAt ?: now,
-                lastActiveAt = lastActiveAt ?: now,
-                deleted = deleted
+                lastActiveAt = lastActiveAt ?: now
             )
-        }
-
-        fun from(user: User): UserModel = if (user is UserModel) {
-            user
-        } else {
-            with(user) {
-                create(
-                    id = id,
-                    nickname = nickname,
-                    email = email,
-                    registeredAt = registeredAt,
-                    lastActiveAt = lastActiveAt,
-                    deleted = deleted
-                )
-            }
         }
     }
 }

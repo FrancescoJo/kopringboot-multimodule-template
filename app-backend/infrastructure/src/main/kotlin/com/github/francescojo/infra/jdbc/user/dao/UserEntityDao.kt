@@ -25,6 +25,8 @@ internal interface UserEntityDao {
     fun insert(userEntity: UserEntity): UserEntity
 
     fun update(id: UUID, userEntity: UserEntity): UserEntity
+
+    fun deleteById(id: UUID): Boolean
 }
 
 @Repository
@@ -117,6 +119,26 @@ internal class UserEntityDaoImpl(
 
         return when (affectedRows) {
             1 -> userEntity
+            else -> throw IncorrectResultSizeDataAccessException(1, affectedRows)
+        }
+    }
+
+    override fun deleteById(id: UUID): Boolean {
+        @Suppress("MagicNumber")    // Not a magic number in this context
+        val affectedRows = super.doUpdate(
+            UserEntity.COL_ID,
+            """
+                DELETE
+                FROM `${UserEntity.TABLE}`
+                WHERE `${UserEntity.COL_ID}` = ?
+            """.trimIndent()
+        ) {
+            setBinaryEx(1, id.toByteArray())
+        }
+
+        return when (affectedRows) {
+            0 -> false
+            1 -> true
             else -> throw IncorrectResultSizeDataAccessException(1, affectedRows)
         }
     }

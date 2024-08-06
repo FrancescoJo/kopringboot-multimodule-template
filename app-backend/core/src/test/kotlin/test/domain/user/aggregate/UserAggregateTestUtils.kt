@@ -14,13 +14,11 @@ fun randomUser(
     nickname: String = Faker().name().fullName(),
     email: String = Faker().internet().emailAddress(),
     registeredAt: Instant = Instant.now(),
-    lastActiveAt: Instant = Instant.now(),
-    deleted: Boolean = false
+    lastActiveAt: Instant = Instant.now()
 ) = User.create(
     id = id,
     nickname = nickname,
     email = email,
     registeredAt = registeredAt,
-    lastActiveAt = lastActiveAt,
-    deleted = deleted
+    lastActiveAt = lastActiveAt
 )

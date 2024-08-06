@@ -1,6 +1,6 @@
 /*
  * kopringboot-multimodule-template
- * Distributed under CC BY-NC-SA
+ * Distributed under MIT licence
  */
 package com.github.francescojo.infra.jdbc.user.repository
 
@@ -8,6 +8,7 @@ import com.github.francescojo.core.domain.user.User
 import com.github.francescojo.core.domain.user.repository.writable.UserRepository
 import com.github.francescojo.infra.jdbc.user.UserEntity
 import org.springframework.stereotype.Service
+import java.util.*
 import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao as UserEntityJdbcDao
 
 /**
@@ -28,4 +29,7 @@ internal class UserRepositoryImpl(
 
         return updateCache(savedUser)
     }
+
+    override fun deleteById(id: UUID): Boolean =
+        userEntityJdbcDao.deleteById(id)
 }

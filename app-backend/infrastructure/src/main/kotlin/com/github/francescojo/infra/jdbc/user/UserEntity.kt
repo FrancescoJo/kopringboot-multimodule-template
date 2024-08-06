@@ -22,7 +22,7 @@ internal class UserEntity(
     var email: String,
     var registeredAt: Instant,
     var lastActiveAt: Instant,
-    var deleted: Boolean
+    var deleted: Boolean = false
 ) {
     var seq: Long? = null
 
@@ -33,8 +33,7 @@ internal class UserEntity(
         nickname = this.nickname,
         email = this.email,
         registeredAt = this.registeredAt,
-        lastActiveAt = this.lastActiveAt,
-        deleted = this.deleted
+        lastActiveAt = this.lastActiveAt
     )
 
     override fun equals(other: Any?): Boolean = when {
@@ -63,8 +62,7 @@ internal class UserEntity(
                 nickname = nickname,
                 email = email,
                 registeredAt = registeredAt,
-                lastActiveAt = lastActiveAt,
-                deleted = deleted
+                lastActiveAt = lastActiveAt
             )
         }
 

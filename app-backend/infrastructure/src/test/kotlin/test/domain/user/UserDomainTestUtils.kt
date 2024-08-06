@@ -15,15 +15,13 @@ internal fun randomUserEntity(
     nickname: String = Faker().name().fullName(),
     email: String = Faker().internet().emailAddress(),
     registeredAt: Instant = Instant.now(),
-    lastActiveAt: Instant = Instant.now(),
-    deleted: Boolean = false
+    lastActiveAt: Instant = Instant.now()
 ): UserEntity = UserEntity.from(
     randomUser(
         id = id,
         nickname = nickname,
         email = email,
         registeredAt = registeredAt,
-        lastActiveAt = lastActiveAt,
-        deleted = deleted
+        lastActiveAt = lastActiveAt
     )
 )

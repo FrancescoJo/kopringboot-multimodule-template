@@ -203,6 +203,14 @@ class RestAssuredLargeTestBase : JsonRequestAssertionsMixin {
     companion object {
         private const val DOCUMENTATION_DEFAULT_HOST = "localhost"
         private const val DOCUMENTATION_DEFAULT_PORT = 8080
+
         private val TEST_INDICES = HashMap<String, AtomicInteger>()
+
+        /**
+         * This configuration forces Test Containers to start before any test execution.
+         */
+        init {
+            TestContainerMariaDBConfig.forceStartContainer()
+        }
     }
 }

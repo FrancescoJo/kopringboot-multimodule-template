@@ -7,7 +7,9 @@ package testcase.small.domain.user
 import com.github.francescojo.core.domain.user.repository.writable.UserRepository
 import com.github.francescojo.core.domain.user.usecase.FindUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

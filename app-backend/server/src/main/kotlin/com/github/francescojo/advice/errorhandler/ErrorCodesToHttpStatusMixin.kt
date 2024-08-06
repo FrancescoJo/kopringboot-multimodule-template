@@ -5,7 +5,15 @@
 package com.github.francescojo.advice.errorhandler
 
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.core.exception.ErrorCodes.*
+import com.github.francescojo.core.exception.ErrorCodes.GENERAL_HTTP_EXCEPTION
+import com.github.francescojo.core.exception.ErrorCodes.MALFORMED_INPUT
+import com.github.francescojo.core.exception.ErrorCodes.SERVICE_NOT_FOUND
+import com.github.francescojo.core.exception.ErrorCodes.UNHANDLED_EXCEPTION
+import com.github.francescojo.core.exception.ErrorCodes.USER_BY_EMAIL_DUPLICATED
+import com.github.francescojo.core.exception.ErrorCodes.USER_BY_ID_NOT_FOUND
+import com.github.francescojo.core.exception.ErrorCodes.USER_BY_NICKNAME_DUPLICATED
+import com.github.francescojo.core.exception.ErrorCodes.WRONG_INPUT
+import com.github.francescojo.core.exception.ErrorCodes.WRONG_PRESENTATION
 import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.exception.GeneralHttpException
 import com.github.francescojo.util.toHttpStatus

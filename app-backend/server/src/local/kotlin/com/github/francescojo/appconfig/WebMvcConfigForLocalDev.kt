@@ -1,6 +1,6 @@
 /*
  * kopringboot-multimodule-template
- * Sir.LOIN Intellectual property. All rights reserved.
+ * Distributed under MIT licence
  */
 package com.github.francescojo.appconfig
 

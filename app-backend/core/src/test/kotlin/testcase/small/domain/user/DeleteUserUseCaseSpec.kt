@@ -9,6 +9,7 @@ import com.github.francescojo.core.domain.user.repository.writable.UserRepositor
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -62,6 +63,6 @@ class DeleteUserUseCaseSpec {
         val deletedUser = sut.deleteUserById(id)
 
         // expect:
-        assertThat(deletedUser.deleted, `is`(true))
+        assertThat(deletedUser, `is`(notNullValue()))
     }
 }

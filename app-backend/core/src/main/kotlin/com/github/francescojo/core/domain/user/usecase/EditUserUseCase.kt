@@ -10,7 +10,6 @@ import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExi
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.repository.writable.UserRepository
-import com.github.francescojo.core.domain.user.vo.UserModel
 import java.util.*
 
 /**
@@ -47,6 +46,8 @@ internal class EditUserUseCaseImpl(
             users.findByEmail(email)?.let { throw SameEmailUserAlreadyExistException(email) }
         }
 
-        return users.save(UserModel.from(existingUser).applyValues(message))
+        val modifiedUser = existingUser.mutate().applyValues(message)
+
+        return users.save(modifiedUser)
     }
 }
