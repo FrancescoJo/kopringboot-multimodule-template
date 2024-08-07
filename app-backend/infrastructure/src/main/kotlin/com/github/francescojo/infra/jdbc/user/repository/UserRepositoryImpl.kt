@@ -7,9 +7,9 @@ package com.github.francescojo.infra.jdbc.user.repository
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
 import com.github.francescojo.infra.repository.AbstractWritableRepositoryTemplate
 import org.springframework.stereotype.Service
-import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
 
 /**
  * @since 2021-08-10

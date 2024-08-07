@@ -7,18 +7,15 @@ package testcase.small.domain.user
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.model.User
-import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import org.mockito.kotlin.mock
 import test.domain.user.randomCreateUserMessage
 import test.domain.user.randomUserProjection
 import test.domain.user.repository.MockUserRepository
@@ -53,8 +50,8 @@ internal class CreateUserUseCaseSpec {
 
         // then:
         assertAll(
-            { assertThat(createdUser.nickname, `is`(message.nickname)) },
-            { assertThat(createdUser.email, `is`(message.email)) },
+            { createdUser.nickname shouldBe message.nickname },
+            { createdUser.email shouldBe message.email }
         )
     }
 

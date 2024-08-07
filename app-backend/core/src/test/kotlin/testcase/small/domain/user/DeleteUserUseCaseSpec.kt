@@ -7,19 +7,13 @@ package testcase.small.domain.user
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.model.User
-import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.notNullValue
-import org.hamcrest.MatcherAssert.assertThat
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.Mockito.`when`
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
 import test.domain.user.random
 import test.domain.user.randomUserProjection
 import test.domain.user.repository.MockUserRepository
@@ -61,6 +55,6 @@ internal class DeleteUserUseCaseSpec {
         val deletedUser = sut.deleteUserById(id)
 
         // expect:
-        assertThat(deletedUser, `is`(notNullValue()))
+        deletedUser shouldNotBe null
     }
 }

@@ -9,8 +9,7 @@ import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.javafaker.Faker
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -42,7 +41,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         val errorResponse = request.send().expect4xx()
 
         // expect:
-        assertThat(ErrorCodes.from(errorResponse.code), `is`(ErrorCodes.WRONG_INPUT))
+        ErrorCodes.from(errorResponse.code) shouldBe ErrorCodes.WRONG_INPUT
     }
 
     @ParameterizedTest(name = "Fails if it is {0}")
@@ -64,7 +63,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         val errorResponse = request.send().expect4xx()
 
         // expect:
-        assertThat(ErrorCodes.from(errorResponse.code), `is`(ErrorCodes.WRONG_INPUT))
+        ErrorCodes.from(errorResponse.code) shouldBe ErrorCodes.WRONG_INPUT
     }
 
     @ParameterizedTest(name = "Fails if all request fields are {0}")
@@ -79,7 +78,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         val errorResponse = request.send().expect4xx()
 
         // expect:
-        assertThat(ErrorCodes.from(errorResponse.code), `is`(ErrorCodes.WRONG_INPUT))
+        ErrorCodes.from(errorResponse.code) shouldBe ErrorCodes.WRONG_INPUT
     }
 
     @JsonDeserialize

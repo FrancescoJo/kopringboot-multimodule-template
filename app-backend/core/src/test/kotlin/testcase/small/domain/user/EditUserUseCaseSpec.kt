@@ -10,20 +10,16 @@ import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlready
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.projection.UserProjection
-import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
-import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.not
-import org.hamcrest.MatcherAssert.assertThat
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import org.mockito.kotlin.mock
 import test.domain.user.EMPTY
 import test.domain.user.projection.MockUserProjectionFinder
 import test.domain.user.random
@@ -75,8 +71,8 @@ internal class EditUserUseCaseSpec {
 
         // then:
         assertAll(
-            { assertThat(editedUser.nickname, `is`(message.nickname)) },
-            { assertThat(editedUser.email, `is`(message.email)) },
+            { editedUser.nickname shouldBe message.nickname },
+            { editedUser.email shouldBe message.email }
         )
     }
 
@@ -148,9 +144,9 @@ internal class EditUserUseCaseSpec {
 
             // expect:
             assertAll(
-                { assertThat(updatedUser.nickname, `is`(existingUser.nickname)) },
-                { assertThat(updatedUser.nickname, not(message.nickname)) },
-                { assertThat(updatedUser.email, `is`(message.email)) },
+                { updatedUser.nickname shouldBe existingUser.nickname },
+                { updatedUser.nickname shouldNotBe message.nickname },
+                { updatedUser.email shouldBe message.email },
             )
         }
 
@@ -165,9 +161,9 @@ internal class EditUserUseCaseSpec {
 
             // expect:
             assertAll(
-                { assertThat(updatedUser.nickname, `is`(message.nickname)) },
-                { assertThat(updatedUser.email, `is`(existingUser.email)) },
-                { assertThat(updatedUser.email, not(message.email)) }
+                { updatedUser.nickname shouldBe message.nickname },
+                { updatedUser.email shouldBe existingUser.email },
+                { updatedUser.email shouldNotBe message.email }
             )
         }
     }

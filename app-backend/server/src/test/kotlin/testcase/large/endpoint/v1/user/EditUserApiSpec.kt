@@ -7,8 +7,7 @@ package testcase.large.endpoint.v1.user
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.user.common.UserResponse
 import com.github.francescojo.endpoint.v1.user.edit.EditUserRequest
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -28,7 +27,7 @@ import java.util.stream.Stream
 /**
  * @since 2021-08-10
  */
-class EditUserProjectionApiSpec : EndpointLargeTestBase() {
+class EditUserApiSpec : EndpointLargeTestBase() {
     private lateinit var createdUser: UserResponse
 
     @BeforeEach
@@ -51,7 +50,7 @@ class EditUserProjectionApiSpec : EndpointLargeTestBase() {
         ).expect2xx(UserResponse::class)
 
         // expect:
-        assertThat(response, isReflecting = request)
+        response shouldReflect request
     }
 
     @DisplayName("Cannot edit user whom is not exist in server")
@@ -77,7 +76,7 @@ class EditUserProjectionApiSpec : EndpointLargeTestBase() {
                 .expect2xx(UserResponse::class)
 
             // then:
-            assertThat(editedUser, isReflecting = request)
+            editedUser shouldReflect request
         }
 
         @ParameterizedTest(name = "Email is {0}")
@@ -89,7 +88,7 @@ class EditUserProjectionApiSpec : EndpointLargeTestBase() {
                 .expect2xx(UserResponse::class)
 
             // then:
-            assertThat(editedUser, isReflecting = request)
+            editedUser shouldReflect request
         }
     }
 
@@ -115,18 +114,10 @@ class EditUserProjectionApiSpec : EndpointLargeTestBase() {
         }
     }
 
-    private fun assertThat(actual: UserResponse, isReflecting: EditUserRequest) {
+    private infix fun UserResponse.shouldReflect(expected: EditUserRequest) {
         assertAll(
-            {
-                if (isReflecting.nickname != null) {
-                    assertThat(actual.nickname, `is`(isReflecting.nickname))
-                }
-            },
-            {
-                if (isReflecting.email != null) {
-                    assertThat(actual.email, `is`(isReflecting.email))
-                }
-            }
+            { expected.nickname?.let { this.nickname shouldBe it } },
+            { expected.email?.let { this.email shouldBe it } }
         )
     }
 

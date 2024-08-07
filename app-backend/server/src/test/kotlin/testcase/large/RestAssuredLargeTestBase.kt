@@ -14,7 +14,6 @@ import io.restassured.config.ObjectMapperConfig
 import io.restassured.config.RestAssuredConfig
 import io.restassured.response.Response
 import io.restassured.specification.RequestSpecification
-import org.hamcrest.Matchers.`is`
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInfo
 import org.junit.jupiter.api.extension.ExtendWith
@@ -198,7 +197,7 @@ class RestAssuredLargeTestBase : JsonRequestAssertionsMixin {
     }
 
     private fun Response.toJsonStringWith(httpStatus: HttpStatus) =
-        this.then().assertThat().statusCode(`is`(httpStatus.value())).extract().body().asString()
+        this.then().assertThat().statusCode(httpStatus.value()).extract().body().asString()
 
     companion object {
         private const val DOCUMENTATION_DEFAULT_HOST = "localhost"

@@ -8,10 +8,8 @@ import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.infra.jdbc.user.UserEntity
 import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
 import com.github.javafaker.Faker
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
-import org.hamcrest.Matchers.not
-import org.hamcrest.Matchers.nullValue
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -38,15 +36,14 @@ internal class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
         val savedUser = sut.insert(randomUser)
 
         // expect:
-        assertThat(savedUser.id, not(nullValue()))
+        savedUser.id shouldNotBe null
 
         // then:
         val foundUser = sut.selectById(savedUser.id)
 
         // expect:
-        assertThat(foundUser, `is`(savedUser))
+        foundUser shouldBe savedUser
     }
-
 
     @DisplayName("Changes in entity must be persisted")
     @Test
@@ -70,8 +67,8 @@ internal class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
 
         // expect:
         assertAll(
-            { assertThat(retrievedUser.nickname, `is`(newNickname)) },
-            { assertThat(retrievedUser.email, `is`(newEmail)) },
+            { retrievedUser.nickname shouldBe newNickname },
+            { retrievedUser.email shouldBe newEmail },
         )
     }
 
@@ -92,7 +89,7 @@ internal class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
             val foundUser = sut.selectById(savedUser.id)
 
             // then:
-            assertThat(foundUser, `is`(savedUser))
+            foundUser shouldBe savedUser
         }
 
         @DisplayName("nickname")
@@ -102,7 +99,7 @@ internal class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
             val foundUser = sut.selectByNickname(savedUser.nickname)
 
             // then:
-            assertThat(foundUser, `is`(savedUser))
+            foundUser shouldBe savedUser
         }
 
         @DisplayName("email")
@@ -112,7 +109,7 @@ internal class UserEntityDaoTest : JdbcTemplateMediumTestBase() {
             val foundUser = sut.selectByEmail(savedUser.email)
 
             // then:
-            assertThat(foundUser, `is`(savedUser))
+            foundUser shouldBe savedUser
         }
     }
 

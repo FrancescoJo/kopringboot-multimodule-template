@@ -8,8 +8,7 @@ import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.github.francescojo.appconfig.InstantResponseDecorator
 import com.github.francescojo.lib.annotation.SmallTest
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.MatcherAssert.assertThat
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -50,7 +49,7 @@ class InstantResponseDecoratorSpec {
         verify(mockGen).writeString(argCaptor.capture())
 
         // expect:
-        assertThat(argCaptor.value, `is`(expected))
+        argCaptor.value shouldBe expected
     }
 
     companion object {

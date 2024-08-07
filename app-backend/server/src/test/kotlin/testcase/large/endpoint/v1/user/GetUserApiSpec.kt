@@ -6,8 +6,7 @@ package testcase.large.endpoint.v1.user
 
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.user.common.UserResponse
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
@@ -19,7 +18,7 @@ import java.util.*
 /**
  * @since 2021-08-10
  */
-class GetUserProjectionApiSpec : EndpointLargeTestBase() {
+class GetUserApiSpec : EndpointLargeTestBase() {
     @DisplayName("Can retrieve user information whom is already exist in server")
     @Test
     fun userInfoRetrieved() {
@@ -33,7 +32,7 @@ class GetUserProjectionApiSpec : EndpointLargeTestBase() {
         ).expect2xx(UserResponse::class)
 
         // expect:
-        assertThat(userInfo, `is`(createdUser))
+        userInfo shouldBe createdUser
     }
 
     @DisplayName("Cannot retrieve user information whom is not exist in server")

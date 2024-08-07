@@ -5,18 +5,14 @@
 package testcase.small.domain.user
 
 import com.github.francescojo.core.domain.user.UserId
-import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
 import com.github.francescojo.core.domain.user.usecase.FindUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
-import org.hamcrest.CoreMatchers.`is`
-import org.hamcrest.CoreMatchers.not
-import org.hamcrest.CoreMatchers.nullValue
-import org.hamcrest.MatcherAssert.assertThat
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.kotlin.mock
 import test.domain.user.projection.MockUserProjectionFinder
 import test.domain.user.random
 import test.domain.user.randomUserProjection
@@ -50,7 +46,7 @@ internal class FindUserUseCaseSpec {
         val notFoundUser = sut.findUserById(id)
 
         // expect:
-        assertThat(notFoundUser, `is`(nullValue()))
+        notFoundUser shouldBe null
     }
 
     @DisplayName("User is returned if user with given id is found")
@@ -66,6 +62,6 @@ internal class FindUserUseCaseSpec {
         val foundUser = sut.findUserById(id)
 
         // expect:
-        assertThat(foundUser, not(nullValue()))
+        foundUser shouldNotBe null
     }
 }

@@ -7,8 +7,7 @@ package testcase.large.endpoint.v1.user
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.user.common.UserResponse
 import com.github.francescojo.endpoint.v1.user.create.CreateUserRequest
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.`is`
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -23,7 +22,7 @@ import testcase.large.endpoint.EndpointLargeTestBase
 /**
  * @since 2021-08-10
  */
-class CreateUserProjectionApiSpec : EndpointLargeTestBase() {
+class CreateUserApiSpec : EndpointLargeTestBase() {
     @DisplayName("User is created for valid request")
     @Test
     fun userCreated() {
@@ -72,8 +71,8 @@ class CreateUserProjectionApiSpec : EndpointLargeTestBase() {
 
     private fun assertThat(actual: UserResponse, isReflecting: CreateUserRequest) {
         assertAll(
-            { assertThat(actual.nickname, `is`(isReflecting.nickname)) },
-            { assertThat(actual.email, `is`(isReflecting.email)) }
+            { actual.nickname shouldBe isReflecting.nickname },
+            { actual.email shouldBe isReflecting.email }
         )
     }
 }
