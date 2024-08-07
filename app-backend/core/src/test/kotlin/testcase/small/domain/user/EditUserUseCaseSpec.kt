@@ -25,9 +25,11 @@ import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.mock
 import test.domain.user.EMPTY
+import test.domain.user.projection.MockUserProjectionFinder
 import test.domain.user.random
 import test.domain.user.randomEditUserMessage
 import test.domain.user.randomUserProjection
+import test.domain.user.repository.MockUserRepository
 
 /**
  * @since 2021-08-10
@@ -35,13 +37,13 @@ import test.domain.user.randomUserProjection
 @SmallTest
 internal class EditUserUseCaseSpec {
     private lateinit var sut: EditUserUseCase
-    private lateinit var userProjectionFinder: UserProjectionFinder
-    private lateinit var userRepository: UserRepository
+    private lateinit var userRepository: MockUserRepository
+    private lateinit var userProjectionFinder: MockUserProjectionFinder
 
     @BeforeEach
     fun setup() {
-        userProjectionFinder = mock()
-        userRepository = mock()
+        userRepository = MockUserRepository()
+        userProjectionFinder = MockUserProjectionFinder(userRepository)
         sut = EditUserUseCase.newInstance(
             userProjectionFinder = userProjectionFinder,
             userRepository = userRepository

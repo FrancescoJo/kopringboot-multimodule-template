@@ -12,6 +12,7 @@ import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -20,6 +21,7 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.kotlin.mock
 import test.domain.user.randomCreateUserMessage
 import test.domain.user.randomUserProjection
+import test.domain.user.repository.MockUserRepository
 
 /**
  * @since 2021-08-10
@@ -27,12 +29,17 @@ import test.domain.user.randomUserProjection
 @SmallTest
 internal class CreateUserUseCaseSpec {
     private lateinit var sut: CreateUserUseCase
-    private lateinit var userRepository: UserRepository
+    private lateinit var userRepository: MockUserRepository
 
     @BeforeEach
     fun setup() {
-        userRepository = mock()
+        userRepository = MockUserRepository()
         sut = CreateUserUseCase.newInstance(userRepository)
+    }
+
+    @AfterEach
+    fun tearDown() {
+        userRepository.clearMocks()
     }
 
     @DisplayName("An user object that fully represents message, is created")

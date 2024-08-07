@@ -12,11 +12,14 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
+import test.domain.user.projection.MockUserProjectionFinder
 import test.domain.user.random
+import test.domain.user.randomUserProjection
 
 /**
  * @since 2021-08-10
@@ -24,12 +27,17 @@ import test.domain.user.random
 @SmallTest
 internal class FindUserUseCaseSpec {
     private lateinit var sut: FindUserUseCase
-    private lateinit var userProjectionFinder: UserProjectionFinder
+    private lateinit var userProjectionFinder: MockUserProjectionFinder
 
     @BeforeEach
     fun setup() {
-        userProjectionFinder = mock()
+        userProjectionFinder = MockUserProjectionFinder()
         sut = FindUserUseCase.newInstance(userProjectionFinder)
+    }
+
+    @AfterEach
+    fun tearDown() {
+        userProjectionFinder.clearMocks()
     }
 
     @DisplayName("null is returned if user with given id is not found")
@@ -52,7 +60,7 @@ internal class FindUserUseCaseSpec {
         val id = UserId.random()
 
         // and:
-        // userProjectionFinder.save(randomUserProjection(id = id))
+        userProjectionFinder.save(randomUserProjection(id = id))
 
         // then:
         val foundUser = sut.findUserById(id)

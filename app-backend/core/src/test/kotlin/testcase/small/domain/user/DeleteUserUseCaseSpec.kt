@@ -22,6 +22,7 @@ import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import test.domain.user.random
 import test.domain.user.randomUserProjection
+import test.domain.user.repository.MockUserRepository
 
 /**
  * @since 2021-08-10
@@ -29,14 +30,12 @@ import test.domain.user.randomUserProjection
 @SmallTest
 internal class DeleteUserUseCaseSpec {
     private lateinit var sut: DeleteUserUseCase
-    private lateinit var userRepository: UserRepository
+    private lateinit var userRepository: MockUserRepository
 
     @BeforeEach
     fun setup() {
-        userRepository = mock()
+        userRepository = MockUserRepository()
         sut = DeleteUserUseCase.newInstance(userRepository)
-
-        `when`(userRepository.save(any())).thenAnswer { return@thenAnswer it.arguments[0] }
     }
 
     @DisplayName("null is returned if user with given id is not found")

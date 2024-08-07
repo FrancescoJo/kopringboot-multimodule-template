@@ -7,6 +7,7 @@ package com.github.francescojo.core.domain.user.projection
 import com.github.francescojo.core.domain.DateAuditable
 import com.github.francescojo.core.domain.IdentifiableObject
 import com.github.francescojo.core.domain.user.UserId
+import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.projection.impl.UserProjectionImpl
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.ValueParameter
@@ -38,6 +39,18 @@ interface UserProjection : IdentifiableObject<UserId>, DateAuditable {
     }
 
     companion object {
+        fun aggregate(
+            @ValueParameter user: User
+        ) : UserProjection {
+            return create(
+                id = user.id,
+                nickname = user.nickname,
+                email = user.email,
+                createdAt = user.createdAt,
+                updatedAt = user.updatedAt
+            )
+        }
+
         @SuppressWarnings("LongParameterList")      // Intended complexity to provide various User creation cases
         fun create(
             @ValueParameter id: UserId,

@@ -34,7 +34,6 @@ abstract class AbstractWritableRepositoryTemplate<T : IdentifiableObject<ID>, ID
         // TODO: region Transaction required
         val comparisons = findAllByIds(models.map { it.id }, lockRecords = true).associateBy { it.id }
 
-        // CREATE 와 UPDATE candidate 를 가려낸다.
         val (createCandidates, updateCandidates) = models.partition {
             !it.isIdentified || comparisons[it.id] == null
         }
