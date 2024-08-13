@@ -12,10 +12,12 @@ import jakarta.persistence.Embeddable
  */
 @Embeddable
 class SoftDeletableEmbedded(
-    @get:Column(name = COLUMN_DELETED)
+    @get:Column(name = COL_DELETED)
     var deleted: Boolean = false
 ) {
+    override fun toString(): String = "${SoftDeletableEmbedded::class.simpleName}(${::deleted.name}=$deleted)"
+
     companion object {
-        const val COLUMN_DELETED = "deleted"
+        const val COL_DELETED = "deleted"
     }
 }

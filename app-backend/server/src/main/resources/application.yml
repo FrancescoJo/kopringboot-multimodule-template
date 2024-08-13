@@ -19,6 +19,13 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: validate
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    properties:
+      hibernate:
+        query:
+          fail_on_pagination_over_collection_fetch: true
   sql:
     init:
       mode: ALWAYS

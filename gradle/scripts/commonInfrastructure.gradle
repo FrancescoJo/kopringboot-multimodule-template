@@ -1,3 +1,5 @@
+apply plugin: "org.jetbrains.kotlin.plugin.jpa"
+
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-jdbc:$version_springBoot"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa:$version_springBoot"
@@ -7,6 +9,8 @@ dependencies {
 
     implementation "com.linecorp.kotlin-jdsl:jpql-dsl:$version_jdsl"
     implementation "com.linecorp.kotlin-jdsl:jpql-render:$version_jdsl"
+
+    implementation "io.hypersistence:hypersistence-tsid:$version_tsid_generator"
 
     testImplementation "com.h2database:h2:$version_h2database"
     testImplementation "org.testcontainers:mariadb:$version_testcontainers"

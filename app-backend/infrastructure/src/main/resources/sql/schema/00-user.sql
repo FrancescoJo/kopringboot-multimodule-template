@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `users`
 (
     `seq`            BIGINT      NOT NULL AUTO_INCREMENT,
-    `id`             BINARY(16)  PRIMARY KEY,
+    `id`             BIGINT      PRIMARY KEY,
     `nickname`       VARCHAR(64) NOT NULL,
     `email`          VARCHAR(64) NOT NULL,
     `deleted`        BOOLEAN     DEFAULT FALSE,

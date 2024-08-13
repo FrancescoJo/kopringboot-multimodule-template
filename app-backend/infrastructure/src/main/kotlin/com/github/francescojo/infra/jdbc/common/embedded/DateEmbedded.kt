@@ -17,15 +17,19 @@ import java.time.Instant
 @Embeddable
 class DateEmbedded(
     @get:CreatedDate
-    @get:Column(name = COLUMN_CREATED_AT)
+    @get:Column(name = COL_CREATED_AT)
     override var createdAt: Instant = Instant.now(),
 
     @get:LastModifiedDate
-    @get:Column(name = COLUMN_UPDATED_AT)
+    @get:Column(name = COL_UPDATED_AT)
     override var updatedAt: Instant = createdAt
 ) : DateAuditable {
+    override fun toString(): String = "${DateEmbedded::class.simpleName}(" +
+            "${::createdAt.name}=$createdAt, " +
+            "${::updatedAt.name}=$updatedAt)"
+
     companion object {
-        const val COLUMN_CREATED_AT = "created_at"
-        const val COLUMN_UPDATED_AT = "updated_at"
+        const val COL_CREATED_AT = "created_at"
+        const val COL_UPDATED_AT = "updated_at"
     }
 }

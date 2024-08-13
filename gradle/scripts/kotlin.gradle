@@ -19,7 +19,6 @@ allOpen {
     annotation("com.github.francescojo.core.annotation.OpenForTesting")
     annotation("com.github.francescojo.core.annotation.UseCase")
 
-    annotation("com.github.francescojo.lib.annotation.SmallTest")
-    annotation("com.github.francescojo.lib.annotation.MediumTest")
-    annotation("com.github.francescojo.lib.annotation.LargeTest")
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
 }

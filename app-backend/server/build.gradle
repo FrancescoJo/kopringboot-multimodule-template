@@ -29,6 +29,9 @@ dependencies {
     implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$version_jackson_kotlin"
     // endregion
 
+    // Infrastructure
+    implementation "com.h2database:h2:$version_h2database"
+
     // region test dependencies
     // First-party dependencies
     testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")

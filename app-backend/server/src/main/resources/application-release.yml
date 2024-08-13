@@ -3,6 +3,12 @@ spring:
     activate:
       on-profile: release
 
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
 logging:
   file:
     path: ${KOPRINGBOOT_APP_LOG_PATH:logs/}
