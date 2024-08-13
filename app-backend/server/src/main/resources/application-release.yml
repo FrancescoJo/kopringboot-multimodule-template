@@ -4,6 +4,8 @@ spring:
       on-profile: release
 
 logging:
+  file:
+    path: ${KOPRINGBOOT_APP_LOG_PATH:logs/}
   level:
     ROOT: INFO
     com.github.francescojo: TRACE
