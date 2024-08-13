@@ -7,11 +7,11 @@ package com.github.francescojo.endpoint.v1.user
 import com.github.francescojo.endpoint.common.response.SimpleResponse
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.francescojo.endpoint.v1.ApiVariableV1
+import io.hypersistence.tsid.TSID
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import java.util.*
 
 /**
  * ```
@@ -30,5 +30,5 @@ interface DeleteUserController {
         path = [ApiPathsV1.USERS_ID],
         method = [RequestMethod.DELETE]
     )
-    fun delete(@PathVariable(ApiVariableV1.ID) id: UUID): SimpleResponse<Boolean>
+    fun delete(@PathVariable(ApiVariableV1.ID) id: TSID): SimpleResponse<Boolean>
 }

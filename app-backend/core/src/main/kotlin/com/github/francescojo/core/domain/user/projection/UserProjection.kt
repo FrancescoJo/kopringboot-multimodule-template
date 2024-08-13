@@ -11,6 +11,7 @@ import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.projection.impl.UserProjectionImpl
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.ValueParameter
+import io.hypersistence.tsid.TSID
 import java.time.Instant
 
 /**
@@ -53,7 +54,7 @@ interface UserProjection : IdentifiableObject<UserId>, DateAuditable {
 
         @SuppressWarnings("LongParameterList")      // Intended complexity to provide various User creation cases
         fun create(
-            @ValueParameter id: UserId,
+            @ValueParameter id: UserId = UserId(TSID.Factory.getTsid()),
             @ValueParameter nickname: String,
             @ValueParameter email: String,
             @ValueParameter createdAt: Instant = Instant.now(),

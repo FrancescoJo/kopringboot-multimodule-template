@@ -16,8 +16,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import test.domain.user.randomCreateUserMessage
-import test.domain.user.randomUserProjection
+import test.domain.user.UserTestUtils.randomUserProjection
+import test.domain.user.UserUseCaseTestUtils.randomCreateUserMessage
 import test.domain.user.repository.MockUserRepository
 
 /**

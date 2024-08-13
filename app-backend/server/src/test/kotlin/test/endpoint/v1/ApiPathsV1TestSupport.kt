@@ -4,9 +4,15 @@
  */
 package test.endpoint.v1
 
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.francescojo.endpoint.v1.ApiVariableV1
-import java.util.*
+import com.github.francescojo.util.WebMvcBindUtils
 
-fun ApiPathsV1.usersId(id: UUID): String =
-    USERS_ID.replace(ApiVariableV1.PATH_ID, id.toString())
+/**
+ * @since 2022-09-10
+ */
+object ApiPathsV1TestSupport : WebMvcBindUtils {
+    fun ApiPathsV1.usersId(id: UserId): String =
+        USERS_ID.replace(ApiVariableV1.PATH_ID, id.value.serialise())
+}

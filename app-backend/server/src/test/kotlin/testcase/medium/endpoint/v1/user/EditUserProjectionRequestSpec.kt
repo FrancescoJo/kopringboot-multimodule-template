@@ -5,6 +5,7 @@
 package testcase.medium.endpoint.v1.user
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.ApiPathsV1
@@ -13,9 +14,9 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import test.endpoint.v1.usersId
+import test.domain.user.UserTestUtils.random
+import test.endpoint.v1.ApiPathsV1TestSupport.usersId
 import testcase.medium.ControllerMediumTestBase
-import java.util.*
 import java.util.stream.Stream
 
 /**
@@ -35,7 +36,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         )
 
         // when:
-        val request = patch(ApiPathsV1.usersId(UUID.randomUUID()), payload)
+        val request = patch(ApiPathsV1.usersId(UserId.random()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
@@ -57,7 +58,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         )
 
         // when:
-        val request = patch(ApiPathsV1.usersId(UUID.randomUUID()), payload)
+        val request = patch(ApiPathsV1.usersId(UserId.random()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
@@ -72,7 +73,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         testName: String,
         payload: FakeEditUserRequest
     ) {
-        val request = patch(ApiPathsV1.usersId(UUID.randomUUID()), payload)
+        val request = patch(ApiPathsV1.usersId(UserId.random()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()

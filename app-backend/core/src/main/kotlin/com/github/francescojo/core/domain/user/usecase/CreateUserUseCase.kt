@@ -5,13 +5,11 @@
 package com.github.francescojo.core.domain.user.usecase
 
 import com.github.francescojo.core.annotation.UseCase
-import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.projection.UserProjection
 import com.github.francescojo.core.domain.user.repository.UserRepository
-import java.util.*
 
 /**
  * @since 2021-08-10
@@ -43,7 +41,6 @@ internal class CreateUserUseCaseImpl(
         users.findByEmail(message.email)?.let { throw SameEmailUserAlreadyExistException(message.email) }
 
         val user = UserProjection.create(
-            id = UserId(UUID.randomUUID()),
             nickname = message.nickname,
             email = message.email
         )

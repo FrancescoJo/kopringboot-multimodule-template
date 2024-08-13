@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.github.francescojo.core.domain.user.projection.UserProjection
+import io.hypersistence.tsid.TSID
 import java.time.Instant
-import java.util.*
 
 /**
  * @since 2021-08-10
@@ -18,7 +18,7 @@ import java.util.*
 data class UserResponse(
     @JsonProperty
     @JsonPropertyDescription(DESC_ID)
-    val id: UUID,
+    val id: TSID,
 
     @JsonProperty
     @JsonPropertyDescription(DESC_NICKNAME)

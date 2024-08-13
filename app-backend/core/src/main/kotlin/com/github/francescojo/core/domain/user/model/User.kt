@@ -12,7 +12,7 @@ import com.github.francescojo.lib.annotation.ValueParameter
 import java.time.Instant
 
 /**
- * A write model that derived from [UserProjection].
+ * A 'write model' that derived from [UserProjection].
  * This model holds general write rules for User.
  *
  * It is advised to retain this model as simple as possible - for example,

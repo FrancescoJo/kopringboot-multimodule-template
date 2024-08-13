@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.ImportAutoConfiguration
 import org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration
 import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache
 import org.springframework.boot.test.autoconfigure.data.jdbc.AutoConfigureDataJdbc
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTypeExcludeFilter
 import org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureJdbc
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase

@@ -13,9 +13,9 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import test.domain.user.UserTestUtils.random
+import test.domain.user.UserTestUtils.randomUserProjection
 import test.domain.user.projection.MockUserProjectionFinder
-import test.domain.user.random
-import test.domain.user.randomUserProjection
 
 /**
  * @since 2021-08-10

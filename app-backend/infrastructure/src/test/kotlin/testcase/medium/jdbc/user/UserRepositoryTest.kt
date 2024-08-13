@@ -6,19 +6,13 @@ package testcase.medium.jdbc.user
 
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.repository.UserRepository
-import com.github.francescojo.infra.jdbc.user.UserEntity
-import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
-import com.github.javafaker.Faker
-import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
+import io.hypersistence.tsid.TSID
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
-import test.domain.user.randomUserProjection
 import testcase.medium.JdbcTemplateMediumTestBase
 
 /**
@@ -29,9 +23,22 @@ internal class UserRepositoryTest : JdbcTemplateMediumTestBase() {
     @Autowired
     private lateinit var sut: UserRepository
 
-    @Test
-    fun contextLoads() {
+    @DisplayName("We can find a saved entity by: ")
+    @Nested
+    inner class WeCanFindSavedEntityBy {
+        private lateinit var user: User
 
+        @BeforeEach
+        fun setUp() {
+
+        }
+
+        @DisplayName("its ID")
+        @Test
+        fun byId() {
+            // given:
+
+        }
     }
 //
 //    @DisplayName("Inserted entity must has an unique id")

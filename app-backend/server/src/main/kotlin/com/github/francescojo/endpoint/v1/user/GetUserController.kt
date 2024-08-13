@@ -7,11 +7,11 @@ package com.github.francescojo.endpoint.v1.user
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.francescojo.endpoint.v1.ApiVariableV1
 import com.github.francescojo.endpoint.v1.user.common.UserResponse
+import io.hypersistence.tsid.TSID
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
-import java.util.*
 
 /**
  * ```
@@ -30,5 +30,5 @@ interface GetUserController {
         path = [ApiPathsV1.USERS_ID],
         method = [RequestMethod.GET]
     )
-    fun get(@PathVariable(ApiVariableV1.ID) id: UUID): UserResponse
+    fun get(@PathVariable(ApiVariableV1.ID) id: TSID): UserResponse
 }

@@ -10,6 +10,8 @@ dependencies {
     implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
     // endregion
 
+    api "io.hypersistence:hypersistence-tsid:$version_tsid_generator"
+
     // region test dependencies
     testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")
     // endregion

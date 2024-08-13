@@ -4,16 +4,17 @@
  */
 package testcase.large.endpoint.v1.user
 
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.common.response.SimpleResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import test.endpoint.v1.user.createRandomUser
-import test.endpoint.v1.user.deleteUserApi
+import test.domain.user.UserTestUtils.random
+import test.endpoint.v1.user.UserApiTestSupport.createRandomUser
+import test.endpoint.v1.user.UserApiTestSupport.deleteUserApi
 import testcase.large.endpoint.EndpointLargeTestBase
-import java.util.*
 
 /**
  * @since 2021-08-10
@@ -27,7 +28,7 @@ class DeleteUserApiSpec : EndpointLargeTestBase() {
 
         // then:
         val deleteResult = deleteUserApi(
-            createdUser.id,
+            UserId(createdUser.id),
             responseFields = null
         ).expect2xx(SimpleResponse::class)
 
@@ -39,7 +40,7 @@ class DeleteUserApiSpec : EndpointLargeTestBase() {
     @Test
     fun userInfoNotFound() {
         // expect:
-        deleteUserApi(UUID.randomUUID())
+        deleteUserApi(UserId.random())
             .expect4xx(HttpStatus.NOT_FOUND)
             .withExceptionCode(ErrorCodes.USER_BY_ID_NOT_FOUND)
     }

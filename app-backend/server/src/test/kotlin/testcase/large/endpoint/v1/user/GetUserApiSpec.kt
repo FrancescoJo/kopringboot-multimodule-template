@@ -4,16 +4,17 @@
  */
 package testcase.large.endpoint.v1.user
 
+import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.user.common.UserResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import test.endpoint.v1.user.createRandomUser
-import test.endpoint.v1.user.getUserApi
+import test.domain.user.UserTestUtils.random
+import test.endpoint.v1.user.UserApiTestSupport.createRandomUser
+import test.endpoint.v1.user.UserApiTestSupport.getUserApi
 import testcase.large.endpoint.EndpointLargeTestBase
-import java.util.*
 
 /**
  * @since 2021-08-10
@@ -27,7 +28,7 @@ class GetUserApiSpec : EndpointLargeTestBase() {
 
         // then:
         val userInfo = getUserApi(
-            createdUser.id,
+            UserId(createdUser.id),
             responseFields = null
         ).expect2xx(UserResponse::class)
 
@@ -39,7 +40,7 @@ class GetUserApiSpec : EndpointLargeTestBase() {
     @Test
     fun userInfoNotFound() {
         // expect:
-        getUserApi(UUID.randomUUID())
+        getUserApi(UserId.random())
             .expect4xx(HttpStatus.NOT_FOUND)
             .withExceptionCode(ErrorCodes.USER_BY_ID_NOT_FOUND)
     }

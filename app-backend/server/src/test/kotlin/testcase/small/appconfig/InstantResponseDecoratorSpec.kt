@@ -6,7 +6,7 @@ package testcase.small.appconfig
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.github.francescojo.appconfig.InstantResponseDecorator
+import com.github.francescojo.appconfig.JacksonInstantSerializer
 import com.github.francescojo.lib.annotation.SmallTest
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
@@ -24,7 +24,7 @@ import java.util.stream.Stream
  */
 @SmallTest
 class InstantResponseDecoratorSpec {
-    private lateinit var sut: InstantResponseDecorator
+    private lateinit var sut: JacksonInstantSerializer
     private lateinit var mockGen: JsonGenerator
     private lateinit var serializers: SerializerProvider
 
@@ -32,7 +32,7 @@ class InstantResponseDecoratorSpec {
     fun setUp() {
         mockGen = mock()
         serializers = mock()
-        sut = InstantResponseDecorator()
+        sut = JacksonInstantSerializer()
     }
 
     @ParameterizedTest(name = "Zero values should never be truncated")

@@ -4,15 +4,15 @@
  */
 package com.github.francescojo.core.domain.user
 
-import com.github.francescojo.core.domain.UuidValueHolder
+import com.github.francescojo.core.domain.TsidValueHolder
+import io.hypersistence.tsid.TSID
 import java.io.Serial
 import java.io.Serializable
-import java.util.*
 
 /**
  * @since 2021-08-10
  */
-@JvmInline value class UserId(override val value: UUID) : UuidValueHolder, Serializable {
+@JvmInline value class UserId(override val value: TSID) : TsidValueHolder, Serializable {
     companion object {
         @Suppress("ConstPropertyName")  // JVM static field
         @Serial

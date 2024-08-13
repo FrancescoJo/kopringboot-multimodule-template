@@ -5,6 +5,7 @@
 package com.github.francescojo.core.domain
 
 import com.github.francescojo.lib.util.EMPTY_UUID
+import io.hypersistence.tsid.TSID
 import java.util.*
 
 /**
@@ -44,5 +45,14 @@ interface UuidValueHolder : ValueHolder<UUID> {
 
     companion object {
         val EMPTY_VALUE: UUID = EMPTY_UUID
+    }
+}
+
+interface TsidValueHolder : ValueHolder<TSID> {
+    override val isEmpty: Boolean
+        get() = value == EMPTY_VALUE
+
+    companion object {
+        val EMPTY_VALUE: TSID = TSID.from(0L)
     }
 }

@@ -8,8 +8,8 @@ import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.usecase.DeleteUserUseCase
 import com.github.francescojo.endpoint.common.response.SimpleResponse
 import com.github.francescojo.endpoint.v1.user.DeleteUserController
+import io.hypersistence.tsid.TSID
 import org.springframework.web.bind.annotation.RestController
-import java.util.*
 
 /**
  * @since 2021-08-10
@@ -18,7 +18,7 @@ import java.util.*
 internal class DeleteUserControllerImpl(
     private val useCase: DeleteUserUseCase
 ) : DeleteUserController {
-    override fun delete(id: UUID): SimpleResponse<Boolean> {
+    override fun delete(id: TSID): SimpleResponse<Boolean> {
         useCase.deleteUserById(UserId(id))
 
         return SimpleResponse(true)

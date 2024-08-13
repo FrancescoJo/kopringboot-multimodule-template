@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import test.domain.user.EMPTY
+import test.domain.user.UserTestUtils.EMPTY
+import test.domain.user.UserTestUtils.random
+import test.domain.user.UserTestUtils.randomUserProjection
+import test.domain.user.UserUseCaseTestUtils.randomEditUserMessage
 import test.domain.user.projection.MockUserProjectionFinder
-import test.domain.user.random
-import test.domain.user.randomEditUserMessage
-import test.domain.user.randomUserProjection
 import test.domain.user.repository.MockUserRepository
 
 /**
