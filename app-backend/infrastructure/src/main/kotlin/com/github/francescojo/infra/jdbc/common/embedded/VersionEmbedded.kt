@@ -25,6 +25,8 @@ class VersionEmbedded(
 
     override fun increase(): Long = ++version
 
+    override fun toString(): String = "${VersionEmbedded::class.simpleName}(${::version.name}=$version)"
+
     companion object {
         const val COL_VERSION = "version"
     }

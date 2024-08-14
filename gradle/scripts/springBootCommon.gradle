@@ -14,7 +14,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-logging:$version_springBoot"
 
     // Spring boot test
-    testImplementation("org.springframework.boot:spring-boot-starter-test:$version_springBootTest") {
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$version_springBoot") {
         exclude group: "com.vaadin.external.google", module: "android-json"
     }
 }

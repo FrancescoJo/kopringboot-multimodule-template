@@ -6,14 +6,19 @@ package testcase.medium.jdbc.user
 
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.repository.UserRepository
-import io.hypersistence.tsid.TSID
-import org.junit.jupiter.api.BeforeEach
+import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
+import test.domain.user.UserTestUtils.randomUserProjection
 import testcase.medium.JdbcTemplateMediumTestBase
+import java.util.stream.Stream
 
 /**
  * @since 2021-08-10
@@ -23,110 +28,75 @@ internal class UserRepositoryTest : JdbcTemplateMediumTestBase() {
     @Autowired
     private lateinit var sut: UserRepository
 
-    @DisplayName("We can find a saved entity by: ")
-    @Nested
-    inner class WeCanFindSavedEntityBy {
-        private lateinit var user: User
+    @ParameterizedTest(name = "We can find a saved User by {0}")
+    @MethodSource("testcase.medium.jdbc.user.UserRepositoryTest#findSavedUserByParams")
+    fun findSavedUserBy(
+        testName: String,
+        findOperation: (UserRepository, User) -> User?
+    ) {
+        // given:
+        val savedUser = sut.save(User.from(randomUserProjection()))
 
-        @BeforeEach
-        fun setUp() {
+        // then:
+        val foundUser = findOperation(sut, savedUser)
 
-        }
-
-        @DisplayName("its ID")
-        @Test
-        fun byId() {
-            // given:
-
-        }
+        // expect:
+        foundUser shouldBe savedUser
     }
-//
-//    @DisplayName("Inserted entity must has an unique id")
-//    @Test
-//    fun insertTest() {
-//        // given:
-//        val randomUser = randomUserEntity()
-//
-//        // then:
-//        val savedUser = sut.insert(randomUser)
-//
-//        // expect:
-//        savedUser.id shouldNotBe null
-//
-//        // then:
-//        val foundUser = sut.selectById(savedUser.id)
-//
-//        // expect:
-//        foundUser shouldBe savedUser
-//    }
-//
-//    @DisplayName("Changes in entity must be persisted")
-//    @Test
-//    fun updateTest() {
-//        // given:
-//        val savedUser = sut.insert(randomUserEntity())
-//
-//        // when:
-//        val newNickname = Faker().superhero().name()
-//        val newEmail = Faker().internet().safeEmailAddress()
-//        val foundUser = sut.selectById(savedUser.id)!!.apply {
-//            this.nickname = newNickname
-//            this.email = newEmail
-//        }
-//
-//        // then:
-//        val updatedUser = sut.update(foundUser.id, foundUser)
-//
-//        // then:
-//        val retrievedUser = sut.selectById(updatedUser.id)!!
-//
-//        // expect:
-//        assertAll(
-//            { retrievedUser.nickname shouldBe newNickname },
-//            { retrievedUser.email shouldBe newEmail },
-//        )
-//    }
-//
-//    @DisplayName("Inserted user must be found for criteria:")
-//    @Nested
-//    inner class SavedUserProjectionMustBeFoundBy {
-//        private lateinit var savedUser: UserEntity
-//
-//        @BeforeEach
-//        fun setup() {
-//            savedUser = sut.insert(randomUserEntity())
-//        }
-//
-//        @DisplayName("uuid")
-//        @Test
-//        fun byUuid() {
-//            // when:
-//            val foundUser = sut.selectById(savedUser.id)
-//
-//            // then:
-//            foundUser shouldBe savedUser
-//        }
-//
-//        @DisplayName("nickname")
-//        @Test
-//        fun byNickname() {
-//            // when:
-//            val foundUser = sut.selectByNickname(savedUser.nickname)
-//
-//            // then:
-//            foundUser shouldBe savedUser
-//        }
-//
-//        @DisplayName("email")
-//        @Test
-//        fun byEmail() {
-//            // when:
-//            val foundUser = sut.selectByEmail(savedUser.email)
-//
-//            // then:
-//            foundUser shouldBe savedUser
-//        }
-//    }
-//
-//    private fun randomUserEntity(): UserEntity = UserEntity.from(User.from(randomUserProjection()))
+
+    @DisplayName("Changes in user is well preserved")
+    @Test
+    fun changesAreWellPreserved() {
+        // given:
+        val oldUser = sut.save(User.from(randomUserProjection()))
+
+        // and:
+        val newUser = sut.save(User.from(randomUserProjection(id = oldUser.id)))
+
+        // then:
+        val foundUser = sut.findById(oldUser.id)
+
+        // expect:
+        assertAll(
+            { foundUser shouldBe newUser },
+            { foundUser shouldNotBe oldUser }
+        )
+    }
+
+    @DisplayName("Cannot find a deleted User")
+    @Test
+    fun cannotFindDeletedUser() {
+        // given:
+        val oldUser = sut.save(User.from(randomUserProjection()))
+
+        // when:
+        val deletedCount = sut.deleteById(oldUser.id)
+
+        // then:
+        val deletedUser = sut.findById(oldUser.id)
+
+        // expect:
+        assertAll(
+            { deletedCount shouldBe true },
+            { deletedUser shouldBe null }
+        )
+    }
+
+    companion object {
+        @JvmStatic
+        fun findSavedUserByParams(): Stream<Arguments> = Stream.of(
+            Arguments.of(
+                "its ID",
+                { sut: UserRepository, user: User -> sut.findById(user.id) }
+            ),
+            Arguments.of(
+                "its Email",
+                { sut: UserRepository, user: User -> sut.findByEmail(user.email) }
+            ),
+            Arguments.of(
+                "its Nickname",
+                { sut: UserRepository, user: User -> sut.findByNickname(user.nickname) }
+            )
+        )
+    }
 }

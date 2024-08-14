@@ -3,12 +3,6 @@ spring:
     activate:
       on-profile: local
 
-  jpa:
-    properties:
-      hibernate:
-        show_sql: true
-        format_sql: true
-
 logging:
   level:
     ROOT: INFO

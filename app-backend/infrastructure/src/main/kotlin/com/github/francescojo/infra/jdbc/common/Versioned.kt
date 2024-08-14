@@ -15,7 +15,7 @@ interface Versioned<T : Comparable<T>> {
     fun increase(): T
 
     companion object {
-        const val DEFAULT_INT = 0
-        const val DEFAULT_LONG_INT = 0L
+        const val DEFAULT_INT = 1
+        const val DEFAULT_LONG_INT = 1L
     }
 }

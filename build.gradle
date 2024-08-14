@@ -14,8 +14,7 @@ buildscript {
         version_jakarta_inject = "2.0.1"
 
         // Spring + infrastructure
-        version_springBoot = "3.1.4"
-        version_springBootTest = "3.1.4"
+        version_springBoot = "3.3.2"
         version_hikariCP = "5.0.1"
         version_mariadb = "3.1.0"
         version_h2database = "2.1.214"
@@ -25,7 +24,7 @@ buildscript {
         version_jdsl = "3.0.1"
         version_jackson = "2.13.4"
         version_jackson_kotlin = "2.13.4"
-        version_tsid_generator = "2.1.2"
+        version_hypersistence_tsid = "2.1.2"
 
         // Testing & Code quality
         version_detekt = "1.21.0"

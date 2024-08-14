@@ -10,6 +10,7 @@ import jakarta.persistence.Converter
 
 /**
  * Converts TSID to 8-bytes long type and vice versa.
+ * Currently not working on Aug - 2024.
  *
  * @since 2022-02-14
  */
