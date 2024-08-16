@@ -7,8 +7,8 @@ package test.domain.user
 import com.github.francescojo.core.domain.TsidValueHolder
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.projection.UserProjection
-import com.github.javafaker.Faker
 import io.hypersistence.tsid.TSID
+import test.com.github.francescojo.lib.SharedTestObjects.faker
 import java.time.Instant
 
 /**
@@ -22,8 +22,8 @@ object UserTestUtils {
 
     fun randomUserProjection(
         id: UserId = UserId(TSID.fast()),
-        nickname: String = Faker().name().fullName(),
-        email: String = Faker().internet().emailAddress(),
+        nickname: String = faker.name().fullName(),
+        email: String = faker.internet().emailAddress(),
         createdAt: Instant = Instant.now(),
         updatedAt: Instant = Instant.now()
     ) = UserProjection.create(

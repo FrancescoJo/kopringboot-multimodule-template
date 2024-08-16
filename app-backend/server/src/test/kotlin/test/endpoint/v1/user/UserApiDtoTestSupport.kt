@@ -7,21 +7,25 @@ package test.endpoint.v1.user
 import com.github.francescojo.endpoint.v1.user.create.CreateUserRequest
 import com.github.francescojo.endpoint.v1.user.edit.EditUserRequest
 import com.github.francescojo.lib.util.toOptional
-import com.github.javafaker.Faker
-import java.util.*
+import test.com.github.francescojo.lib.SharedTestObjects.faker
 
-fun CreateUserRequest.Companion.random(
-    nickname: String = Faker().name().fullName(),
-    email: String = Faker().internet().emailAddress()
-) = CreateUserRequest(
-    nickname = nickname,
-    email = email
-)
+/**
+ * @since 2022-09-10
+ */
+object UserApiDtoTestSupport {
+    fun CreateUserRequest.Companion.random(
+        nickname: String = faker.name().fullName(),
+        email: String = faker.internet().emailAddress()
+    ) = CreateUserRequest(
+        nickname = nickname,
+        email = email
+    )
 
-fun EditUserRequest.Companion.random(
-    nickname: String? = Faker().name().fullName(),
-    email: String? = Faker().internet().emailAddress()
-) = EditUserRequest(
-    nickname = nickname?.toOptional(),
-    email = email?.toOptional()
-)
+    fun EditUserRequest.Companion.random(
+        nickname: String? = faker.name().fullName(),
+        email: String? = faker.internet().emailAddress()
+    ) = EditUserRequest(
+        nickname = nickname?.toOptional(),
+        email = email?.toOptional()
+    )
+}

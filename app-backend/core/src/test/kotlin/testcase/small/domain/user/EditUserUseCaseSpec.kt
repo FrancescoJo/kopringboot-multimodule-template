@@ -24,7 +24,6 @@ import test.domain.user.UserTestUtils.EMPTY
 import test.domain.user.UserTestUtils.random
 import test.domain.user.UserTestUtils.randomUserProjection
 import test.domain.user.UserUseCaseTestUtils.randomEditUserMessage
-import test.domain.user.projection.MockUserProjectionFinder
 import test.domain.user.repository.MockUserRepository
 
 /**

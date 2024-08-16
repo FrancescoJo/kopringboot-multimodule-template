@@ -14,9 +14,9 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.springframework.http.HttpStatus
+import test.endpoint.v1.user.UserApiDtoTestSupport.random
 import test.endpoint.v1.user.UserApiTestSupport.createRandomUser
 import test.endpoint.v1.user.UserApiTestSupport.createUserApi
-import test.endpoint.v1.user.random
 import testcase.large.endpoint.EndpointLargeTestBase
 
 /**

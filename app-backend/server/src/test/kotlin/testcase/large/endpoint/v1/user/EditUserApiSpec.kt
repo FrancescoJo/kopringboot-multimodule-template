@@ -19,9 +19,9 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.springframework.http.HttpStatus
 import test.domain.user.UserTestUtils.random
+import test.endpoint.v1.user.UserApiDtoTestSupport.random
 import test.endpoint.v1.user.UserApiTestSupport.createRandomUser
 import test.endpoint.v1.user.UserApiTestSupport.editUserApi
-import test.endpoint.v1.user.random
 import testcase.large.endpoint.EndpointLargeTestBase
 import java.util.stream.Stream
 

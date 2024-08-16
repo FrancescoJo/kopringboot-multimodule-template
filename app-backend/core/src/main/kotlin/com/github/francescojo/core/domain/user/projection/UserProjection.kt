@@ -9,7 +9,6 @@ import com.github.francescojo.core.domain.IdentifiableObject
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.lib.annotation.ValueParameter
-import io.hypersistence.tsid.TSID
 import java.time.Instant
 
 /**

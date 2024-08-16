@@ -9,11 +9,11 @@ import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.endpoint.v1.ApiPathsV1
-import com.github.javafaker.Faker
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import test.com.github.francescojo.lib.SharedTestObjects.faker
 import test.domain.user.UserTestUtils.random
 import test.endpoint.v1.ApiPathsV1TestSupport.usersId
 import testcase.medium.ControllerMediumTestBase
@@ -32,7 +32,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         // given:
         val payload = FakeEditUserRequest(
             nickname = nickname,
-            email = Faker().internet().emailAddress()
+            email = faker.internet().emailAddress()
         )
 
         // when:
@@ -53,7 +53,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
     ) {
         // given:
         val payload = FakeEditUserRequest(
-            nickname = Faker().name().fullName(),
+            nickname = faker.name().fullName(),
             email = email
         )
 
@@ -93,11 +93,11 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         fun badNicknames(): Stream<Arguments> = Stream.of(
             Arguments.of(
                 "shorter than ${User.LENGTH_NAME_MIN}",
-                Faker().letterify("?").repeat(User.LENGTH_NAME_MIN - 1),
+                faker.letterify("?").repeat(User.LENGTH_NAME_MIN - 1),
             ),
             Arguments.of(
                 "longer than ${User.LENGTH_NAME_MAX}",
-                Faker().letterify("?").repeat(User.LENGTH_NAME_MAX + 1),
+                faker.letterify("?").repeat(User.LENGTH_NAME_MAX + 1),
             )
         )
 
@@ -105,11 +105,11 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         fun badEmails(): Stream<Arguments> = Stream.of(
             Arguments.of(
                 "not an IETF email format",
-                Faker().lorem().word(),
+                faker.lorem().word(),
             ),
             Arguments.of(
                 "longer than ${User.LENGTH_EMAIL_MAX}",
-                Faker().letterify("?").repeat(User.LENGTH_EMAIL_MAX + 1) + "@company.com",
+                faker.letterify("?").repeat(User.LENGTH_EMAIL_MAX + 1) + "@company.com",
             )
         )
 

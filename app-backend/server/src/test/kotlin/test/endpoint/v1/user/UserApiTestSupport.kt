@@ -12,6 +12,7 @@ import com.github.francescojo.endpoint.v1.user.edit.EditUserRequest
 import io.restassured.response.Response
 import org.springframework.restdocs.payload.FieldDescriptor
 import test.endpoint.v1.ApiPathsV1TestSupport.usersId
+import test.endpoint.v1.user.UserApiDtoTestSupport.random
 import testcase.large.endpoint.EndpointLargeTestBase
 import java.net.URI
 
