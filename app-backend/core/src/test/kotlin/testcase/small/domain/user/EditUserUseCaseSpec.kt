@@ -34,14 +34,11 @@ import test.domain.user.repository.MockUserRepository
 internal class EditUserUseCaseSpec {
     private lateinit var sut: EditUserUseCase
     private lateinit var userRepository: MockUserRepository
-    private lateinit var userProjectionFinder: MockUserProjectionFinder
 
     @BeforeEach
     fun setup() {
         userRepository = MockUserRepository()
-        userProjectionFinder = MockUserProjectionFinder(userRepository)
         sut = EditUserUseCase.newInstance(
-            userProjectionFinder = userProjectionFinder,
             userRepository = userRepository
         )
     }
@@ -94,7 +91,7 @@ internal class EditUserUseCaseSpec {
         @Test
         fun errorIfNicknameIsDuplicated() {
             // given:
-            val sameNicknameUser = randomUserProjection(id = id, nickname = message.nickname!!)
+            val sameNicknameUser = randomUserProjection(id = id, nickname = message.nickname!!.get())
 
             // and:
             userRepository.save(User.from(sameNicknameUser))
@@ -107,7 +104,7 @@ internal class EditUserUseCaseSpec {
         @Test
         fun errorIfEmailIsDuplicated() {
             // given:
-            val sameEmailUser = randomUserProjection(id = id, email = message.email!!)
+            val sameEmailUser = randomUserProjection(id = id, email = message.email!!.get())
 
             // and:
             userRepository.save(User.from(sameEmailUser))

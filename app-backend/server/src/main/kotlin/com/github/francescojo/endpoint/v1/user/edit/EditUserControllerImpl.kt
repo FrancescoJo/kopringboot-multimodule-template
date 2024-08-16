@@ -6,7 +6,6 @@ package com.github.francescojo.endpoint.v1.user.edit
 
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
-import com.github.francescojo.core.exception.external.WrongInputException
 import com.github.francescojo.endpoint.v1.user.EditUserController
 import com.github.francescojo.endpoint.v1.user.common.UserResponse
 import io.hypersistence.tsid.TSID
@@ -20,11 +19,7 @@ internal class EditUserControllerImpl(
     private val useCase: EditUserUseCase
 ) : EditUserController {
     override fun edit(id: TSID, req: EditUserRequest): UserResponse {
-        if (req.isEmpty()) {
-            throw WrongInputException("null")
-        }
-
-        val editedUser = useCase.editUser(UserId(id), req)
+        val editedUser = useCase.editUser(UserId(id), req.toMessage())
 
         return UserResponse.from(editedUser)
     }

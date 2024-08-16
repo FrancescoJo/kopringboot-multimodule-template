@@ -7,17 +7,15 @@ package com.github.francescojo.core.domain.user.model
 import com.github.francescojo.core.domain.DateAuditable
 import com.github.francescojo.core.domain.IdentifiableObject
 import com.github.francescojo.core.domain.user.UserId
+import com.github.francescojo.core.domain.user.model.impl.UserMutator
 import com.github.francescojo.core.domain.user.projection.UserProjection
 import com.github.francescojo.lib.annotation.ValueParameter
+import io.hypersistence.tsid.TSID
 import java.time.Instant
 
 /**
  * A 'write model' that derived from [UserProjection].
  * This model holds general write rules for User.
- *
- * It is advised to retain this model as simple as possible - for example,
- * no business logic, no validation, no default parameters, etc. We assume that all business rules
- * are already done in [UserProjection].
  *
  * @since 2024-08-06
  */
@@ -25,6 +23,14 @@ interface User : IdentifiableObject<UserId>, DateAuditable {
     val nickname: String
 
     val email: String
+
+    fun mutate(): Mutator = UserMutator.from(this)
+
+    interface Mutator : User, DateAuditable.Mutator {
+        override var nickname: String
+
+        override var email: String
+    }
 
     companion object {
         const val LENGTH_NAME_MIN = 2
@@ -42,12 +48,12 @@ interface User : IdentifiableObject<UserId>, DateAuditable {
         }
 
         fun create(
-            @ValueParameter id: UserId,
+            @ValueParameter id: UserId = UserId(TSID.Factory.getTsid()),
             @ValueParameter nickname: String,
             @ValueParameter email: String,
-            @ValueParameter createdAt: Instant,
-            @ValueParameter updatedAt: Instant
-        ) : User = UserImpl(
+            @ValueParameter createdAt: Instant = Instant.now(),
+            @ValueParameter updatedAt: Instant = createdAt
+        ) : User = UserMutator(
             id = id,
             nickname = nickname,
             email = email,
@@ -55,12 +61,4 @@ interface User : IdentifiableObject<UserId>, DateAuditable {
             updatedAt = updatedAt
         )
     }
-
-    private data class UserImpl(
-        override val id: UserId,
-        override val nickname: String,
-        override val email: String,
-        override val createdAt: Instant,
-        override val updatedAt: Instant
-    ) : User
 }

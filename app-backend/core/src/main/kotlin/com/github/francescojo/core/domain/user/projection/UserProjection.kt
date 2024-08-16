@@ -8,16 +8,12 @@ import com.github.francescojo.core.domain.DateAuditable
 import com.github.francescojo.core.domain.IdentifiableObject
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
-import com.github.francescojo.core.domain.user.projection.impl.UserProjectionImpl
-import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.ValueParameter
 import io.hypersistence.tsid.TSID
 import java.time.Instant
 
 /**
- * A model that holds any business rules for User.
- *
- * This is a read model in CQRS context; must not be used as a write model.
+ * A 'read model' in CQRS context that holds any necessary information of User business rules.
  *
  * @since 2021-08-10
  */
@@ -25,19 +21,6 @@ interface UserProjection : IdentifiableObject<UserId>, DateAuditable {
     val nickname: String
 
     val email: String
-
-    fun mutate(): Mutator = UserProjectionImpl.from(this)
-
-    interface Mutator : UserProjection, DateAuditable.Mutator {
-        override var nickname: String
-
-        override var email: String
-
-        fun applyValues(
-            values: EditUserUseCase.EditUserMessage,
-            updatedAt: Instant = Instant.now()
-        ): UserProjection
-    }
 
     companion object {
         fun aggregate(
@@ -52,13 +35,12 @@ interface UserProjection : IdentifiableObject<UserId>, DateAuditable {
             )
         }
 
-        @SuppressWarnings("LongParameterList")      // Intended complexity to provide various User creation cases
         fun create(
-            @ValueParameter id: UserId = UserId(TSID.Factory.getTsid()),
+            @ValueParameter id: UserId,
             @ValueParameter nickname: String,
             @ValueParameter email: String,
-            @ValueParameter createdAt: Instant = Instant.now(),
-            @ValueParameter updatedAt: Instant = createdAt
+            @ValueParameter createdAt: Instant,
+            @ValueParameter updatedAt: Instant
         ): UserProjection = UserProjectionImpl(
             id = id,
             nickname = nickname,
@@ -67,4 +49,12 @@ interface UserProjection : IdentifiableObject<UserId>, DateAuditable {
             updatedAt = updatedAt
         )
     }
+
+    private data class UserProjectionImpl(
+        override val id: UserId,
+        override val nickname: String,
+        override val email: String,
+        override val createdAt: Instant,
+        override val updatedAt: Instant
+    ) : UserProjection
 }

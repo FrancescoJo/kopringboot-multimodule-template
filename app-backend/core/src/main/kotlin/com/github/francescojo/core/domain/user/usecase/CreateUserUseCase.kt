@@ -40,15 +40,15 @@ internal class CreateUserUseCaseImpl(
         users.findByNickname(message.nickname)?.let { throw SameNicknameUserAlreadyExistException(message.nickname) }
         users.findByEmail(message.email)?.let { throw SameEmailUserAlreadyExistException(message.email) }
 
-        val user = UserProjection.create(
+        val user = User.create(
             nickname = message.nickname,
             email = message.email
         )
 
         // region TODO: Transaction required
-        users.save(User.from(user))
+        users.save(user)
         // endregion
 
-        return user
+        return UserProjection.aggregate(user)
     }
 }

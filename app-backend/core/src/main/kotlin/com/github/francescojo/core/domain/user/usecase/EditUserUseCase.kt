@@ -8,10 +8,11 @@ import com.github.francescojo.core.annotation.UseCase
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.SameEmailUserAlreadyExistException
 import com.github.francescojo.core.domain.user.exception.SameNicknameUserAlreadyExistException
-import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.domain.user.projection.UserProjection
-import com.github.francescojo.core.domain.user.projection.finder.UserProjectionFinder
 import com.github.francescojo.core.domain.user.repository.UserRepository
+import com.github.francescojo.lib.util.isUndefinedOrNull
+import com.github.francescojo.lib.util.takeOr
+import java.util.*
 
 /**
  * @since 2021-08-10
@@ -19,17 +20,15 @@ import com.github.francescojo.core.domain.user.repository.UserRepository
 interface EditUserUseCase {
     fun editUser(id: UserId, message: EditUserMessage): UserProjection
 
-    interface EditUserMessage {
-        val nickname: String?
-        val email: String?
-    }
+    data class EditUserMessage(
+        val nickname: Optional<String>?,
+        val email: Optional<String>?
+    )
 
     companion object {
         fun newInstance(
-            userProjectionFinder: UserProjectionFinder,
             userRepository: UserRepository
         ): EditUserUseCase = EditUserUseCaseImpl(
-            userFinder = userProjectionFinder,
             users = userRepository
         )
     }
@@ -37,25 +36,25 @@ interface EditUserUseCase {
 
 @UseCase
 internal class EditUserUseCaseImpl(
-    private val userFinder: UserProjectionFinder,
     private val users: UserRepository
 ) : EditUserUseCase {
     override fun editUser(id: UserId, message: EditUserUseCase.EditUserMessage): UserProjection {
-        val existingUser = userFinder.getById(id)
-
-        message.nickname.takeIf { !it.isNullOrEmpty() }?.let { nickname ->
-            users.findByNickname(nickname)?.let { throw SameNicknameUserAlreadyExistException(nickname) }
+        message.nickname.takeIf { !it.isUndefinedOrNull() }?.get()?.let {
+            users.findByNickname(it) ?: throw SameNicknameUserAlreadyExistException(it)
         }
-        message.email.takeIf { !it.isNullOrEmpty() }?.let { email ->
-            users.findByEmail(email)?.let { throw SameEmailUserAlreadyExistException(email) }
+        message.email.takeIf { !it.isUndefinedOrNull() }?.get()?.let {
+            users.findByEmail(it) ?: throw SameEmailUserAlreadyExistException(it)
         }
 
-        val modifiedUser = existingUser.mutate().applyValues(message)
+        val modifiedUser = users.getById(id).mutate().apply {
+            this.nickname = message.nickname.takeOr { this.nickname }
+            this.email = message.email.takeOr { this.email }
+        }
 
         // region TODO: Transaction required
-        users.save(User.from(modifiedUser))
+        users.save(modifiedUser)
         // endregion
 
-        return modifiedUser
+        return UserProjection.aggregate(modifiedUser)
     }
 }

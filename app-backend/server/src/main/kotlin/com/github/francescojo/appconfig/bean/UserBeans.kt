@@ -34,10 +34,8 @@ class UserBeans {
 
     @Bean
     fun editUserUseCase(
-        userProjectionFinder: UserProjectionFinder,
         userRepository: UserRepository,
     ) = EditUserUseCase.newInstance(
-        userProjectionFinder,
         userRepository
     )
 

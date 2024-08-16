@@ -6,6 +6,7 @@ package test.domain.user
 
 import com.github.francescojo.core.domain.user.usecase.CreateUserUseCase
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
+import com.github.francescojo.lib.util.toOptional
 import com.github.javafaker.Faker
 
 /**
@@ -31,14 +32,9 @@ object UserUseCaseTestUtils {
         nickname: String? = Faker().name().fullName(),
         email: String? = Faker().internet().emailAddress()
     ): EditUserUseCase.EditUserMessage {
-        data class FakeEditUserMessage(
-            override val nickname: String?,
-            override val email: String?
-        ) : EditUserUseCase.EditUserMessage
-
-        return FakeEditUserMessage(
-            nickname = nickname,
-            email = email
+        return EditUserUseCase.EditUserMessage(
+            nickname = nickname?.toOptional(),
+            email = email?.toOptional()
         )
     }
 }
