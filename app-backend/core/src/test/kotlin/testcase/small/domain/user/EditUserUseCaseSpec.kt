@@ -13,7 +13,6 @@ import com.github.francescojo.core.domain.user.projection.UserProjection
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -67,8 +66,8 @@ internal class EditUserUseCaseSpec {
 
         // then:
         assertAll(
-            { editedUser.nickname shouldBe message.nickname },
-            { editedUser.email shouldBe message.email }
+            { editedUser.nickname shouldBe message.nickname.get() },
+            { editedUser.email shouldBe message.email.get() }
         )
     }
 
@@ -90,7 +89,7 @@ internal class EditUserUseCaseSpec {
         @Test
         fun errorIfNicknameIsDuplicated() {
             // given:
-            val sameNicknameUser = randomUserProjection(id = id, nickname = message.nickname!!.get())
+            val sameNicknameUser = randomUserProjection(id = id, nickname = message.nickname.get())
 
             // and:
             userRepository.save(User.from(sameNicknameUser))
@@ -103,7 +102,7 @@ internal class EditUserUseCaseSpec {
         @Test
         fun errorIfEmailIsDuplicated() {
             // given:
-            val sameEmailUser = randomUserProjection(id = id, email = message.email!!.get())
+            val sameEmailUser = randomUserProjection(id = id, email = message.email.get())
 
             // and:
             userRepository.save(User.from(sameEmailUser))
@@ -141,8 +140,7 @@ internal class EditUserUseCaseSpec {
             // expect:
             assertAll(
                 { updatedUser.nickname shouldBe existingUser.nickname },
-                { updatedUser.nickname shouldNotBe message.nickname },
-                { updatedUser.email shouldBe message.email },
+                { updatedUser.email shouldBe message.email.get() }
             )
         }
 
@@ -157,9 +155,8 @@ internal class EditUserUseCaseSpec {
 
             // expect:
             assertAll(
-                { updatedUser.nickname shouldBe message.nickname },
-                { updatedUser.email shouldBe existingUser.email },
-                { updatedUser.email shouldNotBe message.email }
+                { updatedUser.nickname shouldBe message.nickname.get() },
+                { updatedUser.email shouldBe existingUser.email }
             )
         }
     }

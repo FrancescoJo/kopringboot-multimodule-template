@@ -41,4 +41,8 @@ fun <T> Optional<T>?.takeOrNullable(default: () -> T?): T? = if (this.isUndefine
     }
 }
 
-fun <T : Any> T.toOptional(): Optional<T> = Optional.of(this)
+fun <T : Any> T?.toOptional(): Optional<T> = if (this == null) {
+    Optional.empty()
+} else {
+    Optional.of(this)
+}

@@ -117,8 +117,8 @@ class EditUserApiSpec : EndpointLargeTestBase() {
 
     private infix fun UserResponse.shouldReflect(expected: EditUserRequest) {
         assertAll(
-            { expected.nickname?.let { this.nickname shouldBe it } },
-            { expected.email?.let { this.email shouldBe it } }
+            { expected.nickname.takeIf { it.isPresent }?.let { this.nickname shouldBe it.get() } },
+            { expected.email.takeIf { it.isPresent }?.let { this.email shouldBe it.get() } }
         )
     }
 

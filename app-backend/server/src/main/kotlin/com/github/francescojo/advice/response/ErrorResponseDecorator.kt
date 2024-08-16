@@ -22,6 +22,7 @@ import com.github.francescojo.util.toHttpStatus
 import jakarta.servlet.RequestDispatcher
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.validation.ConstraintViolationException
 import org.slf4j.Logger
 import org.springframework.boot.web.servlet.error.ErrorController
 import org.springframework.http.HttpStatus
@@ -95,6 +96,28 @@ class ErrorResponseDecorator(
                 exception.statusCode,
                 cause = exception
             ) to exception.statusCode.toHttpStatus()
+
+            is ConstraintViolationException -> {
+                val (value, message) = when (exception.constraintViolations.size) {
+                    0 -> "" to "Empty input value"
+                    1 -> exception.constraintViolations.first().let {
+                        it.invalidValue to "${it.propertyPath} : ${it.message}"
+                    }
+                    else -> exception.constraintViolations.joinToString {
+                        "${it.propertyPath} : ${it.invalidValue}"
+                    } to exception.constraintViolations.joinToString {
+                        "${it.propertyPath} : ${it.message}"
+                    }
+                }
+
+                kopringExceptionHandler.onException(
+                    req, WrongInputException(
+                        value = value,
+                        message = message,
+                        cause = exception
+                    )
+                )
+            }
 
             else -> null
         }

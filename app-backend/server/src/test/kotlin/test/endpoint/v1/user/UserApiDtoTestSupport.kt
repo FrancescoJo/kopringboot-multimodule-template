@@ -25,7 +25,7 @@ object UserApiDtoTestSupport {
         nickname: String? = faker.name().fullName(),
         email: String? = faker.internet().emailAddress()
     ) = EditUserRequest(
-        nickname = nickname?.toOptional(),
-        email = email?.toOptional()
+        nickname = nickname.toOptional(),
+        email = email.toOptional()
     )
 }

@@ -21,8 +21,8 @@ interface EditUserUseCase {
     fun editUser(id: UserId, message: EditUserMessage): UserProjection
 
     data class EditUserMessage(
-        val nickname: Optional<String>?,
-        val email: Optional<String>?
+        val nickname: Optional<String>,
+        val email: Optional<String>
     )
 
     companion object {
@@ -39,14 +39,20 @@ internal class EditUserUseCaseImpl(
     private val users: UserRepository
 ) : EditUserUseCase {
     override fun editUser(id: UserId, message: EditUserUseCase.EditUserMessage): UserProjection {
+        val user = users.getById(id)
+
         message.nickname.takeIf { !it.isUndefinedOrNull() }?.get()?.let {
-            users.findByNickname(it) ?: throw SameNicknameUserAlreadyExistException(it)
+            if (users.findByNickname(it) != null) {
+                throw SameNicknameUserAlreadyExistException(it)
+            }
         }
         message.email.takeIf { !it.isUndefinedOrNull() }?.get()?.let {
-            users.findByEmail(it) ?: throw SameEmailUserAlreadyExistException(it)
+            if (users.findByEmail(it) != null) {
+                throw SameEmailUserAlreadyExistException(it)
+            }
         }
 
-        val modifiedUser = users.getById(id).mutate().apply {
+        val modifiedUser = user.mutate().apply {
             this.nickname = message.nickname.takeOr { this.nickname }
             this.email = message.email.takeOr { this.email }
         }

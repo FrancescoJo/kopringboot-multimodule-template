@@ -33,8 +33,8 @@ object UserUseCaseTestUtils {
         email: String? = faker.internet().emailAddress()
     ): EditUserUseCase.EditUserMessage {
         return EditUserUseCase.EditUserMessage(
-            nickname = nickname?.toOptional(),
-            email = email?.toOptional()
+            nickname = nickname.toOptional(),
+            email = email.toOptional()
         )
     }
 }
