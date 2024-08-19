@@ -6,5 +6,7 @@ jar {
 
 dependencies {
     // Third party deps
-    implementation "org.slf4j:slf4j-api:$version_slf4j"
+    api "org.slf4j:slf4j-api:$version_slf4j"
+
+    api "io.hypersistence:hypersistence-tsid:$version_hypersistence_tsid"
 }
