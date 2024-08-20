@@ -4,7 +4,7 @@
  */
 package com.github.francescojo.lib.springWebMvc.validation
 
-import com.github.francescojo.lib.util.isNullOrUnicodeBlank
+import com.github.francescojo.lib.text.isNullOrUnicodeBlank
 import jakarta.validation.Constraint
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

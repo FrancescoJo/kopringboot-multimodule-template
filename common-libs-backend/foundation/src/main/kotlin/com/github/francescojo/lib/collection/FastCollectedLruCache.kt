@@ -4,7 +4,7 @@
  * Distributed under no licences and no warranty.
  * Use this software at your own risk.
  */
-package com.github.francescojo.lib.util
+package com.github.francescojo.lib.collection
 
 import java.lang.ref.SoftReference
 import java.util.concurrent.ConcurrentHashMap

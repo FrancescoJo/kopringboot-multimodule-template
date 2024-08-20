@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under CC BY-NC-SA
  */
-package com.github.francescojo.lib.util
+package com.github.francescojo.lib.time
 
 import java.time.Instant
 import java.time.temporal.ChronoUnit

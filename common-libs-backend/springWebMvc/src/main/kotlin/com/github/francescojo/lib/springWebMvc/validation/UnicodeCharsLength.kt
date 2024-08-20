@@ -4,7 +4,7 @@
  */
 package com.github.francescojo.lib.springWebMvc.validation
 
-import com.github.francescojo.lib.util.unicodeGraphemeCount
+import com.github.francescojo.lib.text.unicodeGraphemeCount
 import org.springframework.stereotype.Component
 import jakarta.validation.Constraint
 import jakarta.validation.ConstraintValidator

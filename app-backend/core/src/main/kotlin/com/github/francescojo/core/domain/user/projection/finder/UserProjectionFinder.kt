@@ -8,7 +8,7 @@ import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.projection.UserProjection
 import com.github.francescojo.core.projection.ProjectionFinder
-import com.github.francescojo.lib.util.assertSingleOrNull
+import com.github.francescojo.lib.collection.assertSingleOrNull
 
 /**
  * @since 2024-08-06

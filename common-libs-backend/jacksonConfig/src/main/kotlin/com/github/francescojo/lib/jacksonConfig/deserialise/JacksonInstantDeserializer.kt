@@ -7,7 +7,7 @@ package com.github.francescojo.lib.jacksonConfig.deserialise
 import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
-import com.github.francescojo.lib.util.truncateToSeconds
+import com.github.francescojo.lib.time.truncateToSeconds
 import java.time.Instant
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter

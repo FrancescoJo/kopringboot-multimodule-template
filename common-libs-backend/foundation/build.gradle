@@ -9,4 +9,13 @@ dependencies {
     api "org.slf4j:slf4j-api:$version_slf4j"
 
     api "io.hypersistence:hypersistence-tsid:$version_hypersistence_tsid"
+
+    /*
+     * For Emoji processing. CAVEAT: This library installs org.json:json:20170516 artifact
+     * for building emoji Trie from its internal database.
+     */
+    implementation("com.vdurmont:emoji-java:5.1.1") {
+        exclude group: "org.json", module: "json"
+    }
+    implementation "org.json:json:20240303"
 }

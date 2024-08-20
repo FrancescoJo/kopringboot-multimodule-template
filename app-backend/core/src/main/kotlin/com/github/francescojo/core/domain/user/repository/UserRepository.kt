@@ -8,7 +8,7 @@ import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.exception.UserByIdNotFoundException
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.repository.WritableRepository
-import com.github.francescojo.lib.util.assertSingleOrNull
+import com.github.francescojo.lib.collection.assertSingleOrNull
 
 /**
  * @since 2021-08-10

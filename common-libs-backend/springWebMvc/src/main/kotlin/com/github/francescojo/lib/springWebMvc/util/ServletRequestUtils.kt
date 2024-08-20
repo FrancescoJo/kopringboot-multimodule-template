@@ -4,7 +4,7 @@
  */
 package com.github.francescojo.lib.springWebMvc.util
 
-import com.github.francescojo.lib.util.isNullOrUnicodeBlank
+import com.github.francescojo.lib.text.isNullOrUnicodeBlank
 import jakarta.servlet.RequestDispatcher
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpStatus

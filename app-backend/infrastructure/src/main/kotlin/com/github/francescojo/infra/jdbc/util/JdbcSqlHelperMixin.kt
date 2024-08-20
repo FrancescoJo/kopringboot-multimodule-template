@@ -5,7 +5,7 @@
 package com.github.francescojo.infra.jdbc.util
 
 import com.github.francescojo.lib.codec.UuidCodecMixin
-import com.github.francescojo.lib.util.toHexString
+import com.github.francescojo.lib.text.toHexString
 import java.sql.Timestamp
 import java.time.Instant
 import java.time.LocalDateTime

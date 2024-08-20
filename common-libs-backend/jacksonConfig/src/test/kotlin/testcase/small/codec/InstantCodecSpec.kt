@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.JsonParser
 import com.github.francescojo.lib.annotation.SmallTest
 import com.github.francescojo.lib.jacksonConfig.deserialise.JacksonInstantDeserializer
 import com.github.francescojo.lib.jacksonConfig.serialise.JacksonInstantSerializer
-import com.github.francescojo.lib.util.truncateToSeconds
+import com.github.francescojo.lib.time.truncateToSeconds
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

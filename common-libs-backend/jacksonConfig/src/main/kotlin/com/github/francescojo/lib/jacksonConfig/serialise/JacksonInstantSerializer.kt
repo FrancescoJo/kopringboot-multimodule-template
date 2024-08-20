@@ -7,7 +7,7 @@ package com.github.francescojo.lib.jacksonConfig.serialise
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.github.francescojo.lib.util.truncateToSeconds
+import com.github.francescojo.lib.time.truncateToSeconds
 import java.time.Instant
 import java.time.ZoneOffset.UTC
 import java.time.format.DateTimeFormatter

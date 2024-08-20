@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.core.i18n
+package com.github.francescojo.lib.i18n
 
 import java.util.*
 

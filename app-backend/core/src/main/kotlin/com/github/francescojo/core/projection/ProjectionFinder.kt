@@ -6,7 +6,7 @@ package com.github.francescojo.core.projection
 
 import com.github.francescojo.core.domain.IdentifiableObject
 import com.github.francescojo.core.domain.ValueHolder
-import com.github.francescojo.lib.util.assertSingleOrNull
+import com.github.francescojo.lib.collection.assertSingleOrNull
 
 /**
  * A base projection finder interface.

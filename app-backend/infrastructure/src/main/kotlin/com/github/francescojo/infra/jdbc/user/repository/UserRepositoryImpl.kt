@@ -10,7 +10,7 @@ import com.github.francescojo.core.domain.user.repository.UserRepository
 import com.github.francescojo.infra.jdbc.user.UserEntity
 import com.github.francescojo.infra.jdbc.user.dao.UserEntityDao
 import com.github.francescojo.infra.repository.AbstractWritableRepositoryTemplate
-import com.github.francescojo.lib.util.assertSingleOrNull
+import com.github.francescojo.lib.collection.assertSingleOrNull
 import org.springframework.stereotype.Service
 
 /**

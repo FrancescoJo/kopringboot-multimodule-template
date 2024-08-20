@@ -2,7 +2,7 @@
  * kopringboot-multimodule-monorepo-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.lib.util
+package com.github.francescojo.lib.collection
 
 /**
  * Returns a view of the portion of this list between the specified [startIndex] and continues to the end of the list.

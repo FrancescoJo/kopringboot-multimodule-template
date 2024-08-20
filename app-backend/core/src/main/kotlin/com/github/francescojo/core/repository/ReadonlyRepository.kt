@@ -6,7 +6,7 @@ package com.github.francescojo.core.repository
 
 import com.github.francescojo.core.domain.IdentifiableObject
 import com.github.francescojo.core.domain.ValueHolder
-import com.github.francescojo.lib.util.assertSingleOrNull
+import com.github.francescojo.lib.collection.assertSingleOrNull
 
 /**
  * @since 2024-08-06

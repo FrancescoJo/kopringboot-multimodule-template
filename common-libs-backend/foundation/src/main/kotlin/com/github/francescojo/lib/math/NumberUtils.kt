@@ -2,7 +2,7 @@
  * kopringboot-multimodule-monorepo-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.lib.util
+package com.github.francescojo.lib.math
 
 import java.math.BigDecimal
 
