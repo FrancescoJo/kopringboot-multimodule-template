@@ -1,7 +1,5 @@
 version version_admin
 
-apply plugin: "kotlin-spring"
-
 apply from: "${project.rootDir}/gradle/scripts/springBootCommon.gradle"
 apply from: "${project.rootDir}/gradle/scripts/commonInfrastructure.gradle"
 

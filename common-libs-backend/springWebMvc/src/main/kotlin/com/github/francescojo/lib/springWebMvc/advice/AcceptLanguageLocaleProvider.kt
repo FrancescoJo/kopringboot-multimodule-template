@@ -2,9 +2,9 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.advice
+package com.github.francescojo.lib.springWebMvc.advice
 
-import com.github.francescojo.core.i18n.LocaleProvider
+import com.github.francescojo.lib.i18n.LocaleProvider
 import java.util.*
 
 /**
@@ -12,6 +12,7 @@ import java.util.*
  */
 internal class AcceptLanguageLocaleProvider(
     acceptLanguage: String?,
+    defaultLocales: Set<Locale> = SUPPORTED_LOCALES
 ) : LocaleProvider {
     private val _locale: Locale = acceptLanguage?.let {
         // Convert  _(underscore) to -(dash) to conform BCP 47 format since Java locale code does not follow it
@@ -23,7 +24,7 @@ internal class AcceptLanguageLocaleProvider(
         } catch (e: IllegalArgumentException) {
             null
         }?.run {
-            Locale.lookup(this, SUPPORTED_LIST) ?: DEFAULT
+            Locale.lookup(this, defaultLocales) ?: DEFAULT
         }
     } ?: DEFAULT
 
@@ -33,7 +34,7 @@ internal class AcceptLanguageLocaleProvider(
     companion object {
         val DEFAULT: Locale = Locale.ENGLISH
 
-        private val SUPPORTED_LIST = listOf(
+        private val SUPPORTED_LOCALES = setOf(
             Locale.ENGLISH,
         )
     }

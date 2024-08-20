@@ -1,12 +1,8 @@
 version version_admin
 
-apply plugin: "org.springframework.boot"
-apply plugin: "io.spring.dependency-management"
-apply plugin: "kotlin-spring"
-
 apply from: "${project.rootDir}/gradle/scripts/sourceSets.gradle"
 apply from: "${project.rootDir}/gradle/scripts/commonInfrastructure.gradle"
-apply from: "${project.rootDir}/gradle/scripts/springBootCommon.gradle"
+apply from: "${project.rootDir}/gradle/scripts/springBootCommonWebMvc.gradle"
 apply from: "${project.rootDir}/gradle/scripts/springBootJar.gradle"
 
 jar.dependsOn bootJar
@@ -21,6 +17,7 @@ dependencies {
     // First-party library dependencies
     implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
     implementation project(":${MODULE_COMMON_LIBS_JACKSON}")
+    implementation project(":${MODULE_COMMON_LIBS_SPRING_WEBMVC}")
 
     // First-party application dependencies
     implementation project(":${MODULE_CORE}")
@@ -36,6 +33,8 @@ dependencies {
     // region test dependencies
     // First-party dependencies
     testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_JACKSON}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_SPRING_WEBMVC}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_CORE}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_INFRASTRUCTURE}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_ADMIN_CORE}", configuration: "testArtifacts")

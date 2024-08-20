@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under CC BY-NC-SA
  */
-package com.github.francescojo.util
+package com.github.francescojo.lib.springWebMvc.util
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatusCode

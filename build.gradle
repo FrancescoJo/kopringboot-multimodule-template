@@ -75,5 +75,6 @@ allprojects {
 
         MODULE_COMMON_LIBS_FOUNDATION = "$MODULE_COMMON_LIBS:foundation"
         MODULE_COMMON_LIBS_JACKSON = "$MODULE_COMMON_LIBS:jacksonConfig"
+        MODULE_COMMON_LIBS_SPRING_WEBMVC = "$MODULE_COMMON_LIBS:springWebMvc"
     }
 }

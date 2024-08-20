@@ -11,14 +11,14 @@ import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.core.exception.external.MalformedInputException
 import com.github.francescojo.core.exception.external.WrongInputException
 import com.github.francescojo.core.exception.internal.UnhandledException
-import com.github.francescojo.core.i18n.LocaleProvider
+import com.github.francescojo.lib.i18n.LocaleProvider
 import com.github.francescojo.core.i18n.MessageTemplateProvider
 import com.github.francescojo.endpoint.ApiPaths
 import com.github.francescojo.endpoint.ErrorResponseEnvelope
 import com.github.francescojo.endpoint.ResponseEnvelope
 import com.github.francescojo.exception.GeneralHttpException
-import com.github.francescojo.util.originalRequestUri
-import com.github.francescojo.util.toHttpStatus
+import com.github.francescojo.lib.springWebMvc.util.originalRequestUri
+import com.github.francescojo.lib.springWebMvc.util.toHttpStatus
 import jakarta.servlet.RequestDispatcher
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest

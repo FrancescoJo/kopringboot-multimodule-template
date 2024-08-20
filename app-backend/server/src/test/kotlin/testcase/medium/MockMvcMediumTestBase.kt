@@ -6,8 +6,8 @@ package testcase.medium
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.francescojo.appconfig.JacksonConfig
-import com.github.francescojo.appconfig.WebMvcConfig
+import com.github.francescojo.lib.springWebMvc.CommonWebMvcConfig
+import com.github.francescojo.lib.springWebMvc.JsonCodecConfig
 import com.github.francescojo.endpoint.ErrorResponseEnvelope
 import com.github.francescojo.infra.appconfig.LoggerConfig
 import com.github.francescojo.lib.annotation.MediumTest
@@ -41,8 +41,8 @@ import java.nio.charset.StandardCharsets
 @ContextConfiguration(
     classes = [
         LoggerConfig::class,
-        WebMvcConfig::class,
-        JacksonConfig::class
+        CommonWebMvcConfig::class,
+        JsonCodecConfig::class
     ],
 )
 @ComponentScan(

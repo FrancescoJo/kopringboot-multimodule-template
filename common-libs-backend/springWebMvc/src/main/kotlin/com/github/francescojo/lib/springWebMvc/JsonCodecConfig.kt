@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.appconfig
+package com.github.francescojo.lib.springWebMvc
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.francescojo.lib.jacksonConfig.JacksonConfigHelper
@@ -16,7 +16,7 @@ import org.springframework.core.annotation.Order
  */
 @Order(Ordered.LOWEST_PRECEDENCE)
 @Configuration
-class JacksonConfig(
+class JsonCodecConfig(
     private val defaultObjectMapper: ObjectMapper
 ) : InitializingBean {
     override fun afterPropertiesSet() {

@@ -17,7 +17,7 @@ import com.github.francescojo.core.exception.ErrorCodes.WRONG_INPUT
 import com.github.francescojo.core.exception.ErrorCodes.WRONG_PRESENTATION
 import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.exception.GeneralHttpException
-import com.github.francescojo.util.toHttpStatus
+import com.github.francescojo.lib.springWebMvc.util.toHttpStatus
 import org.springframework.http.HttpStatus
 
 /**

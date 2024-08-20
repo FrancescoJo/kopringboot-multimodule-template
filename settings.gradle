@@ -7,4 +7,5 @@ include ":app-backend:core",
         ":admin-backend:infrastructure",
         ":admin-backend:server",
         ":common-libs-backend:foundation",
-        ":common-libs-backend:jacksonConfig"
+        ":common-libs-backend:jacksonConfig",
+        ":common-libs-backend:springWebMvc"
