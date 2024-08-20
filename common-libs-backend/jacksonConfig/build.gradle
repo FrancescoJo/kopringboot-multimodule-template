@@ -1,0 +1,19 @@
+version version_app_lib
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    // First party dependencies
+    implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
+
+    // Jackson Kotlin support
+    implementation "com.fasterxml.jackson.core:jackson-core:$version_jackson"
+    implementation "com.fasterxml.jackson.core:jackson-databind:$version_jackson"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$version_jackson"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$version_jackson"
+
+    // First-party dependencies
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")
+}

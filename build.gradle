@@ -23,7 +23,6 @@ buildscript {
         version_slf4j = "2.0.0"
         version_jdsl = "3.0.1"
         version_jackson = "2.13.4"
-        version_jackson_kotlin = "2.13.4"
         version_hypersistence_tsid = "2.1.2"
 
         // Testing & Code quality
@@ -75,5 +74,6 @@ allprojects {
         def MODULE_COMMON_LIBS = "common-libs-backend"
 
         MODULE_COMMON_LIBS_FOUNDATION = "$MODULE_COMMON_LIBS:foundation"
+        MODULE_COMMON_LIBS_JACKSON = "$MODULE_COMMON_LIBS:jacksonConfig"
     }
 }

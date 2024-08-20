@@ -13,8 +13,11 @@ dependencies {
     def MODULE_CORE = ":${MODULE_BASE}:core"
 
     // region app dependencies
-    // First-party dependencies
+    // First-party library dependencies
     implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
+    implementation project(":${MODULE_COMMON_LIBS_JACKSON}")
+
+    // First-party application dependencies
     implementation project(":${MODULE_CORE}")
 
     // Spring dependencies

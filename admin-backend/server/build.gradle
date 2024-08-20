@@ -18,8 +18,11 @@ dependencies {
     def MODULE_ADMIN_INFRASTRUCTURE = ":${MODULE_ADMIN}:infrastructure"
 
     // region app dependencies
-    // First-party dependencies
+    // First-party library dependencies
     implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
+    implementation project(":${MODULE_COMMON_LIBS_JACKSON}")
+
+    // First-party application dependencies
     implementation project(":${MODULE_CORE}")
     implementation project(":${MODULE_INFRASTRUCTURE}")
     implementation project(":${MODULE_ADMIN_CORE}")
@@ -28,9 +31,6 @@ dependencies {
     // Spring dependencies
     // Spring Web
     implementation("org.springframework.boot:spring-boot-starter-web:$version_springBoot")
-
-    // Jackson Kotlin support
-    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:$version_jackson_kotlin"
     // endregion
 
     // region test dependencies
