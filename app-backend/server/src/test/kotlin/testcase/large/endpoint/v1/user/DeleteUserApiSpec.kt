@@ -6,7 +6,7 @@ package testcase.large.endpoint.v1.user
 
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.endpoint.common.response.SimpleResponse
+import com.github.francescojo.lib.webApi.response.SimpleResponse
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

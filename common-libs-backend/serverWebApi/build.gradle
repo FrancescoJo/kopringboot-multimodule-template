@@ -1,0 +1,25 @@
+version version_app_lib
+
+apply from: "$project.rootDir/gradle/scripts/springBootCommonWebMvc.gradle"
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    def MODULE_CORE = ":app-backend:core"
+
+    // First-party library dependencies
+    implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
+    implementation project(":${MODULE_COMMON_LIBS_JACKSON}")
+    implementation project(":${MODULE_COMMON_LIBS_SPRING_WEBMVC}")
+
+    // First-party application dependencies
+    implementation project(":${MODULE_CORE}")
+
+    // First-party dependencies
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_JACKSON}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_SPRING_WEBMVC}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_CORE}", configuration: "testArtifacts")
+}

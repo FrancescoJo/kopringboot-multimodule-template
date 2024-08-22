@@ -6,7 +6,7 @@ package testcase.large
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.francescojo.KopringApplicationBootstrap
-import com.github.francescojo.endpoint.ErrorResponseEnvelope
+import com.github.francescojo.lib.webApi.response.base.ErrorResponseEnvelope
 import com.github.francescojo.lib.annotation.LargeTest
 import io.restassured.RestAssured
 import io.restassured.builder.RequestSpecBuilder

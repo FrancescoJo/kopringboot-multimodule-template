@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.endpoint
+package com.github.francescojo.lib.webApi.response.base
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -45,7 +45,7 @@ abstract class ResponseEnvelope<T>(
         companion object {
             @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
             @JvmStatic
-            fun from(value: String?) = values().firstOrNull { it.value == value }
+            fun from(value: String?) = entries.firstOrNull { it.value == value }
                 ?: throw IllegalArgumentException("Cannot convert '${value}' as Response type")
         }
     }

@@ -2,9 +2,9 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.advice.response
+package com.github.francescojo.lib.webApi.advice.responseDecorator.response
 
-import com.github.francescojo.advice.errorhandler.ExceptionHandlerContract
+import com.github.francescojo.lib.webApi.advice.ExceptionHandlerContract
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.InternalException
 import com.github.francescojo.core.exception.KopringException
@@ -13,10 +13,9 @@ import com.github.francescojo.core.exception.external.WrongInputException
 import com.github.francescojo.core.exception.internal.UnhandledException
 import com.github.francescojo.lib.i18n.LocaleProvider
 import com.github.francescojo.core.i18n.MessageTemplateProvider
-import com.github.francescojo.endpoint.ApiPaths
-import com.github.francescojo.endpoint.ErrorResponseEnvelope
-import com.github.francescojo.endpoint.ResponseEnvelope
-import com.github.francescojo.exception.GeneralHttpException
+import com.github.francescojo.lib.webApi.response.base.ErrorResponseEnvelope
+import com.github.francescojo.lib.webApi.response.base.ResponseEnvelope
+import com.github.francescojo.lib.webApi.exception.GeneralHttpException
 import com.github.francescojo.lib.springWebMvc.util.originalRequestUri
 import com.github.francescojo.lib.springWebMvc.util.toHttpStatus
 import jakarta.servlet.RequestDispatcher
@@ -49,7 +48,12 @@ class ErrorResponseDecorator(
     private val messageTemplateProvider: MessageTemplateProvider,
     private val log: Logger
 ) : ErrorController {
-    @RequestMapping(ApiPaths.ERROR)
+    /**
+     * This method assumes that all modules using this library, have a common error-handling mechanism
+     * via [Spring BasicErrorController](https://github.com/spring-projects/spring-boot/blob/main/spring-boot-project/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/web/servlet/error/BasicErrorController.java#L58)
+     * and not modified the default error endpoint which could be set by `server.error.path` property.
+     */
+    @RequestMapping("/error")
     fun handleError(req: HttpServletRequest): ResponseEntity<ErrorResponseEnvelope> {
         (req.getAttribute(SERVLET_EXCEPTION) as? Exception)?.let { return onError(req, it) }
 

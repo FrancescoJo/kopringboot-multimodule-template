@@ -2,10 +2,10 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.advice.response
+package com.github.francescojo.lib.webApi.advice.responseDecorator.response
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.github.francescojo.endpoint.ResponseEnvelope
+import com.github.francescojo.lib.webApi.response.base.ResponseEnvelope
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter

@@ -15,6 +15,7 @@ dependencies {
     // First-party library dependencies
     implementation project(":${MODULE_COMMON_LIBS_FOUNDATION}")
     implementation project(":${MODULE_COMMON_LIBS_JACKSON}")
+    implementation project(":${MODULE_COMMON_LIBS_SERVER_WEB_API}")
     implementation project(":${MODULE_COMMON_LIBS_SPRING_WEBMVC}")
 
     // First-party application dependencies
@@ -33,6 +34,7 @@ dependencies {
     // First-party dependencies
     testImplementation project(path: ":${MODULE_COMMON_LIBS_FOUNDATION}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_COMMON_LIBS_JACKSON}", configuration: "testArtifacts")
+    testImplementation project(path: ":${MODULE_COMMON_LIBS_SERVER_WEB_API}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_COMMON_LIBS_SPRING_WEBMVC}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_CORE}", configuration: "testArtifacts")
     testImplementation project(path: ":${MODULE_INFRASTRUCTURE}", configuration: "testArtifacts")

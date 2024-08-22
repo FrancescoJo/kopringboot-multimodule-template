@@ -4,7 +4,7 @@
  */
 package com.github.francescojo.endpoint.v1.user
 
-import com.github.francescojo.endpoint.common.response.SimpleResponse
+import com.github.francescojo.lib.webApi.response.SimpleResponse
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.francescojo.endpoint.v1.ApiVariableV1
 import io.hypersistence.tsid.TSID

@@ -7,8 +7,8 @@ package test.endpoint.v1
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.endpoint.ErrorResponseEnvelope
-import com.github.francescojo.endpoint.ResponseEnvelope
+import com.github.francescojo.lib.webApi.response.base.ErrorResponseEnvelope
+import com.github.francescojo.lib.webApi.response.base.ResponseEnvelope
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.time.Instant

@@ -5,7 +5,7 @@
 package com.github.francescojo.endpoint.health
 
 import com.github.francescojo.endpoint.ApiPaths
-import com.github.francescojo.endpoint.common.response.SimpleResponse
+import com.github.francescojo.lib.webApi.response.SimpleResponse
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod

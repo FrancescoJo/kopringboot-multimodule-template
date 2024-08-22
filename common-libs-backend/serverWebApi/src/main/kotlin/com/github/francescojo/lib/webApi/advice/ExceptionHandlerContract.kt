@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.advice.errorhandler
+package com.github.francescojo.lib.webApi.advice
 
 import com.github.francescojo.core.exception.KopringException
 import jakarta.servlet.http.HttpServletRequest

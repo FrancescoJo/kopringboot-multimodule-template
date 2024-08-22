@@ -7,6 +7,8 @@ package com.github.francescojo.advice.errorhandler
 import com.github.francescojo.core.exception.KopringException
 import com.github.francescojo.core.exception.external.RequestedServiceNotFoundException
 import com.github.francescojo.core.exception.external.WrongPresentationRequestException
+import com.github.francescojo.lib.webApi.advice.ErrorCodesToHttpStatusMixin
+import com.github.francescojo.lib.webApi.advice.ExceptionHandlerContract
 import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.Logger

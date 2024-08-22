@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.github.francescojo.lib.springWebMvc.CommonWebMvcConfig
 import com.github.francescojo.lib.springWebMvc.JsonCodecConfig
-import com.github.francescojo.endpoint.ErrorResponseEnvelope
+import com.github.francescojo.lib.webApi.response.base.ErrorResponseEnvelope
 import com.github.francescojo.infra.appconfig.LoggerConfig
 import com.github.francescojo.lib.annotation.MediumTest
 import org.springframework.beans.factory.annotation.Autowired

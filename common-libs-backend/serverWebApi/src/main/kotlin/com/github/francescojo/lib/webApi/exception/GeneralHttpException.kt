@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.exception
+package com.github.francescojo.lib.webApi.exception
 
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.ExternalException
