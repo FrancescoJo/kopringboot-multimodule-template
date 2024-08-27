@@ -7,6 +7,7 @@ package com.github.francescojo.core.domain.user.model.impl
 import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.lib.annotation.ValueParameter
+import com.github.francescojo.lib.text.ToStringHelper.prettyToString
 import java.time.Instant
 
 /**
@@ -37,12 +38,13 @@ class UserMutator(
         }
 
     override fun equals(other: Any?): Boolean {
-        return when {
-            other !is UserMutator -> false
-            this === other -> true
-            else -> id == other.id && _nickname == other._nickname && _email == other._email &&
-                    createdAt == other.createdAt && updatedAt == other.updatedAt
-        }
+        return this === other ||
+                other is UserMutator &&
+                id == other.id &&
+                nickname == other.nickname &&
+                email == other.email &&
+                createdAt == other.createdAt &&
+                updatedAt == other.updatedAt
     }
 
     override fun hashCode(): Int {
@@ -54,9 +56,16 @@ class UserMutator(
         return result
     }
 
-    override fun toString(): String {
-        return "UserMutator(id=$id, nickname='$_nickname', email='$_email', createdAt=$createdAt, updatedAt=$updatedAt)"
-    }
+    override fun toString(): String = prettyToString(
+        toStringTarget = this,
+        attributes = mapOf(
+            ::id.name to id,
+            ::nickname.name to nickname,
+            ::email.name to email,
+            ::createdAt.name to createdAt,
+            ::updatedAt.name to updatedAt
+        )
+    )
 
     companion object {
         fun from(src: User): User.Mutator = UserMutator(
