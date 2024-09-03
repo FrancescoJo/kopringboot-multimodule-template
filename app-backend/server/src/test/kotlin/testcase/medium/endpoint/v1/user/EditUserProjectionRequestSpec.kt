@@ -26,7 +26,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
     @ParameterizedTest(name = "Fails if it is {0} characters")
     @MethodSource("badNicknames")
     fun failIfNicknamesAreBad(
-        testName: String,
+        @Suppress("UNUSED_PARAMETER") testName: String,
         nickname: String
     ) {
         // given:
@@ -48,7 +48,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
     @ParameterizedTest(name = "Fails if it is {0}")
     @MethodSource("badEmails")
     fun failIfEmailsAreBad(
-        testName: String,
+        @Suppress("UNUSED_PARAMETER") testName: String,
         email: String
     ) {
         // given:
@@ -70,7 +70,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
     @ParameterizedTest(name = "Fails if all request fields are {0}")
     @MethodSource("nullOrEmptyFields")
     fun failsIfAllRequestFieldsAreEmpty(
-        testName: String,
+        @Suppress("UNUSED_PARAMETER") testName: String,
         payload: FakeEditUserRequest
     ) {
         val request = patch(ApiPathsV1.usersId(UserId.random()), payload)

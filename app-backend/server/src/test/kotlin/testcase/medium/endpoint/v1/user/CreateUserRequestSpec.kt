@@ -23,7 +23,7 @@ class CreateUserRequestSpec : ControllerMediumTestBase() {
     @ParameterizedTest(name = "Fails if it is {0} characters")
     @MethodSource("badNicknames")
     fun failIfNicknamesAreBad(
-        testName: String,
+        @Suppress("UNUSED_PARAMETER") testName: String,
         nickname: String
     ) {
         // given:
@@ -45,7 +45,7 @@ class CreateUserRequestSpec : ControllerMediumTestBase() {
     @ParameterizedTest(name = "Fails if it is {0}")
     @MethodSource("badEmails")
     fun failIfEmailsAreBad(
-        testName: String,
+        @Suppress("UNUSED_PARAMETER") testName: String,
         email: String
     ) {
         // given:

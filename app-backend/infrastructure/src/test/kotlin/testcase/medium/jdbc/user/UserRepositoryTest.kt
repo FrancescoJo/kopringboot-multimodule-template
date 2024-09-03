@@ -31,7 +31,7 @@ internal class UserRepositoryTest : JdbcTemplateMediumTestBase() {
     @ParameterizedTest(name = "We can find a saved User by {0}")
     @MethodSource("testcase.medium.jdbc.user.UserRepositoryTest#findSavedUserByParams")
     fun findSavedUserBy(
-        testName: String,
+        @Suppress("UNUSED_PARAMETER") testName: String,
         findOperation: (UserRepository, User) -> User?
     ) {
         // given:

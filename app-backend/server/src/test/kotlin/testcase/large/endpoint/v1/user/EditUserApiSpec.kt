@@ -82,8 +82,10 @@ class EditUserApiSpec : EndpointLargeTestBase() {
 
         @ParameterizedTest(name = "Email is {0}")
         @MethodSource("testcase.large.endpoint.v1.user.EditUserApiSpec#emptyEmails")
-        @Suppress("UNUSED_PARAMETER")
-        fun emailIsOmitted(_testName: String, request: EditUserRequest) {
+        fun emailIsOmitted(
+            @Suppress("UNUSED_PARAMETER") testName: String,
+            request: EditUserRequest
+        ) {
             // when:
             val editedUser = editUserApi(UserId(createdUser.id), request)
                 .expect2xx(UserResponse::class)

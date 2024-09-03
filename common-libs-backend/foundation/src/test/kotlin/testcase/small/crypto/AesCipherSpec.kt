@@ -22,7 +22,9 @@ internal class AesCipherSpec {
     @ParameterizedTest(name = "It should decrypt encrypted message by {0} algorithm with arbitrary key and iv")
     @MethodSource("aesKeyAndIv")
     fun `It should decrypt encrypted message by AES algorithm with arbitrary key and iv`(
-        testName: String, key: ByteArray, iv: ByteArray
+        @Suppress("UNUSED_PARAMETER") testName: String,
+        key: ByteArray,
+        iv: ByteArray
     ) {
         // given:
         val plainText = "THIS IS A PLAIN TEXT"
