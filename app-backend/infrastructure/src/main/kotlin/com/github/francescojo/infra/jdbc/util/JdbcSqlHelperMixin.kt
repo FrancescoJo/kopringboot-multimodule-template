@@ -4,7 +4,7 @@
  */
 package com.github.francescojo.infra.jdbc.util
 
-import com.github.francescojo.lib.codec.UuidCodecMixin
+import com.github.francescojo.lib.codec.UuidCodecUtils.uuidToByteArray
 import com.github.francescojo.lib.text.toHexString
 import java.sql.Timestamp
 import java.time.Instant
@@ -17,8 +17,8 @@ import java.util.*
 /**
  * @since 2024-08-13
  */
-interface JdbcSqlHelperMixin : UuidCodecMixin {
-    fun UUID.toSqlBinaryLiteral(): String = toByteArray().toSqlBinaryLiteral()
+interface JdbcSqlHelperMixin {
+    fun UUID.toSqlBinaryLiteral(): String = uuidToByteArray(this).toSqlBinaryLiteral()
 
     fun ByteArray.toSqlBinaryLiteral(): String = "0x${this.toHexString()}"
 

@@ -9,8 +9,8 @@ import io.hypersistence.tsid.TSID
 /**
  * @since 2024-08-19
  */
-interface TsidCodecMixin {
-    fun TSID.serialise(): String = format("%z")
+object TsidCodecUtils {
+    fun tsidToString(value: TSID): String = value.format("%z")
 
-    fun String.deserialiseToTsid(): TSID = TSID.unformat(this, "%z")
+    fun stringToTsid(value: String): TSID = TSID.unformat(value, "%z")
 }

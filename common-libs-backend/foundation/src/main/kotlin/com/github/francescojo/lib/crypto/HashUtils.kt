@@ -9,18 +9,18 @@ import java.security.MessageDigest
 /**
  * @since 2022-02-14
  */
-interface HashingMixin {
+object HashUtils {
     /**
      * Convenient syntactic sugar to hash given String to SHA-1 hashed Byte array.
      */
-    fun String.toSha1Bytes(): ByteArray = MessageDigest.getInstance("SHA-1").run {
-        digest(this@toSha1Bytes.toByteArray())
+    fun stringToSha1Bytes(value: String): ByteArray = MessageDigest.getInstance("SHA-1").run {
+        digest(value.toByteArray())
     }
 
     /**
      * Convenient syntactic sugar to hash given String to SHA-256 hashed Byte array.
      */
-    fun String.toSha256Bytes(): ByteArray = MessageDigest.getInstance("SHA-256").run {
-        digest(this@toSha256Bytes.toByteArray())
+    fun stringToSha256Bytes(value: String): ByteArray = MessageDigest.getInstance("SHA-256").run {
+        digest(value.toByteArray())
     }
 }
