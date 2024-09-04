@@ -14,7 +14,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import test.com.github.francescojo.lib.SharedTestObjects.faker
-import test.domain.user.UserTestUtils.random
+import test.domain.user.UserTestUtils.randomUserId
 import test.endpoint.v1.ApiPathsV1TestSupport.usersId
 import testcase.medium.ControllerMediumTestBase
 import java.util.stream.Stream
@@ -36,7 +36,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         )
 
         // when:
-        val request = patch(ApiPathsV1.usersId(UserId.random()), payload)
+        val request = patch(ApiPathsV1.usersId(randomUserId()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
@@ -58,7 +58,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         )
 
         // when:
-        val request = patch(ApiPathsV1.usersId(UserId.random()), payload)
+        val request = patch(ApiPathsV1.usersId(randomUserId()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
@@ -73,7 +73,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         @Suppress("UNUSED_PARAMETER") testName: String,
         payload: FakeEditUserRequest
     ) {
-        val request = patch(ApiPathsV1.usersId(UserId.random()), payload)
+        val request = patch(ApiPathsV1.usersId(randomUserId()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
