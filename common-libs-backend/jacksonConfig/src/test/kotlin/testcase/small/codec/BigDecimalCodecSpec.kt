@@ -5,9 +5,7 @@
 package testcase.small.codec
 
 import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.JsonParser
 import com.github.francescojo.lib.annotation.SmallTest
-import com.github.francescojo.lib.jacksonConfig.deserialise.JacksonBigDecimalDeserializer
 import com.github.francescojo.lib.jacksonConfig.serialise.JacksonBigDecimalSerializer
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
@@ -17,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.mockito.ArgumentCaptor
-import org.mockito.Mockito.`when`
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import java.math.BigDecimal

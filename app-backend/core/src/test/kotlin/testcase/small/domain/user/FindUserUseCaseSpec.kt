@@ -13,7 +13,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import test.domain.user.UserTestUtils.randomUserId
+import test.domain.user.UserTestUtils.random
 import test.domain.user.UserTestUtils.randomUserProjection
 import test.domain.user.projection.MockUserProjectionFinder
 
@@ -40,7 +40,7 @@ internal class FindUserUseCaseSpec {
     @Test
     fun nullIfUserIsNotFound() {
         // given:
-        val id = randomUserId()
+        val id = UserId.random()
 
         // then:
         val notFoundUser = sut.findUserById(id)
@@ -53,7 +53,7 @@ internal class FindUserUseCaseSpec {
     @Test
     fun returnsUserIfFound() {
         // given:
-        val id = randomUserId()
+        val id = UserId.random()
 
         // and:
         userProjectionFinder.save(randomUserProjection(id = id))

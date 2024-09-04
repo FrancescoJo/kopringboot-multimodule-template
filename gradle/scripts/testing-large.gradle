@@ -1,0 +1,32 @@
+apply plugin: "groovy"
+
+/**
+ * Groupising tests for JUnit5
+ *
+ * https://docs.gradle.org/current/userguide/java_testing.html#test_grouping
+ * https://junit.org/junit5/docs/current/user-guide/#writing-tests-tagging-and-filtering
+ */
+def TAG_TEST_LARGE = "largeTest"
+
+dependencies {
+    // mandatory dependencies for using Spock
+    implementation platform("org.apache.groovy:groovy-bom:$version_groovy")
+    implementation "org.apache.groovy:groovy:$version_groovy"
+    testImplementation platform("org.spockframework:spock-bom:$version_spock")
+    testImplementation "org.spockframework:spock-core:$version_spock"
+
+    // optional dependencies for using Spock
+    testRuntimeOnly "net.bytebuddy:byte-buddy:$version_spock_bytebuddy"
+    testRuntimeOnly "org.objenesis:objenesis:$version_spock_objenesis"
+}
+
+allOpen {
+    annotation("com.github.francescojo.lib.annotation.LargeTest")
+}
+
+task largeTest(type: Test) {
+    useJUnitPlatform {
+        includeTags TAG_TEST_LARGE
+        excludeTags "*"
+    }
+}

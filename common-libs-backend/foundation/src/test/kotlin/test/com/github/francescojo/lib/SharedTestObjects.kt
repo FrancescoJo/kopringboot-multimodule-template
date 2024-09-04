@@ -18,5 +18,6 @@ object SharedTestObjects {
      *
      * However, we could not discover whether sharing Faker instance is thread-safe or not.
      */
+    @JvmStatic
     val faker: Faker by lazy { Faker() }
 }

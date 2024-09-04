@@ -16,10 +16,15 @@ import java.time.Instant
  */
 object UserTestUtils {
     @JvmStatic
-    fun randomUserId(): UserId = UserId(TSID.fast())
+    fun randomUserId(): TSID = TSID.fast()
 
     @JvmStatic
-    fun emptyUserId(): UserId = UserId(TsidValueHolder.EMPTY_VALUE)
+    fun emptyUserId(): TSID = TsidValueHolder.EMPTY_VALUE
+
+    fun UserId.Companion.random(): UserId = UserId(randomUserId())
+
+    val UserId.Companion.EMPTY: UserId
+        get() = UserId(TsidValueHolder.EMPTY_VALUE)
 
     fun randomUserProjection(
         id: UserId = UserId(TSID.fast()),

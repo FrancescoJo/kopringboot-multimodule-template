@@ -1,6 +1,6 @@
 /*
- * kopringboot-multimodule-monorepo-template
- * Sir.LOIN Intellectual property. All rights reserved.
+ * kopringboot-multimodule-template
+ * Distributed under MIT licence
  */
 package testcase.small.text
 

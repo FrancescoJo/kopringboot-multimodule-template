@@ -2,6 +2,16 @@ spring:
   config:
     activate:
       on-profile: largeTest
+  web:
+    resources:
+      add-mappings: false
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
   sql:
     init:
       mode: ALWAYS

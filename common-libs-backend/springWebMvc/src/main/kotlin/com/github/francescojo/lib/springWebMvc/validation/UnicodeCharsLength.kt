@@ -5,12 +5,12 @@
 package com.github.francescojo.lib.springWebMvc.validation
 
 import com.github.francescojo.lib.text.unicodeGraphemeCount
-import org.springframework.stereotype.Component
 import jakarta.validation.Constraint
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext
 import jakarta.validation.Payload
 import jakarta.validation.constraints.Size
+import org.springframework.stereotype.Component
 import kotlin.reflect.KClass
 
 /**

@@ -19,8 +19,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
-import test.domain.user.UserTestUtils.emptyUserId
-import test.domain.user.UserTestUtils.randomUserId
+import test.domain.user.UserTestUtils.EMPTY
+import test.domain.user.UserTestUtils.random
 import test.domain.user.UserTestUtils.randomUserProjection
 import test.domain.user.UserUseCaseTestUtils.randomEditUserMessage
 import test.domain.user.repository.MockUserRepository
@@ -45,7 +45,7 @@ internal class EditUserUseCaseSpec {
     @Test
     fun errorIfUserNotFound() {
         // given:
-        val id = randomUserId()
+        val id = UserId.random()
 
         // then:
         assertThrows<UserByIdNotFoundException> { sut.editUser(id, randomEditUserMessage()) }
@@ -55,7 +55,7 @@ internal class EditUserUseCaseSpec {
     @Test
     fun userIsUpdated() {
         // given:
-        val id = randomUserId()
+        val id = UserId.random()
         val message = randomEditUserMessage()
 
         // and:
@@ -74,14 +74,14 @@ internal class EditUserUseCaseSpec {
     @DisplayName("Fails if problems on some field, when:")
     @Nested
     inner class DuplicationErrorOccurred {
-        private var id: UserId = emptyUserId()
+        private var id: UserId = UserId.EMPTY
 
         private lateinit var message: EditUserUseCase.EditUserMessage
 
         @BeforeEach
         fun setup() {
             // given:
-            id = randomUserId()
+            id = UserId.random()
             message = randomEditUserMessage()
         }
 
@@ -115,13 +115,13 @@ internal class EditUserUseCaseSpec {
     @DisplayName("Some field is preserved if:")
     @Nested
     inner class SomeFieldIsPreserved {
-        private var id: UserId = emptyUserId()
+        private var id: UserId = UserId.EMPTY
         private lateinit var existingUser: UserProjection
 
         @BeforeEach
         fun setup() {
             // given:
-            id = randomUserId()
+            id = UserId.random()
 
             // and:
             existingUser = randomUserProjection(id = id)

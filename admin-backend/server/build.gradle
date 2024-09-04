@@ -44,6 +44,9 @@ dependencies {
     testImplementation "org.springframework.restdocs:spring-restdocs-core:$version_restDocs"
     testImplementation "org.springframework.restdocs:spring-restdocs-restassured:$version_restDocs"
     // endregion
+
+    // Spock framework
+    testImplementation "org.spockframework:spock-spring:$version_spock"
 }
 
 dependencyManagement {

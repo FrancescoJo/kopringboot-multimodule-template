@@ -4,9 +4,9 @@
  */
 package com.github.francescojo.endpoint.v1.user
 
-import com.github.francescojo.lib.webApi.response.SimpleResponse
 import com.github.francescojo.endpoint.v1.ApiPathsV1
 import com.github.francescojo.endpoint.v1.ApiVariableV1
+import com.github.francescojo.lib.webApi.response.SimpleResponse
 import io.hypersistence.tsid.TSID
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.PathVariable

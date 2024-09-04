@@ -38,7 +38,7 @@ data class EditUserRequest(
         val isEmpty = nickname.isUndefinedOrNull() && email.isUndefinedOrNull()
 
         if (isEmpty) {
-            throw WrongInputException("Message is empty.")
+            throw WrongInputException(value = null, message = "Message is empty.")
         }
 
         with(validator.validate<Any>(ValidationTarget.from(this))) {

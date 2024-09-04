@@ -12,6 +12,10 @@ buildscript {
         version_kotlin_coroutines = "1.7.3"
         version_jakarta_validation = "3.0.2"
         version_jakarta_inject = "2.0.1"
+        version_groovy = "4.0.22"
+        version_spock = "2.4-M4-groovy-4.0"
+        version_spock_bytebuddy = "1.14.19"
+        version_spock_objenesis = "3.4"
 
         // Spring + infrastructure
         version_springBoot = "3.3.2"
@@ -64,6 +68,7 @@ allprojects {
     apply from: "$rootDir/gradle/scripts/kotlin.gradle"
     apply from: "$rootDir/gradle/scripts/detekt.gradle"
     apply from: "$rootDir/gradle/scripts/testing.gradle"
+    apply from: "$rootDir/gradle/scripts/testing-large.gradle"
 
     repositories {
         mavenCentral()

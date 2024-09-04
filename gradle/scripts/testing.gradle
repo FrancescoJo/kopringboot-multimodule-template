@@ -9,7 +9,6 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
  */
 def TAG_TEST_SMALL = "smallTest"
 def TAG_TEST_MEDIUM = "mediumTest"
-def TAG_TEST_LARGE = "largeTest"
 
 dependencies {
     // JUnit5
@@ -38,7 +37,6 @@ dependencies {
 allOpen {
     annotation("com.github.francescojo.lib.annotation.SmallTest")
     annotation("com.github.francescojo.lib.annotation.MediumTest")
-    annotation("com.github.francescojo.lib.annotation.LargeTest")
 }
 
 check.dependsOn test
@@ -90,13 +88,6 @@ task smallTest(type: Test) {
 task mediumTest(type: Test) {
     useJUnitPlatform {
         includeTags TAG_TEST_MEDIUM
-        excludeTags "*"
-    }
-}
-
-task largeTest(type: Test) {
-    useJUnitPlatform {
-        includeTags TAG_TEST_LARGE
         excludeTags "*"
     }
 }

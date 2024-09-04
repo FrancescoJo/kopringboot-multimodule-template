@@ -6,11 +6,11 @@ package testcase.medium
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.github.francescojo.infra.appconfig.LoggerConfig
+import com.github.francescojo.lib.annotation.MediumTest
 import com.github.francescojo.lib.springWebMvc.CommonWebMvcConfig
 import com.github.francescojo.lib.springWebMvc.JsonCodecConfig
 import com.github.francescojo.lib.webApi.response.base.ErrorResponseEnvelope
-import com.github.francescojo.infra.appconfig.LoggerConfig
-import com.github.francescojo.lib.annotation.MediumTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -51,6 +51,7 @@ import java.nio.charset.StandardCharsets
         "com.github.francescojo.endpoint",
         "com.github.francescojo.infra.appconfig",
         "com.github.francescojo.infra.i18n",
+        "com.github.francescojo.lib.webApi.advice"
     ]
 )
 @AutoConfigureMockMvc(addFilters = false)

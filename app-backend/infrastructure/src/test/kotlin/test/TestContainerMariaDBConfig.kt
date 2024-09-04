@@ -80,6 +80,7 @@ class TestContainerMariaDBConfig {
             .withUsername(username)
             .withPassword(password)
 
+        @JvmStatic
         fun forceStartContainer() {
             if (!MYSQL_CONTAINER_API.isRunning) {
                 MYSQL_CONTAINER_API.start()

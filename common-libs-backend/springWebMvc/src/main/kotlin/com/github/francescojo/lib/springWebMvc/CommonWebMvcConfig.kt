@@ -4,9 +4,9 @@
  */
 package com.github.francescojo.lib.springWebMvc
 
+import com.github.francescojo.lib.i18n.LocaleProvider
 import com.github.francescojo.lib.springWebMvc.advice.AcceptLanguageLocaleProvider
 import com.github.francescojo.lib.springWebMvc.converter.StringToTsidConverter
-import com.github.francescojo.lib.i18n.LocaleProvider
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

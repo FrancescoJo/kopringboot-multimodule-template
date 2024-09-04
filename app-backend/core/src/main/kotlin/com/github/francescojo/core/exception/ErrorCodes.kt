@@ -28,6 +28,7 @@ enum class ErrorCodes(
     val asMessageKey: String = "ERROR_${this.name}"
 
     companion object {
+        @JvmStatic
         fun from(code: Any?) =
             entries.firstOrNull { it.code == code?.toString()?.toLongOrNull() } ?: UNHANDLED_EXCEPTION
     }

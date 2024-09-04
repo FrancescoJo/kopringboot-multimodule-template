@@ -5,17 +5,15 @@
 package testcase.medium.endpoint.v1.user
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.github.francescojo.core.domain.user.UserId
 import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.endpoint.v1.ApiPathsV1
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import test.com.github.francescojo.lib.SharedTestObjects.faker
 import test.domain.user.UserTestUtils.randomUserId
-import test.endpoint.v1.ApiPathsV1TestSupport.usersId
+import test.endpoint.v1.UserApiPaths
 import testcase.medium.ControllerMediumTestBase
 import java.util.stream.Stream
 
@@ -36,7 +34,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         )
 
         // when:
-        val request = patch(ApiPathsV1.usersId(randomUserId()), payload)
+        val request = patch(UserApiPaths.usersId(randomUserId()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
@@ -58,7 +56,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         )
 
         // when:
-        val request = patch(ApiPathsV1.usersId(randomUserId()), payload)
+        val request = patch(UserApiPaths.usersId(randomUserId()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
@@ -73,7 +71,7 @@ class EditUserProjectionRequestSpec : ControllerMediumTestBase() {
         @Suppress("UNUSED_PARAMETER") testName: String,
         payload: FakeEditUserRequest
     ) {
-        val request = patch(ApiPathsV1.usersId(randomUserId()), payload)
+        val request = patch(UserApiPaths.usersId(randomUserId()), payload)
 
         // then:
         val errorResponse = request.send().expect4xx()
