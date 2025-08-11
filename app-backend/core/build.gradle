@@ -1,4 +1,4 @@
-version version_app
+version = version_app
 
 jar {
     enabled = true

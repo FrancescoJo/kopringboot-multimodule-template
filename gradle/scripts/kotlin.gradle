@@ -1,14 +1,5 @@
-apply plugin: "kotlin"
-apply plugin: "kotlin-allopen"
-
-compileKotlin {
-    kotlinOptions.allWarningsAsErrors = true
-    kotlinOptions.jvmTarget = "$version_target_jvm"
-}
-compileTestKotlin {
-    kotlinOptions.allWarningsAsErrors = true
-    kotlinOptions.jvmTarget = "$version_target_jvm"
-}
+pluginManager.apply("org.jetbrains.kotlin.jvm")
+pluginManager.apply("org.jetbrains.kotlin.plugin.allopen")
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"

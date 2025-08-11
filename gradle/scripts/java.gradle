@@ -1,15 +1,19 @@
-apply plugin: "java"
+pluginManager.apply("java")
 
-sourceCompatibility = version_target_jvm
-targetCompatibility = version_target_jvm
+java {
+    sourceCompatibility = version_target_jvm
+    targetCompatibility = version_target_jvm
+}
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
-task sourcesJar(type: Jar, dependsOn: classes) {
+tasks.register('sourcesJar', Jar) {
+    dependsOn classes
     archiveClassifier = "sources"
     from sourceSets.main.allSource
 }
 
-task testSourcesJar(type: Jar, dependsOn: classes) {
+tasks.register('testSourcesJar', Jar) {
+    dependsOn classes
     archiveClassifier = "test-sources"
     from sourceSets.test.allSource
 }
@@ -28,8 +32,10 @@ dependencies {
 }
 
 gradle.projectsEvaluated {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xlint:all" << "-Werror"
+    tasks.withType(JavaCompile).tap {
+        configureEach {
+            options.compilerArgs << "-Xlint:all" << "-Werror"
+        }
     }
 }
 

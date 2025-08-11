@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 apply from: "$project.rootDir/gradle/scripts/testFailAggregation.gradle"
 
 buildscript {
@@ -7,9 +9,9 @@ buildscript {
         version_app = "1.0.0"
 
         // lang
-        version_target_jvm = 17
-        version_kotlin = "1.9.10"
-        version_kotlin_coroutines = "1.7.3"
+        version_target_jvm = 21
+        version_kotlin = "2.2.0"
+        version_kotlin_coroutines = "1.10.0"
         version_jakarta_validation = "3.0.2"
         version_jakarta_inject = "2.0.1"
         version_groovy = "4.0.22"
@@ -26,11 +28,11 @@ buildscript {
         // third-party dependencies
         version_slf4j = "2.0.0"
         version_jdsl = "3.0.1"
-        version_jackson = "2.13.4"
+        version_jackson = "2.17.2"
         version_hypersistence_tsid = "2.1.2"
 
         // Testing & Code quality
-        version_detekt = "1.21.0"
+        version_detekt = "1.23.8"
         version_junit5 = "5.9.0"
         version_kotest = "5.5.4"
         version_mockito = "4.4.0"
@@ -42,8 +44,8 @@ buildscript {
 
     repositories {
         mavenCentral()
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url "https://repo.spring.io/plugins-release" }
+        maven { url = "https://plugins.gradle.org/m2/" }
+        maven { url = "https://repo.spring.io/plugins-release" }
     }
 
     dependencies {
@@ -60,27 +62,51 @@ buildscript {
     }
 }
 
-group "com.github.francescojo"
+group = "com.github.francescojo"
 
 allprojects {
-    apply plugin: "idea"
+    pluginManager.apply("java")
+    pluginManager.apply("idea")
     apply from: "$rootDir/gradle/scripts/java.gradle"
     apply from: "$rootDir/gradle/scripts/kotlin.gradle"
     apply from: "$rootDir/gradle/scripts/detekt.gradle"
     apply from: "$rootDir/gradle/scripts/testing.gradle"
     apply from: "$rootDir/gradle/scripts/testing-large.gradle"
 
+    // Centeralise archivesBaseName for all projects to avoid JAR duplication
+    if (project != rootProject) {
+        def pathParts = project.path.split(':').findAll { it != '' }
+        if (pathParts.size() >= 2) {
+            base {
+                archivesName = "${pathParts[0]}_${pathParts[1]}"
+            }
+        }
+    }
+
+    /*
+     * Configure Kotlin compilation settings. We can't move this to the `kotlin.gradle` script
+     * since the namespace resolution does not work correctly in imported scripts.
+     */
+    kotlin {
+        compilerOptions {
+            allWarningsAsErrors.set(true)
+            jvmTarget.set(JvmTarget.fromTarget("$version_target_jvm".toString()))
+        }
+    }
+
     repositories {
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
 
     ext {
         def MODULE_COMMON_LIBS = "common-libs-backend"
 
-        MODULE_COMMON_LIBS_FOUNDATION = "$MODULE_COMMON_LIBS:foundation"
-        MODULE_COMMON_LIBS_JACKSON = "$MODULE_COMMON_LIBS:jacksonConfig"
-        MODULE_COMMON_LIBS_SERVER_WEB_API = "$MODULE_COMMON_LIBS:serverWebApi"
-        MODULE_COMMON_LIBS_SPRING_WEBMVC = "$MODULE_COMMON_LIBS:springWebMvc"
+        def moduleRef = { String module -> "$MODULE_COMMON_LIBS:$module".toString() }
+
+        MODULE_COMMON_LIBS_FOUNDATION = moduleRef("foundation")
+        MODULE_COMMON_LIBS_JACKSON = moduleRef("jacksonConfig")
+        MODULE_COMMON_LIBS_SERVER_WEB_API = moduleRef("serverWebApi")
+        MODULE_COMMON_LIBS_SPRING_WEBMVC = moduleRef("springWebMvc")
     }
 }

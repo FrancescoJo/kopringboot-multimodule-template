@@ -55,25 +55,27 @@ class TestRecord {
 }
 
 allprojects {
-    tasks.withType(Test) { testTask ->
-        afterTest { desc, result ->
-            if (result.resultType == TestResult.ResultType.FAILURE) {
-                failedTests << "${desc.className}#${desc.name}"
-            }
-        }
-
-        afterSuite { desc, result ->
-            // Only summarize results for whole modules
-            if (desc.parent) {
-                return
+    tasks.withType(Test).tap {
+        configureEach { testTask ->
+            afterTest { desc, result ->
+                if (result.resultType == TestResult.ResultType.FAILURE) {
+                    failedTests << "${desc.className}#${desc.name}"
+                }
             }
 
-            rootProject.testsResults += new TestRecord(
-                    testTask.project.name,
-                    testTask.name,
-                    testTask.reports.html.entryPoint.absolutePath,
-                    result
-            )
+            afterSuite { desc, result ->
+                // Only summarize results for whole modules
+                if (desc.parent) {
+                    return
+                }
+
+                rootProject.testsResults += new TestRecord(
+                        testTask.project.name,
+                        testTask.name,
+                        testTask.reports.html.entryPoint.absolutePath,
+                        result
+                )
+            }
         }
     }
 }

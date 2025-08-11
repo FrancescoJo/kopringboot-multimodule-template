@@ -1,4 +1,4 @@
-version version_app_lib
+version = version_app_lib
 
 jar {
     enabled = true

@@ -1,9 +1,9 @@
-version version_admin
-
 apply from: "${project.rootDir}/gradle/scripts/sourceSets.gradle"
 apply from: "${project.rootDir}/gradle/scripts/commonInfrastructure.gradle"
 apply from: "${project.rootDir}/gradle/scripts/springBootCommonWebMvc.gradle"
 apply from: "${project.rootDir}/gradle/scripts/springBootJar.gradle"
+
+version = version_admin
 
 jar.dependsOn bootJar
 

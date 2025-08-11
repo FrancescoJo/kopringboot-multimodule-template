@@ -45,7 +45,7 @@ configurations {
     testArtifacts.extendsFrom testRuntime
 }
 
-task testJar(type: Jar) {
+tasks.register('testJar', Jar) {
     archiveClassifier.set('test')
     from sourceSets.test.output
 }
@@ -54,8 +54,8 @@ artifacts {
     testArtifacts testJar
 }
 
-tasks.withType(Test) {
-    group "verification"
+tasks.withType(Test).configureEach {
+    group = "verification"
 
     testLogging {
         final logEvents = [TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED, TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR]
@@ -67,10 +67,10 @@ tasks.withType(Test) {
 
         events = logEvents
         outputs.upToDateWhen { false }
-        exceptionFormat TestExceptionFormat.FULL
-        showExceptions true
-        showCauses true
-        showStackTraces true
+        exceptionFormat = TestExceptionFormat.FULL
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
     }
 }
 
@@ -78,14 +78,14 @@ test {
     useJUnitPlatform()
 }
 
-task smallTest(type: Test) {
+tasks.register('smallTest', Test) {
     useJUnitPlatform {
         includeTags TAG_TEST_SMALL
         excludeTags "*"
     }
 }
 
-task mediumTest(type: Test) {
+tasks.register('mediumTest', Test) {
     useJUnitPlatform {
         includeTags TAG_TEST_MEDIUM
         excludeTags "*"

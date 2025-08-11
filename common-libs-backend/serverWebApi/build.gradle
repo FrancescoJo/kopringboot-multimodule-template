@@ -1,6 +1,6 @@
-version version_app_lib
-
 apply from: "$project.rootDir/gradle/scripts/springBootCommonWebMvc.gradle"
+
+version = version_app_lib
 
 jar {
     enabled = true

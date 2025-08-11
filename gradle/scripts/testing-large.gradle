@@ -1,4 +1,4 @@
-apply plugin: "groovy"
+pluginManager.apply("groovy")
 
 /**
  * Groupising tests for JUnit5
@@ -24,7 +24,7 @@ allOpen {
     annotation("com.github.francescojo.lib.annotation.LargeTest")
 }
 
-task largeTest(type: Test) {
+tasks.register('largeTest', Test) {
     useJUnitPlatform {
         includeTags TAG_TEST_LARGE
         excludeTags "*"

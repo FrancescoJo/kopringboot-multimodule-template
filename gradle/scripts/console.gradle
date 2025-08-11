@@ -23,14 +23,14 @@ enum CC {
     }
 }
 
-final String colour(final CC code, final String text) {
-    final ESC = "${(char) 27}["
+static final String colour(final CC code, final String text) {
+    final ESC = "${(27 as char)}["
     final RESET = "${ESC}0m"
 
     return "${ESC}${(code as CC).code}${text}${RESET}"
 }
 
-final String rPad(final int width, final String text) {
+static final String rPad(final int width, final String text) {
     int spacesCount = width - text.length()
     if (spacesCount > 1) {
         final sb = new StringBuffer(spacesCount)
@@ -52,10 +52,10 @@ final OutputStream execWrapper(final List<String> args) {
     return stdout
 }
 
-ext.CC = { code, text -> colour(code, text) }
-ext.RPAD = { width, text -> rPad(width, text) }
-ext.cmdLine = { args -> execWrapper(args) }
-ext.printlnErr = { text -> System.err.println(text) }
+ext.CC = { CC code, String text -> colour(code, text) }
+ext.RPAD = { int width, String text -> rPad(width, text) }
+ext.cmdLine = { List<String> args -> execWrapper(args) }
+ext.printlnErr = { String text -> System.err.println(text) }
 
 ext.BLACK = CC.BLACK
 ext.RED = CC.RED
