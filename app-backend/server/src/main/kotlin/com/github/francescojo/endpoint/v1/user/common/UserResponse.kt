@@ -16,24 +16,24 @@ import java.time.Instant
  */
 @JsonSerialize
 data class UserResponse(
-    @JsonProperty
-    @JsonPropertyDescription(DESC_ID)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_ID)
     val id: TSID,
 
-    @JsonProperty
-    @JsonPropertyDescription(DESC_NICKNAME)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_NICKNAME)
     val nickname: String,
 
-    @JsonProperty
-    @JsonPropertyDescription(DESC_EMAIL)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_EMAIL)
     val email: String,
 
-    @JsonProperty
-    @JsonPropertyDescription(DESC_CREATED_AT)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_CREATED_AT)
     val createdAt: Instant,
 
-    @JsonProperty
-    @JsonPropertyDescription(DESC_UPDATED_AT)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_UPDATED_AT)
     val updatedAt: Instant
 ) {
     companion object {

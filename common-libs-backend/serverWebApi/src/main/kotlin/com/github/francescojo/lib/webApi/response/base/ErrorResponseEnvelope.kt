@@ -12,16 +12,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription
  */
 data class ErrorResponseEnvelope(override val body: Body) : ResponseEnvelope<ErrorResponseEnvelope.Body>(Type.ERROR) {
     data class Body(
-        @JsonPropertyDescription(DESC_BODY_MESSAGE)
-        @JsonProperty
+        @get:JsonPropertyDescription(DESC_BODY_MESSAGE)
+        @get:JsonProperty
         val message: String,
 
-        @JsonPropertyDescription(DESC_BODY_CODE)
-        @JsonProperty
+        @get:JsonPropertyDescription(DESC_BODY_CODE)
+        @get:JsonProperty
         val code: String,
 
-        @JsonPropertyDescription(DESC_BODY_DETAILS)
-        @JsonProperty
+        @get:JsonPropertyDescription(DESC_BODY_DETAILS)
+        @get:JsonProperty
         val details: Any? = null
     )
 

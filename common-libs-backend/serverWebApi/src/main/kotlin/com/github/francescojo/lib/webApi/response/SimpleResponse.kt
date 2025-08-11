@@ -13,8 +13,8 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
  */
 @JsonSerialize
 data class SimpleResponse<T>(
-    @JsonProperty
-    @JsonPropertyDescription(DESC_RESULT)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_RESULT)
     val result: T
 ) {
     companion object {

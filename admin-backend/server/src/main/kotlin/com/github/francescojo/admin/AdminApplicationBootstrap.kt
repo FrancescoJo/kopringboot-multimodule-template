@@ -2,13 +2,13 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo
+package com.github.francescojo.admin
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
 
 fun main(args: Array<String>) {
-    KopringApplicationBootstrap().start(args)
+    AdminApplicationBootstrap().start(args)
 }
 
 /**
@@ -16,19 +16,19 @@ fun main(args: Array<String>) {
  */
 @SpringBootApplication(
     scanBasePackages = [
-        KopringApplicationBootstrap.PACKAGE_NAME
+        AdminApplicationBootstrap.PACKAGE_NAME
     ]
 )
-class KopringApplicationBootstrap {
+class AdminApplicationBootstrap {
     fun start(args: Array<String>) {
         // This logic is called only once - therefore, we ignore this warning.
         @Suppress("SpreadOperator")
-        SpringApplicationBuilder(KopringApplicationBootstrap::class.java)
+        SpringApplicationBuilder(AdminApplicationBootstrap::class.java)
             .build()
             .run(*args)
     }
 
     companion object {
-        const val PACKAGE_NAME = "com.github.francescojo"
+        const val PACKAGE_NAME = "com.github.francescojo.admin"
     }
 }

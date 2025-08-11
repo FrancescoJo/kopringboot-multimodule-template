@@ -20,15 +20,15 @@ import jakarta.validation.constraints.Size
 data class CreateUserRequest(
     @field:NotEmpty
     @field:Size(min = User.LENGTH_NAME_MIN, max = User.LENGTH_NAME_MAX)
-    @JsonProperty
-    @JsonPropertyDescription(DESC_NAME)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_NAME)
     override val nickname: String,
 
     @field:NotEmpty
     @field:Email
     @field:Size(max = User.LENGTH_EMAIL_MAX)
-    @JsonProperty
-    @JsonPropertyDescription(DESC_EMAIL)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_EMAIL)
     override val email: String,
 ): CreateUserUseCase.CreateUserMessage {
     companion object {

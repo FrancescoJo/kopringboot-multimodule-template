@@ -21,8 +21,6 @@ fun InetAddress.toIpV6AddressBytes(): ByteArray {
             address[0], address[1], address[2], address[3]
         )
         is Inet6Address -> this.address
-        else -> throw UnsupportedOperationException(
-            "Not an IP compatible address: $hostAddress")
     }
 }
 

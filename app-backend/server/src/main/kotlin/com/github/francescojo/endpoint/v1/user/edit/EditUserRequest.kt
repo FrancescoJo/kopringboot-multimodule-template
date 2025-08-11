@@ -26,12 +26,12 @@ import kotlin.jvm.optionals.getOrNull
 @JsonDeserialize
 @JsonInclude(JsonInclude.Include.NON_NULL)
 data class EditUserRequest(
-    @JsonProperty
-    @JsonPropertyDescription(DESC_NAME)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_NAME)
     val nickname: Optional<String>,
 
-    @JsonProperty
-    @JsonPropertyDescription(DESC_EMAIL)
+    @get:JsonProperty
+    @get:JsonPropertyDescription(DESC_EMAIL)
     val email: Optional< String>,
 ) {
     fun toMessage(validator: Validator): EditUserUseCase.EditUserMessage {

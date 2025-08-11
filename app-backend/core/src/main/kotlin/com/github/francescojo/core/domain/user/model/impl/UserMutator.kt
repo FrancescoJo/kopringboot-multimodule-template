@@ -9,6 +9,7 @@ import com.github.francescojo.core.domain.user.model.User
 import com.github.francescojo.lib.annotation.ValueParameter
 import com.github.francescojo.lib.text.ToStringHelper.prettyToString
 import java.time.Instant
+import java.util.Objects
 
 /**
  * @since 2021-08-10
@@ -38,13 +39,12 @@ class UserMutator(
         }
 
     override fun equals(other: Any?): Boolean {
-        return this === other ||
-                other is UserMutator &&
+        return other is UserMutator &&
                 id == other.id &&
                 nickname == other.nickname &&
                 email == other.email &&
-                createdAt == other.createdAt &&
-                updatedAt == other.updatedAt
+                Objects.equals(createdAt, other.createdAt) &&
+                Objects.equals(updatedAt, other.updatedAt)
     }
 
     override fun hashCode(): Int {

@@ -14,12 +14,12 @@ import java.time.Instant
  * @since 2021-08-10
  */
 abstract class ResponseEnvelope<T>(
-    @JsonPropertyDescription(DESC_TYPE)
-    @JsonProperty
+    @get:JsonPropertyDescription(DESC_TYPE)
+    @get:JsonProperty
     open val type: Type,
 
-    @JsonPropertyDescription(DESC_TIMESTAMP)
-    @JsonProperty
+    @get:JsonPropertyDescription(DESC_TIMESTAMP)
+    @get:JsonProperty
     open val timestamp: Instant = Instant.now()
 ) {
     @get:JsonPropertyDescription(DESC_BODY)
