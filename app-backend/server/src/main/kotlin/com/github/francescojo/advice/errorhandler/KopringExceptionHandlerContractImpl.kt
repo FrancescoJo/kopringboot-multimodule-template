@@ -7,8 +7,8 @@ package com.github.francescojo.advice.errorhandler
 import com.github.francescojo.core.exception.ExternalException
 import com.github.francescojo.core.exception.InternalException
 import com.github.francescojo.core.exception.KopringException
-import com.github.francescojo.lib.webApi.advice.ErrorCodesToHttpStatusMixin
-import com.github.francescojo.lib.webApi.advice.ExceptionHandlerContract
+import com.github.francescojo.lib.webApi.advice.errorHandler.ErrorCodesToHttpStatusMixin
+import com.github.francescojo.lib.webApi.advice.errorHandler.ExceptionHandlerContract
 import jakarta.servlet.http.HttpServletRequest
 import org.slf4j.Logger
 import org.springframework.http.HttpStatus

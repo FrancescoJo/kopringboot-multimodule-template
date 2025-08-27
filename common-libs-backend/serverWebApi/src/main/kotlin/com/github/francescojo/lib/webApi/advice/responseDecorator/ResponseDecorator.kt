@@ -1,8 +1,4 @@
-/*
- * kopringboot-multimodule-template
- * Distributed under MIT licence
- */
-package com.github.francescojo.lib.webApi.advice.responseDecorator.response
+package com.github.francescojo.lib.webApi.advice.responseDecorator
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.github.francescojo.lib.webApi.response.base.ResponseEnvelope
@@ -33,5 +29,5 @@ class ResponseDecorator : ResponseBodyAdvice<Any> {
         selectedConverterType: Class<out HttpMessageConverter<*>>,
         request: ServerHttpRequest,
         response: ServerHttpResponse
-    ): Any? = ResponseEnvelope.ok(body)
+    ): Any? = ResponseEnvelope.Companion.ok(body)
 }

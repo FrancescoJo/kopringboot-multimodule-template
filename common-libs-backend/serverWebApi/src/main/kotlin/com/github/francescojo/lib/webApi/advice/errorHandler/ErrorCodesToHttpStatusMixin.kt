@@ -2,7 +2,7 @@
  * kopringboot-multimodule-template
  * Distributed under MIT licence
  */
-package com.github.francescojo.lib.webApi.advice
+package com.github.francescojo.lib.webApi.advice.errorHandler
 
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.ErrorCodes.DATA_INTEGRITY_BROKEN
