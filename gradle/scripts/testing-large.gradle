@@ -25,6 +25,8 @@ allOpen {
 }
 
 tasks.register('largeTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
     useJUnitPlatform {
         includeTags TAG_TEST_LARGE
         excludeTags "*"

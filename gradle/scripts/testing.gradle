@@ -79,6 +79,8 @@ test {
 }
 
 tasks.register('smallTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
     useJUnitPlatform {
         includeTags TAG_TEST_SMALL
         excludeTags "*"
@@ -86,6 +88,8 @@ tasks.register('smallTest', Test) {
 }
 
 tasks.register('mediumTest', Test) {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    classpath = sourceSets.test.runtimeClasspath
     useJUnitPlatform {
         includeTags TAG_TEST_MEDIUM
         excludeTags "*"
