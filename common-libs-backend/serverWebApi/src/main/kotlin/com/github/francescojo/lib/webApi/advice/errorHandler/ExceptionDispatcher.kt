@@ -14,6 +14,7 @@ import jakarta.servlet.ServletException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolationException
 import org.slf4j.Logger
+import org.springframework.core.NestedRuntimeException
 import org.springframework.http.HttpStatus
 import org.springframework.http.converter.HttpMessageConversionException
 import org.springframework.stereotype.Component
@@ -29,6 +30,7 @@ import org.springframework.web.client.HttpStatusCodeException
 class ExceptionDispatcher(
     private val kopringExceptionHandler: ExceptionHandlerContract<KopringException>,
     private val servletExceptionHandler: ExceptionHandlerContract<ServletException>,
+    private val springExceptionHandler: ExceptionHandlerContract<NestedRuntimeException>,
     private val log: Logger
 ) {
     fun dispatch(
@@ -58,10 +60,7 @@ class ExceptionDispatcher(
 
             is ServletException -> servletExceptionHandler.onException(req, exception)
 
-            is HttpStatusCodeException -> GeneralHttpException(
-                exception.statusCode,
-                cause = exception
-            ) to exception.statusCode.toHttpStatus()
+            is NestedRuntimeException -> springExceptionHandler.onException(req, exception)
 
             is ConstraintViolationException -> {
                 val (value, message) = when (exception.constraintViolations.size) {

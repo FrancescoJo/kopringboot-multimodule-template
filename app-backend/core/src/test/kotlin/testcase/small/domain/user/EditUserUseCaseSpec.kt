@@ -13,12 +13,7 @@ import com.github.francescojo.core.domain.user.projection.UserProjection
 import com.github.francescojo.core.domain.user.usecase.EditUserUseCase
 import com.github.francescojo.lib.annotation.SmallTest
 import io.kotest.matchers.shouldBe
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
-import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.*
 import test.domain.user.UserTestUtils.EMPTY
 import test.domain.user.UserTestUtils.random
 import test.domain.user.UserTestUtils.randomUserProjection

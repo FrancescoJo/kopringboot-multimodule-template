@@ -5,12 +5,7 @@
 package com.github.francescojo.infra.i18n
 
 import com.github.francescojo.core.exception.ErrorCodes
-import com.github.francescojo.core.exception.ErrorCodes.GENERAL_HTTP_EXCEPTION
-import com.github.francescojo.core.exception.ErrorCodes.MALFORMED_INPUT
-import com.github.francescojo.core.exception.ErrorCodes.SERVICE_NOT_FOUND
-import com.github.francescojo.core.exception.ErrorCodes.UNHANDLED_EXCEPTION
-import com.github.francescojo.core.exception.ErrorCodes.WRONG_INPUT
-import com.github.francescojo.core.exception.ErrorCodes.WRONG_PRESENTATION
+import com.github.francescojo.core.exception.ErrorCodes.*
 import com.github.francescojo.core.i18n.MessageTemplate
 import com.github.francescojo.core.i18n.MessageTemplateProvider
 import com.github.francescojo.lib.annotation.VisibleForTesting
@@ -61,7 +56,7 @@ internal class MessageTemplateProviderImpl : MessageTemplateProvider {
         english(WRONG_PRESENTATION, "Requested data presentation is not supported.")
         english(WRONG_INPUT, "''{0}''  is not a valid input value.")
         english(MALFORMED_INPUT, "Malformed input.")
-        english(GENERAL_HTTP_EXCEPTION, "An unhandled HTTP exception(status = {0}) is occurred.")
+        english(EXCEPTION_ON_TRANSMISSION, "An unhandled HTTP exception(status = {0}) is occurred.")
 
         english(UNHANDLED_EXCEPTION, "Unhandled internal error.")
     }

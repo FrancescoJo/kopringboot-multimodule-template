@@ -8,11 +8,7 @@ import com.github.francescojo.infra.jdbc.common.Versioned
 import com.github.francescojo.infra.jdbc.common.embedded.DateEmbedded
 import com.github.francescojo.infra.jdbc.common.embedded.SoftDeletableEmbedded
 import com.github.francescojo.infra.jdbc.common.embedded.VersionEmbedded
-import jakarta.persistence.Column
-import jakarta.persistence.Embedded
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 /**
  * @since 2021-08-10
