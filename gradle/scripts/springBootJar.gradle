@@ -1,5 +1,5 @@
 assemble.doLast {
-    final jarFile = new File("${project.projectDir}/build/libs", "${project.name}-${project.version}.jar")
+    final jarFile = new File("${project.projectDir}/build/libs", "${getArchiveName()}-${project.version}.jar")
     if (!jarFile.exists()) {
         throw new GradleException("Programme binary is not found in '${jarFile.absolutePath}'.")
     }

@@ -73,16 +73,6 @@ allprojects {
     apply from: "$rootDir/gradle/scripts/testing.gradle"
     apply from: "$rootDir/gradle/scripts/testing-large.gradle"
 
-    // Centeralise archivesBaseName for all projects to avoid JAR duplication
-    if (project != rootProject) {
-        def pathParts = project.path.split(':').findAll { it != '' }
-        if (pathParts.size() >= 2) {
-            base {
-                archivesName = "${pathParts[0]}_${pathParts[1]}"
-            }
-        }
-    }
-
     /*
      * Configure Kotlin compilation settings. We can't move this to the `kotlin.gradle` script
      * since the namespace resolution does not work correctly in imported scripts.
@@ -108,5 +98,25 @@ allprojects {
         MODULE_COMMON_LIBS_JACKSON = moduleRef("jacksonConfig")
         MODULE_COMMON_LIBS_SERVER_WEB_API = moduleRef("serverWebApi")
         MODULE_COMMON_LIBS_SPRING_WEBMVC = moduleRef("springWebMvc")
+    }
+    ext.getArchiveName = { String suffix = "" ->
+        if (project == rootProject) {
+            return "${project.name}${suffix}"
+        }
+        def pathParts = project.path.split(':').findAll { it != '' }
+        if (pathParts.size() >= 2) {
+            return "${pathParts[0]}_${pathParts[1]}${suffix}"
+        }
+        return "${project.name}${suffix}"
+    }
+
+    // Centeralise archivesBaseName for all projects to avoid JAR duplication
+    if (project != rootProject) {
+        def pathParts = project.path.split(':').findAll { it != '' }
+        if (pathParts.size() >= 2) {
+            base {
+                archivesName = getArchiveName()
+            }
+        }
     }
 }

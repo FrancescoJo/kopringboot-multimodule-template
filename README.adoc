@@ -23,17 +23,26 @@
 - OpenJDK 17+
 - Gradle 7+
 
+[[howto-build]]
+== How to build
+
+Build with profiles:
+
+Note that default spring profile would be set to `local` if `buildConfig` option is omitted.
+
+[source, shell]
+----
+$ ./gradlew :app-backend:server:assemble -PbuildConfig=[local,alpha,beta,release]
+----
+
 [[howto-run]]
 == How to run
 
 Run with profiles:
 
-Note that default spring profile would be set to `local` if
-`spring.profiles.active` option is omitted.
+Note that default spring profile would be set to `local` if `spring.profiles.active` option is omitted.
 
 [source, shell]
 ----
-$ java -jar build/app-main.jar --spring.profiles.active=[local,alpha,beta,release]
+$ java -jar build/app-backend_server-0.1.jar --spring.profiles.active=[local,alpha,beta,release]
 ----
-
-
