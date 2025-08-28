@@ -8,7 +8,7 @@ package com.github.francescojo.core.exception
  * @since 2021-08-10
  */
 enum class ErrorCodes(
-    val code: Long,
+    val code: Int,
     val description: String
 ) {
     SERVICE_NOT_FOUND(code = 10, ""),
@@ -31,7 +31,14 @@ enum class ErrorCodes(
 
     companion object {
         @JvmStatic
-        fun from(code: Any?) =
-            entries.firstOrNull { it.code == code?.toString()?.toLongOrNull() } ?: UNHANDLED_EXCEPTION
+        fun from(code: Any?): ErrorCodes {
+            val convertedCode: Int? = when (code) {
+                is Int -> code
+                is String -> Integer.decode(code)
+                else -> code?.toString()?.toIntOrNull()
+            }
+
+            return entries.firstOrNull { it.code == convertedCode } ?: UNHANDLED_EXCEPTION
+        }
     }
 }

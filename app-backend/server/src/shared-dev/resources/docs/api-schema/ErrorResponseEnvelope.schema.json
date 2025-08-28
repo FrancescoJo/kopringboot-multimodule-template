@@ -1,0 +1,39 @@
+{
+  "$id": "com.github.francescojo/api/v1/response/ErrorResponseEnvelope",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "/v1/ErrorEnvelope",
+  "description": "Response envelope for failed API responses",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "Type of the response - `ERROR`",
+      "example": "ERROR"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "Response time in UTC that formatted in ISO-8601 Standard.",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "body": {
+      "type": "object",
+      "description": "Response body that containing error details.",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Message that describes the error.",
+          "example": "2020-01-01T00:00:00.000Z"
+        },
+        "code": {
+          "type": "string",
+          "description": "Hex code that identifies the error.",
+          "example": "0x0000000a"
+        },
+        "details": {
+          "type": "object",
+          "description": "Additional information to handle this error situation."
+        }
+      }
+    }
+  }
+}

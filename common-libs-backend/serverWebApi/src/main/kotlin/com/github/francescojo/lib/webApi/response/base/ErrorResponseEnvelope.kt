@@ -6,10 +6,12 @@ package com.github.francescojo.lib.webApi.response.base
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyDescription
+import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * @since 2021-08-10
  */
+@Schema(name = "ErrorResponseEnvelope")
 data class ErrorResponseEnvelope(override val body: Body) : ResponseEnvelope<ErrorResponseEnvelope.Body>(Type.ERROR) {
     data class Body(
         @get:JsonPropertyDescription(DESC_BODY_MESSAGE)

@@ -43,7 +43,11 @@ class ErrorResponseWrapper(
         val response = if (exception == null) {
             ResponseEnvelope.Companion.error(message, ErrorCodes.UNHANDLED_EXCEPTION.toString(), null)
         } else {
-            ResponseEnvelope.Companion.error(message, exception.codeBook.code.toString(), exception.details())
+            ResponseEnvelope.Companion.error(
+                message,
+                String.format("0x%08x", exception.codeBook.code),
+                exception.details()
+            )
         }
 
         return ResponseEntity(response, status)

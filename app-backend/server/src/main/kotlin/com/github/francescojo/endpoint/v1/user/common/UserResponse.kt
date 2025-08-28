@@ -9,11 +9,13 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.github.francescojo.core.domain.user.projection.UserProjection
 import io.hypersistence.tsid.TSID
+import io.swagger.v3.oas.annotations.media.Schema
 import java.time.Instant
 
 /**
  * @since 2021-08-10
  */
+@Schema(name = "v1.user.UserResponse")
 @JsonSerialize
 data class UserResponse(
     @get:JsonProperty
@@ -37,11 +39,11 @@ data class UserResponse(
     val updatedAt: Instant
 ) {
     companion object {
-        const val DESC_ID = ""
-        const val DESC_NICKNAME = ""
-        const val DESC_EMAIL = ""
-        const val DESC_CREATED_AT = ""
-        const val DESC_UPDATED_AT = ""
+        const val DESC_ID = "Unique identifier of the user."
+        const val DESC_NICKNAME = "Nickname of the user."
+        const val DESC_EMAIL = "Email of the user."
+        const val DESC_CREATED_AT = "Timestamp when the user was created. Format: ISO 8601."
+        const val DESC_UPDATED_AT = "Timestamp when the user information is modified. Format: ISO 8601."
 
         fun from(src: UserProjection) = with(src) {
             UserResponse(

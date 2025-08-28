@@ -1,0 +1,19 @@
+{
+  "$id": "com.github.francescojo/api/v1/response/user/EditUserRequest",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "/v1/user/EditUserRequest",
+  "description": "Request object to update user information.",
+  "type": "object",
+  "properties": {
+    "nickname": {
+      "type": "string",
+      "description": "Nickname of the user. Must not be empty and must be between 2 and 64 characters.",
+      "example": "FooUser"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email of the user. Must not be empty, must be a valid email format, and between 5 and 64 characters.",
+      "example": "foo.user@my.company.com"
+    }
+  }
+}

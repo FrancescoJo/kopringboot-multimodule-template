@@ -1,0 +1,34 @@
+{
+  "$id": "com.github.francescojo/api/v1/response/user/UserResponse",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "/v1/user/UserResponse",
+  "description": "Response object that represents a user.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the user.",
+      "example": "6R4MnC82GOUe7TplRC5aRej"
+    },
+    "nickname": {
+      "type": "string",
+      "description": "Nickname of the user.",
+      "example": "FooUser"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email of the user.",
+      "example": "foo.user@my.company.com"
+    },
+    "createdAt": {
+      "type": "string",
+      "description": "Timestamp when the user was created. Format: ISO 8601.",
+      "example": "2020-01-01T00:00:00.000Z"
+    },
+    "updatedAt": {
+      "type": "string",
+      "description": "Timestamp when the user information is modified. Format: ISO 8601.",
+      "example": "2020-01-01T00:00:00.000Z"
+    }
+  }
+}
