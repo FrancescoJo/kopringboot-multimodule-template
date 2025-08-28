@@ -4,6 +4,7 @@ apply from: "${project.rootDir}/gradle/scripts/springBootCommonWebMvc.gradle"
 apply from: "${project.rootDir}/gradle/scripts/springBootJar.gradle"
 
 version = version_app
+description = "Api backend application"
 
 jar.dependsOn bootJar
 

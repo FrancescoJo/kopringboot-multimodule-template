@@ -4,12 +4,18 @@ server:
     whitelabel:
       enabled: false
 
+info:
+  name: ${projectName}
+  description: ${projectDescription}
+  version: ${appVersion}${mayPrerelease}${buildMetadata}
+  builtAt: ${builtAt}
+
 spring:
   application:
     name: kopringboot-app
   profiles:
     # local, alpha, beta, release, test
-    active: ${KOPRINGBOOT_APP_PORT:local}
+    active: ${springAppProfile}
   web:
     resources:
       add-mappings: false

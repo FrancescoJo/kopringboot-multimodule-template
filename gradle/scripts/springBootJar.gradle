@@ -1,3 +1,33 @@
+tasks.processResources {
+    filesMatching("application.yml") {
+        final buildConfig = getBuildConfig()
+        final buildMetadata = getBuildMetadata()
+        final builtAt = getBuiltAt()
+
+        final expansion = new HashMap<String, String>([
+                springAppProfile  : buildConfig,
+                projectName       : project.path,
+                projectDescription: project.description,
+                appVersion        : project.version.toString(),
+                builtAt           : builtAt
+        ])
+
+        if (buildConfig == "local" || buildConfig == "alpha") {
+            expansion.put("mayPrerelease", "-${buildConfig}")
+        } else {
+            expansion.put("mayPrerelease", "")
+        }
+
+        if (buildMetadata.isEmpty()) {
+            expansion.put("buildMetadata", "")
+        } else {
+            expansion.put("buildMetadata", "+${buildMetadata}")
+        }
+
+        expand(expansion)
+    }
+}
+
 assemble.doLast {
     final jarFile = new File("${project.projectDir}/build/libs", "${getArchiveName()}-${project.version}.jar")
     if (!jarFile.exists()) {

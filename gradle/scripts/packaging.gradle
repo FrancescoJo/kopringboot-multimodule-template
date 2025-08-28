@@ -23,4 +23,24 @@ final String getBuildConfig() {
     return buildConfig
 }
 
+final static String getBuildMetadata() {
+    final pb = new ProcessBuilder()
+    final getVersionTask = pb.command("git", "rev-parse", "--short", "HEAD")
+            .redirectErrorStream(true)
+            .start()
+
+    final output = getVersionTask.inputStream.text.trim()
+    final exitCode = getVersionTask.waitFor()
+
+    return (exitCode == 0 && output) ? output : ""
+}
+
+final static String getBuiltAt() {
+    final sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+    sdf.timeZone = java.util.TimeZone.getTimeZone("UTC")
+    return sdf.format(new Date())
+}
+
 ext.getBuildConfig = { getBuildConfig() }
+ext.getBuildMetadata = { getBuildMetadata() }
+ext.getBuiltAt = { getBuiltAt() }
