@@ -9,6 +9,7 @@ import io.swagger.v3.oas.models.media.Schema
 import io.swagger.v3.oas.models.servers.Server
 import org.slf4j.Logger
 import org.springdoc.core.customizers.OpenApiCustomizer
+import org.springdoc.core.models.GroupedOpenApi
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -96,6 +97,17 @@ class SpringdocOpenApiConfig(
         // Clear all auto-generated components and replace with custom ones only
         openApi.components = Components().apply { attachSchemas(this) }
     }
+
+    @Bean
+    @Profile("local", "alpha")
+    fun userApiV1(): GroupedOpenApi = GroupedOpenApi.builder()
+        .group("v1-user")
+        .packagesToScan(
+            "com.github.francescojo.endpoint.v1.user"
+        )
+        // Reuse the global customizer
+        .addOpenApiCustomizer(openApiCustomizer())
+        .build()
 
     companion object {
         private const val API_SCHEMA_DIR = "docs/api-schema"
