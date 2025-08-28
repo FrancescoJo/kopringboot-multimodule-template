@@ -6,6 +6,20 @@ spring:
     activate:
       on-profile: alpha
 
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      exposure:
+        include:
+          - "health"
+          - "info"
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+
 logging:
   file:
     path: ${KOPRINGBOOT_APP_LOG_PATH:logs/}

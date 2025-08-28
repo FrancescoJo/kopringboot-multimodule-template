@@ -6,6 +6,20 @@ spring:
     activate:
       on-profile: local
 
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      exposure:
+        include:
+          - "health"
+          - "info"
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+
 logging:
   level:
     ROOT: INFO

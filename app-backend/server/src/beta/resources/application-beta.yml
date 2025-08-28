@@ -12,6 +12,20 @@ spring:
         show_sql: false
         format_sql: false
 
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      exposure:
+        include:
+          - "health"
+          - "info"
+  info:
+    env:
+      enabled: true
+    java:
+      enabled: true
+
 logging:
   file:
     path: ${KOPRINGBOOT_APP_LOG_PATH:logs/}

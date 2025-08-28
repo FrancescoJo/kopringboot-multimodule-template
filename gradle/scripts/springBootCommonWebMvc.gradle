@@ -4,6 +4,7 @@ dependencies {
     // Spring Web
     implementation "org.springframework.boot:spring-boot-starter-web:$version_springBoot"
     implementation "org.springframework.boot:spring-boot-starter-tomcat:$version_springBoot"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$version_springBoot"
 
     // (SpringDoc-OpenAPI v3)
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:$version_springDoc"
