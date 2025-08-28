@@ -1,3 +1,6 @@
+server:
+  host:
+
 spring:
   config:
     activate:
@@ -14,4 +17,3 @@ logging:
     path: ${KOPRINGBOOT_APP_LOG_PATH:logs/}
   level:
     ROOT: INFO
-    com.github.francescojo: TRACE

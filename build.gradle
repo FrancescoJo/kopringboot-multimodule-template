@@ -20,7 +20,7 @@ buildscript {
         version_spock_objenesis = "3.4"
 
         // Spring + infrastructure
-        version_springBoot = "3.3.2"
+        version_springBoot = "3.5.5"
         version_hikariCP = "5.0.1"
         version_mariadb = "3.1.0"
         version_h2database = "2.1.214"
@@ -30,6 +30,7 @@ buildscript {
         version_jdsl = "3.0.1"
         version_jackson = "2.17.2"
         version_hypersistence_tsid = "2.1.2"
+        version_springDoc = "2.8.11"
 
         // Testing & Code quality
         version_detekt = "1.23.8"

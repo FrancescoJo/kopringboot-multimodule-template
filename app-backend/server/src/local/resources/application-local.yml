@@ -1,3 +1,6 @@
+server:
+  host: localhost
+
 spring:
   config:
     activate:

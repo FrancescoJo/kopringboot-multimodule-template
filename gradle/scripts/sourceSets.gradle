@@ -2,14 +2,24 @@ apply from: "$project.rootDir/gradle/scripts/packaging.gradle"
 apply from: "$project.rootDir/gradle/scripts/console.gradle"
 
 sourceSets {
-    def buildConfig = getBuildConfig()
+    final String buildConfig = getBuildConfig()
 
     main {
         java {
             srcDirs += ["src/$buildConfig/java", "src/$buildConfig/kotlin"]
+
+            // Add shared development sources for local and alpha profiles
+            if (buildConfig in ["local", "alpha"]) {
+                srcDirs += ["src/shared-dev/java", "src/shared-dev/kotlin"]
+            }
         }
         resources {
             srcDirs += ["src/$buildConfig/resources"]
+
+            // Add shared development resources for local and alpha profiles  
+            if (buildConfig in ["local", "alpha"]) {
+                srcDirs += ["src/shared-dev/resources"]
+            }
         }
     }
 }
