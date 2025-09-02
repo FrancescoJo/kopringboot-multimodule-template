@@ -24,7 +24,7 @@ allOpen {
     annotation("com.github.francescojo.lib.annotation.LargeTest")
 }
 
-tasks.register('largeTest', Test) {
+tasks.register("largeTest", Test) {
     testClassesDirs = sourceSets.test.output.classesDirs
     classpath = sourceSets.test.runtimeClasspath
     useJUnitPlatform {

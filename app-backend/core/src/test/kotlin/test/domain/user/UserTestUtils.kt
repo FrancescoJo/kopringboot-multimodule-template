@@ -15,6 +15,9 @@ import java.time.Instant
  * @since 2021-08-10
  */
 object UserTestUtils {
+    val UserId.Companion.EMPTY: UserId
+        get() = UserId(TsidValueHolder.EMPTY_VALUE)
+
     @JvmStatic
     fun randomUserId(): TSID = TSID.fast()
 
@@ -22,9 +25,6 @@ object UserTestUtils {
     fun emptyUserId(): TSID = TsidValueHolder.EMPTY_VALUE
 
     fun UserId.Companion.random(): UserId = UserId(randomUserId())
-
-    val UserId.Companion.EMPTY: UserId
-        get() = UserId(TsidValueHolder.EMPTY_VALUE)
 
     fun randomUserProjection(
         id: UserId = UserId(TSID.fast()),

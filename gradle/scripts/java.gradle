@@ -6,13 +6,13 @@ java {
 }
 [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
-tasks.register('sourcesJar', Jar) {
+tasks.register("sourcesJar", Jar) {
     dependsOn classes
     archiveClassifier = "sources"
     from sourceSets.main.allSource
 }
 
-tasks.register('testSourcesJar', Jar) {
+tasks.register("testSourcesJar", Jar) {
     dependsOn classes
     archiveClassifier = "test-sources"
     from sourceSets.test.allSource

@@ -104,7 +104,7 @@ allprojects {
         if (project == rootProject) {
             return "${project.name}${suffix}"
         }
-        def pathParts = project.path.split(':').findAll { it != '' }
+        def pathParts = project.path.split(":").findAll { it != "" }
         if (pathParts.size() >= 2) {
             return "${pathParts[0]}_${pathParts[1]}${suffix}"
         }
@@ -113,7 +113,7 @@ allprojects {
 
     // Centeralise archivesBaseName for all projects to avoid JAR duplication
     if (project != rootProject) {
-        def pathParts = project.path.split(':').findAll { it != '' }
+        def pathParts = project.path.split(":").findAll { it != "" }
         if (pathParts.size() >= 2) {
             base {
                 archivesName = getArchiveName()

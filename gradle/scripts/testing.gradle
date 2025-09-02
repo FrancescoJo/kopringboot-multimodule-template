@@ -45,8 +45,8 @@ configurations {
     testArtifacts.extendsFrom testRuntime
 }
 
-tasks.register('testJar', Jar) {
-    archiveClassifier.set('test')
+tasks.register("testJar", Jar) {
+    archiveClassifier.set("test")
     from sourceSets.test.output
 }
 
@@ -78,7 +78,7 @@ test {
     useJUnitPlatform()
 }
 
-tasks.register('smallTest', Test) {
+tasks.register("smallTest", Test) {
     testClassesDirs = sourceSets.test.output.classesDirs
     classpath = sourceSets.test.runtimeClasspath
     useJUnitPlatform {
@@ -87,7 +87,7 @@ tasks.register('smallTest', Test) {
     }
 }
 
-tasks.register('mediumTest', Test) {
+tasks.register("mediumTest", Test) {
     testClassesDirs = sourceSets.test.output.classesDirs
     classpath = sourceSets.test.runtimeClasspath
     useJUnitPlatform {
@@ -103,7 +103,7 @@ configurations {
         canBeConsumed = false
         attributes {
             attribute(Category.CATEGORY_ATTRIBUTE, objects.named(Category, Category.DOCUMENTATION))
-            attribute(DocsType.DOCS_TYPE_ATTRIBUTE, objects.named(DocsType, 'test-report-data'))
+            attribute(DocsType.DOCS_TYPE_ATTRIBUTE, objects.named(DocsType, "test-report-data"))
         }
     }
 }

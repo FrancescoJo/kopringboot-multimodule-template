@@ -5,9 +5,9 @@ ext {
     MODULE_ADMIN = "admin-backend"
 }
 
-tasks.register('cleanAll')
-tasks.register('detektAll')
-tasks.register('testAll')
+tasks.register("cleanAll")
+tasks.register("detektAll")
+tasks.register("testAll")
 
 subprojects { pr ->
     cleanAll.dependsOn("${pr.path}:clean")
