@@ -34,7 +34,7 @@ buildscript {
 
         // Testing & Code quality
         version_detekt = "1.23.8"
-        version_junit5 = "5.9.0"
+        version_junit5 = "5.12.2"
         version_kotest = "5.5.4"
         version_mockito = "4.4.0"
         version_mockitoKotlin = "4.0.0"

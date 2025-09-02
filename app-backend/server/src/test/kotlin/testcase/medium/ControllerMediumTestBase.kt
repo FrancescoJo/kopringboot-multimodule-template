@@ -13,8 +13,8 @@ import com.github.francescojo.endpoint.v1.user.create.CreateUserControllerImpl
 import com.github.francescojo.endpoint.v1.user.delete.DeleteUserControllerImpl
 import com.github.francescojo.endpoint.v1.user.edit.EditUserControllerImpl
 import com.github.francescojo.endpoint.v1.user.get.GetUserControllerImpl
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.test.context.ContextConfiguration
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.web.bind.annotation.RestController
 
 /**
@@ -35,15 +35,15 @@ import org.springframework.web.bind.annotation.RestController
     ],
 )
 class ControllerMediumTestBase : MockMvcMediumTestBase() {
-    @MockBean
+    @MockitoBean
     protected lateinit var createUserUseCase: CreateUserUseCase
 
-    @MockBean
+    @MockitoBean
     protected lateinit var findUserUseCase: FindUserUseCase
 
-    @MockBean
+    @MockitoBean
     protected lateinit var editUserUseCase: EditUserUseCase
 
-    @MockBean
+    @MockitoBean
     protected lateinit var deleteUserUseCase: DeleteUserUseCase
 }

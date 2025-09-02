@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Check app-backend:infrastructure" type="GradleRunConfiguration" factoryName="Gradle" folderName="Check app-backend">
+  <configuration default="false" name="[app-backend] Check All" type="GradleRunConfiguration" factoryName="Gradle" folderName="Check app-backend">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,8 +10,8 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="app-backend:infrastructure:detekt" />
-          <option value="app-backend:infrastructure:test" />
+          <option value=":app-backend:detektAll" />
+          <option value=":app-backend:testAll" />
         </list>
       </option>
       <option name="vmOptions" />
@@ -19,7 +19,7 @@
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
     <DebugAllEnabled>false</DebugAllEnabled>
-    <RunAsTest>false</RunAsTest>
+    <RunAsTest>true</RunAsTest>
     <method v="2" />
   </configuration>
 </component>
