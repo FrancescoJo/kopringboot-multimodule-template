@@ -1,6 +1,8 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
+pluginManager.apply("jacoco")
+
 /**
  * Groupising tests for JUnit5
  *
@@ -40,6 +42,38 @@ allOpen {
 }
 
 check.dependsOn test
+
+test {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+}
+
+tasks.register("jacocoMergedReport", JacocoReport) {
+    dependsOn testAll
+    executionData fileTree(project.projectDir).include("**/build/jacoco/*.exec")
+    
+    subprojects.each { subproject ->
+        sourceSets subproject.sourceSets.main
+    }
+    
+    reports {
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.file("reports/jacoco/merged/${project.name}-jacocoTestReport.xml")
+        html.required = true
+        html.outputLocation = file("${layout.buildDirectory.get()}/reports/jacoco/merged/html")
+    }
+}
 
 configurations {
     testArtifacts.extendsFrom testRuntime

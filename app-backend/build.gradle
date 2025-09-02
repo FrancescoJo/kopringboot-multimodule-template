@@ -6,10 +6,16 @@ ext {
 
 tasks.register("cleanAll")
 tasks.register("detektAll")
-tasks.register("testAll")
+tasks.register("testAll") {
+    finalizedBy coverageAll
+}
+tasks.register("coverageAll") {
+    finalizedBy jacocoMergedReport
+}
 
 subprojects { pr ->
     cleanAll.dependsOn("${pr.path}:clean")
     detektAll.dependsOn("${pr.path}:detekt")
     testAll.dependsOn("${pr.path}:test")
+    coverageAll.dependsOn("${pr.path}:jacocoTestReport")
 }
