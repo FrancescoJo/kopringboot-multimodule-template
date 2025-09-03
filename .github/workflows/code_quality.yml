@@ -1,0 +1,60 @@
+name: Check code quality before merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+env:
+  CHECK_TARGET_MODULES: "app-backend admin-backend"
+
+jobs:
+  code-quality-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history for accurate diff
+          fetch-depth: 0
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'oracle'
+          java-version: '21'
+          check-latest: true
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Get changed modules
+        id: changed-modules
+        run: |
+          .github/workflows/scripts/code_quality_get_changed_modules.sh "${{ env.CHECK_TARGET_MODULES }}" "origin/${{ github.base_ref || 'main' }}"
+
+      - name: Run detekt
+        if: steps.changed-modules.outputs.has-changes == 'true'
+        run: |
+          .github/workflows/scripts/code_quality_run_detekt.sh "${{ steps.changed-modules.outputs.changed-modules }}"
+
+      - name: Run tests
+        if: steps.changed-modules.outputs.has-changes == 'true'
+        run: |
+          .github/workflows/scripts/code_quality_run_tests.sh "${{ steps.changed-modules.outputs.changed-modules }}"
+
+      - name: Skip message
+        if: steps.changed-modules.outputs.has-changes == 'false'
+        run: |
+          echo "::notice::No changes detected in target modules (${{ env.CHECK_TARGET_MODULES }}). Skipping code quality checks."
+
+      - name: Run coverage and validate thresholds (25%)
+        if: steps.changed-modules.outputs.has-changes == 'true'
+        run: |
+          .github/workflows/scripts/code_quality_validate_coverage.sh "${{ steps.changed-modules.outputs.changed-modules }}" 25 25

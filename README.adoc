@@ -9,9 +9,10 @@
 :sectlinks:
 :icons: font
 
+image:https://github.com/FrancescoJo/kopringboot-multimodule-template/actions/workflows/code_quality.yml/badge.svg[link="https://github.com/FrancescoJo/kopringboot-multimodule-template/actions/workflows/code_quality.yml"]
+
 [[overview]]
 == Overview
-
 
 [[prerequisites]]
 == Prerequisites
