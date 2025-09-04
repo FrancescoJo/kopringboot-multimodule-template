@@ -2,8 +2,8 @@
 set -e
 
 # Script to validate coverage thresholds for changed modules
-# Usage: code_quality_validate_coverage.sh <changed_modules> [instruction_threshold] [branch_threshold]
-# Example: code_quality_validate_coverage.sh "app-backend admin-backend" 25 25
+# Usage: validate_coverage.sh <changed_modules> [instruction_threshold] [branch_threshold]
+# Example: validate_coverage.sh "app-backend admin-backend" 25 25
 
 CHANGED_MODULES="$1"
 TARGET_INSTRUCTION_COVERED="${2:-25}"

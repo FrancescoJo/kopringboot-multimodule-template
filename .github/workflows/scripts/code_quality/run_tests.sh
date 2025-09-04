@@ -2,8 +2,8 @@
 set -e
 
 # Script to run tests on changed modules
-# Usage: code_quality_run_tests.sh <changed_modules>
-# Example: code_quality_run_tests.sh "app-backend admin-backend"
+# Usage: run_tests.sh <changed_modules>
+# Example: run_tests.sh "app-backend admin-backend"
 
 CHANGED_MODULES="$1"
 

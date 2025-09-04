@@ -2,8 +2,8 @@
 set -e
 
 # Script to detect changed modules in a PR
-# Usage: code_quality_get_changed_modules.sh <CHECK_TARGET_MODULES> <base_ref>
-# Example: code_quality_get_changed_modules.sh "app-backend admin-backend" origin/main
+# Usage: get_changed_modules.sh <CHECK_TARGET_MODULES> <base_ref>
+# Example: get_changed_modules.sh "app-backend admin-backend" origin/main
 
 CHECK_TARGET_MODULES_STR="$1"
 BASE_REF="${2:-origin/main}"

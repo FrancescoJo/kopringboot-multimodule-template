@@ -2,8 +2,8 @@
 set -e
 
 # Script to run detekt on changed modules
-# Usage: code_quality_run_detekt.sh <changed_modules>
-# Example: code_quality_run_detekt.sh "app-backend admin-backend"
+# Usage: run_detekt.sh <changed_modules>
+# Example: run_detekt.sh "app-backend admin-backend"
 
 CHANGED_MODULES="$1"
 

@@ -31,23 +31,21 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-home-cache-cleanup: true
 
       - name: Get changed modules
         id: changed-modules
         run: |
-          .github/workflows/scripts/code_quality_get_changed_modules.sh "${{ env.CHECK_TARGET_MODULES }}" "origin/${{ github.base_ref || 'main' }}"
+          .github/workflows/scripts/code_quality/get_changed_modules.sh "${{ env.CHECK_TARGET_MODULES }}" "origin/${{ github.base_ref || 'main' }}"
 
       - name: Run detekt
         if: steps.changed-modules.outputs.has-changes == 'true'
         run: |
-          .github/workflows/scripts/code_quality_run_detekt.sh "${{ steps.changed-modules.outputs.changed-modules }}"
+          .github/workflows/scripts/code_quality/run_detekt.sh "${{ steps.changed-modules.outputs.changed-modules }}"
 
       - name: Run tests
         if: steps.changed-modules.outputs.has-changes == 'true'
         run: |
-          .github/workflows/scripts/code_quality_run_tests.sh "${{ steps.changed-modules.outputs.changed-modules }}"
+          .github/workflows/scripts/code_quality/run_tests.sh "${{ steps.changed-modules.outputs.changed-modules }}"
 
       - name: Skip message
         if: steps.changed-modules.outputs.has-changes == 'false'
@@ -57,4 +55,4 @@ jobs:
       - name: Run coverage and validate thresholds (25%)
         if: steps.changed-modules.outputs.has-changes == 'true'
         run: |
-          .github/workflows/scripts/code_quality_validate_coverage.sh "${{ steps.changed-modules.outputs.changed-modules }}" 25 25
+          .github/workflows/scripts/code_quality/validate_coverage.sh "${{ steps.changed-modules.outputs.changed-modules }}" 25 25
