@@ -5,6 +5,9 @@
 package testcase.small.text
 
 import com.github.francescojo.lib.annotation.SmallTest
+import com.github.francescojo.lib.collection.randomEnum
+import com.github.francescojo.lib.text.EllipsizePosition
+import com.github.francescojo.lib.text.ellipsize
 import com.github.francescojo.lib.text.isNullOrUnicodeBlank
 import com.github.francescojo.lib.text.matchesIn
 import com.github.francescojo.lib.text.unicodeGraphemeCount
@@ -47,6 +50,18 @@ internal class StringUtilsSpec {
         str.matchesIn(pattern) shouldBe expected
     }
 
+    @ParameterizedTest(name = "\"{0}\" ellipsized to \"{1}\" with maxLength={2} with ellipsis={3}.")
+    @MethodSource("ellipsizeSpecTestArgsProvider")
+    fun ellipsizeSpec(
+        input: String,
+        expected: String,
+        maxLength: Int,
+        position: EllipsizePosition,
+        ellipsis: String
+    ) {
+        input.ellipsize(maxLength, position, ellipsis) shouldBe expected
+    }
+
     companion object {
         @Suppress("unused")
         @JvmStatic
@@ -73,6 +88,21 @@ internal class StringUtilsSpec {
                 Arguments.of(10, "日本🇯🇵 大好き💚️!!"),
                 // Korean NFD case
                 Arguments.of(3, "\u1100\u1161\u1102\u1161\u1103\u1161")
+            )
+        }
+
+        @JvmStatic
+        @Suppress("unused")
+        fun ellipsizeSpecTestArgsProvider(): Stream<Arguments> {
+            val input = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+
+            return Stream.of(
+                Arguments.of(input, "...etur adipiscing elit.", 24, EllipsizePosition.START, "..."),
+                Arguments.of(input, "Lorem ipsu...scing elit.", 24, EllipsizePosition.MIDDLE, "..."),
+                Arguments.of(input, "Lorem ipsum dolor sit...", 24, EllipsizePosition.END, "..."),
+                Arguments.of("", "", 1, randomEnum<EllipsizePosition>(), "..."),
+                Arguments.of(input, input, 128, randomEnum<EllipsizePosition>(), "..."),
+                Arguments.of("abcd", "...", 3, randomEnum<EllipsizePosition>(), "..."),
             )
         }
     }

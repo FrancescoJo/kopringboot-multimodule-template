@@ -32,3 +32,17 @@ fun <T> Collection<T>.assertSingleOrNull(): T? = when (size) {
  * Syntactic sugar for [Iterable.shuffled] and [Iterable.take].
  */
 fun <T> Iterable<T>.sample(size: Int = 1): List<T> = this.shuffled().take(size)
+
+inline fun <reified T : Enum<T>> randomEnum(
+    acceptor: (T) -> Boolean = { true }
+): T {
+    val constants = enumValues<T>()
+    var selected = constants.random()
+    while (!acceptor(selected)) {
+        selected = constants.random()
+    }
+    return selected
+}
+
+infix fun <T> Int.timesOf(valueGenerator: (Int) -> T): List<T> =
+    List(this) { index -> valueGenerator(index) }

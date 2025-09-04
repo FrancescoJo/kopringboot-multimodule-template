@@ -145,3 +145,41 @@ private object EmojiIterator : EmojiParser() {
         }
     }
 }
+
+enum class EllipsizePosition {
+    START,
+    MIDDLE,
+    END
+}
+
+fun String.ellipsize(
+    maxLength: Int = 1024,
+    position: EllipsizePosition = EllipsizePosition.END,
+    ellipsisText: String = "..."
+): String {
+    val ellipsisLength = ellipsisText.length
+
+    return when {
+        this.length <= maxLength -> this
+        maxLength <= ellipsisLength -> ellipsisText
+        else -> when (position) {
+            EllipsizePosition.START -> ellipsisText + this.takeLast(maxLength - ellipsisLength)
+            EllipsizePosition.END -> this.take(maxLength - ellipsisLength) + ellipsisText
+            EllipsizePosition.MIDDLE -> {
+                val availableLength = maxLength - ellipsisLength
+                val frontLength = availableLength / 2
+                val backLength = availableLength - frontLength
+                this.take(frontLength) + ellipsisText + this.takeLast(backLength)
+            }
+        }
+    }
+}
+
+fun String.ellipsizeStart(maxLength: Int = 1024): String =
+    ellipsize(maxLength, EllipsizePosition.START)
+
+fun String.ellipsizeMiddle(maxLength: Int = 1024): String =
+    ellipsize(maxLength, EllipsizePosition.MIDDLE)
+
+fun String.ellipsizeEnd(maxLength: Int = 1024): String =
+    ellipsize(maxLength, EllipsizePosition.END)
