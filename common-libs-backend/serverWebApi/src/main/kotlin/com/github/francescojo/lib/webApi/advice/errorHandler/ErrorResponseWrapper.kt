@@ -6,7 +6,6 @@ package com.github.francescojo.lib.webApi.advice.errorHandler
 
 import com.github.francescojo.core.exception.ErrorCodes
 import com.github.francescojo.core.exception.KopringException
-import com.github.francescojo.core.i18n.MessageTemplateProvider
 import com.github.francescojo.lib.i18n.LocaleProvider
 import com.github.francescojo.lib.webApi.response.base.ErrorResponseEnvelope
 import com.github.francescojo.lib.webApi.response.base.ResponseEnvelope
@@ -22,7 +21,7 @@ import org.springframework.stereotype.Component
 @Component
 class ErrorResponseWrapper(
     private val localeProvider: LocaleProvider,
-    private val messageTemplateProvider: MessageTemplateProvider
+    private val messageTranslator: ErrorMessageTranslator
 ) {
     fun wrapError(
         exception: KopringException?,
@@ -31,13 +30,7 @@ class ErrorResponseWrapper(
         val message = if (exception == null) {
             DEFAULT_ERROR_MESSAGE
         } else {
-            val clientLocale = localeProvider.locale
-            val messageTemplate = messageTemplateProvider.provide(clientLocale, exception.codeBook.asMessageKey)
-
-            exception.messageArguments()?.let {
-                @Suppress("SpreadOperator")
-                messageTemplate?.format(it)
-            } ?: exception.message
+            messageTranslator.translate(localeProvider.locale, exception)
         }
 
         val response = if (exception == null) {
@@ -45,7 +38,7 @@ class ErrorResponseWrapper(
         } else {
             ResponseEnvelope.Companion.error(
                 message,
-                String.format("0x%08x", exception.codeBook.code),
+                String.format("0x%08x", exception.errorCode.code),
                 exception.details()
             )
         }

@@ -13,6 +13,11 @@ import com.github.francescojo.core.exception.ExternalException
  * @since 2021-08-10
  */
 class RequestedServiceNotFoundException(
-    override val message: String = "Requested service is not found.",
+    private val name: String = "",
+    override val message: String = if (name.isBlank()) {
+        ErrorCodes.SERVICE_NOT_FOUND.defaultMessage
+    } else {
+        "Service is not found: '$name'"
+    },
     override val cause: Throwable? = null
 ) : ExternalException(ErrorCodes.SERVICE_NOT_FOUND, message, cause)

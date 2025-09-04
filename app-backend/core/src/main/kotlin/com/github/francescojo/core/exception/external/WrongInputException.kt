@@ -11,7 +11,11 @@ import com.github.francescojo.core.exception.ErrorCodes
  */
 class WrongInputException(
     private val value: Any?,
-    override val message: String = "'$value' is not a valid input value.",
+    override val message: String = if (value?.toString().isNullOrBlank()) {
+        ErrorCodes.WRONG_INPUT.defaultMessage
+    } else {
+        "Invalid input: '$value'"
+    },
     override val cause: Throwable? = null
 ) : MalformedInputException(ErrorCodes.WRONG_INPUT, message, cause) {
     override fun messageArguments(): Collection<String> = setOf(value.toString())

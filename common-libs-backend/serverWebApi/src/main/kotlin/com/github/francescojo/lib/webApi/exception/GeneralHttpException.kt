@@ -13,7 +13,8 @@ import org.springframework.http.HttpStatusCode
  */
 class GeneralHttpException(
     val statusCode: HttpStatusCode,
-    override val message: String = "An unhandled HTTP exception(status = ${statusCode.value()} is occurred.",
+    override val message: String =
+        "An unhandled error is occurred during transmission. HTTP Status Code: ${statusCode.value()}",
     override val cause: Throwable? = null
 ) : ExternalException(ErrorCodes.EXCEPTION_ON_TRANSMISSION, message, cause) {
     override fun messageArguments(): Collection<String> = setOf(statusCode.value().toString())

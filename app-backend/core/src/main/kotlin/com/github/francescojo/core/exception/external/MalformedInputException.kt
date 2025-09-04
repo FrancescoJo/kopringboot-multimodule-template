@@ -13,7 +13,7 @@ import com.github.francescojo.core.exception.ExternalException
  * @since 2021-08-10
  */
 open class MalformedInputException(
-    override val codeBook: ErrorCodes = ErrorCodes.MALFORMED_INPUT,
-    override val message: String = "Malformed input.",
+    override val errorCode: ErrorCodes = ErrorCodes.MALFORMED_INPUT,
+    override val message: String = ErrorCodes.MALFORMED_INPUT.defaultMessage,
     override val cause: Throwable? = null
-) : ExternalException(codeBook, message, cause)
+) : ExternalException(errorCode, message, cause)

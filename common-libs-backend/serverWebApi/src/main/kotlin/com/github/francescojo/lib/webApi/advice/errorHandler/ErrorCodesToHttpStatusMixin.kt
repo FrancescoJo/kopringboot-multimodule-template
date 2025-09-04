@@ -18,10 +18,14 @@ interface ErrorCodesToHttpStatusMixin {
     fun KopringException.toHttpStatus(): HttpStatus = if (this is GeneralHttpException) {
         this.statusCode.toHttpStatus()
     } else {
-        this.codeBook.toHttpStatus()
+        if (this.errorCode is ErrorCodes) {
+            (this.errorCode as ErrorCodes).toHttpStatus()
+        } else {
+            HttpStatus.INTERNAL_SERVER_ERROR
+        }
     }
 
-    fun ErrorCodes.toHttpStatus(): HttpStatus = when (this) {
+    private fun ErrorCodes.toHttpStatus(): HttpStatus = when (this) {
         // General error cases
         SERVICE_NOT_FOUND, RESOURCE_NOT_FOUND -> HttpStatus.NOT_FOUND
         WRONG_PRESENTATION -> HttpStatus.UNSUPPORTED_MEDIA_TYPE

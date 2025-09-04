@@ -8,10 +8,10 @@ package com.github.francescojo.core.exception
  * @since 2021-08-10
  */
 sealed class KopringException(
-    open val codeBook: ErrorCodes,
+    open val errorCode: ErrorCodeContract,
     override val message: String = "",
     override val cause: Throwable? = null,
-) : RuntimeException(message, cause) {
+) : RuntimeException(message.takeIf { it.isNotEmpty() } ?: errorCode.defaultMessage, cause) {
     open fun messageArguments(): Collection<String>? = null
 
     open fun details(): Any? = null
@@ -21,16 +21,16 @@ sealed class KopringException(
  * @since 2022-02-14
  */
 open class ExternalException constructor(
-    codeBook: ErrorCodes,
+    errorCode: ErrorCodeContract,
     override val message: String = "",
     override val cause: Throwable? = null,
-) : KopringException(codeBook, message, cause)
+) : KopringException(errorCode, message, cause)
 
 /**
  * @since 2022-02-14
  */
 open class InternalException constructor(
-    codeBook: ErrorCodes,
+    errorCode: ErrorCodeContract,
     override val message: String = "",
     override val cause: Throwable? = null,
-) : KopringException(codeBook, message, cause)
+) : KopringException(errorCode, message, cause)
